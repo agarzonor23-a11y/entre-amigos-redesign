@@ -31,32 +31,36 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="py-24">
+    <section className="py-28 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -z-10" />
+
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-20 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-primary font-medium text-sm uppercase tracking-wider">
-              Preguntas frecuentes
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-light text-sm font-semibold text-foreground mb-6">
+              ❓ Preguntas frecuentes
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
-              ¿Tienes dudas? Te ayudamos
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-5 tracking-tight">
+              ¿Tienes dudas?
+              <br />
+              <span className="text-gradient">Te ayudamos</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+            <p className="text-muted-foreground text-lg leading-relaxed mb-10">
               Resolvemos las preguntas más comunes de nuestros amigos. Si
               necesitas más ayuda, habla con María por WhatsApp.
             </p>
 
-            <div className="inline-flex items-center gap-3 bg-primary/10 rounded-xl px-5 py-3">
-              <span className="text-2xl">💬</span>
+            <div className="inline-flex items-center gap-4 bg-gradient-to-r from-teal-light to-pink-light rounded-2xl px-6 py-5 shadow-sm">
+              <span className="text-3xl">💬</span>
               <div>
-                <p className="font-semibold text-sm text-foreground">
+                <p className="font-bold text-foreground">
                   Habla con María
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Nuestra asesora virtual por WhatsApp
                 </p>
               </div>
@@ -64,21 +68,21 @@ const FAQSection = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Accordion type="single" collapsible className="space-y-3">
+            <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, i) => (
                 <AccordionItem
                   key={i}
                   value={`faq-${i}`}
-                  className="border border-border/50 rounded-xl px-6 data-[state=open]:bg-muted/30"
+                  className="border border-border rounded-2xl px-6 data-[state=open]:bg-teal-light/50 data-[state=open]:border-primary/20 transition-colors"
                 >
-                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                  <AccordionTrigger className="text-left font-bold text-foreground hover:no-underline py-5">
                     {faq.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
                     {faq.a}
                   </AccordionContent>
                 </AccordionItem>

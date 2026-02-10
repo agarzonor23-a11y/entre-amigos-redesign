@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FileText, Search, CheckCircle, Banknote } from "lucide-react";
 
 const steps = [
@@ -7,77 +8,93 @@ const steps = [
     step: "01",
     title: "Solicita",
     description: "Completa tu solicitud en línea solo con tu cédula. Sin papeleos.",
+    color: "from-primary to-teal-dark",
   },
   {
     icon: Search,
     step: "02",
     title: "Evaluamos",
     description: "Analizamos tu perfil de forma rápida con tecnología inteligente.",
+    color: "from-secondary to-pink",
   },
   {
     icon: CheckCircle,
     step: "03",
     title: "Aprobamos",
     description: "Recibe respuesta en menos de 24 horas con condiciones claras.",
+    color: "from-primary to-teal-dark",
   },
   {
     icon: Banknote,
     step: "04",
     title: "Desembolsamos",
     description: "El dinero llega a tu cuenta sin cobros adicionales.",
+    color: "from-secondary to-pink",
   },
 ];
 
 const HowItWorksSection = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   return (
-    <section className="py-24">
-      <div className="container mx-auto px-6">
+    <section ref={ref} className="py-28 relative overflow-hidden bg-teal-dark">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[120px]" />
+
+      <div className="container mx-auto px-6 relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider">
-            Proceso simple
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground text-sm font-semibold mb-6">
+            🚀 Proceso simple
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-primary-foreground mb-5 tracking-tight">
             ¿Cómo funciona?
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+          <p className="text-primary-foreground/70 max-w-xl mx-auto text-lg">
             En 4 simples pasos accedes a tu crédito digital.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-4 gap-8">
+        <motion.div style={{ y }} className="grid md:grid-cols-4 gap-6">
           {steps.map((step, i) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="relative text-center"
+              className="relative group"
             >
-              {/* Connector line */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-px bg-border" />
+                <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-px bg-gradient-to-r from-primary-foreground/30 to-transparent" />
               )}
 
-              <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 relative">
-                <step.icon className="w-8 h-8 text-primary" />
-                <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
-                  {step.step}
-                </span>
-              </div>
+              <div className="bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-3xl p-8 text-center hover:bg-primary-foreground/10 transition-all duration-300 group-hover:-translate-y-2">
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform relative`}>
+                  <step.icon className="w-9 h-9 text-primary-foreground" />
+                  <span className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary-foreground text-teal-dark text-xs font-extrabold flex items-center justify-center shadow-lg">
+                    {step.step}
+                  </span>
+                </div>
 
-              <h3 className="text-lg font-bold text-foreground mb-2">{step.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {step.description}
-              </p>
+                <h3 className="text-xl font-extrabold text-primary-foreground mb-3">{step.title}</h3>
+                <p className="text-sm text-primary-foreground/60 leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
