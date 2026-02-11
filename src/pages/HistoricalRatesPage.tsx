@@ -4,6 +4,7 @@ import { TrendingDown, TrendingUp, Calendar, ChevronDown } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import Breadcrumbs from "@/components/landing/Breadcrumbs";
 
 interface RateEntry {
   date: string;
@@ -183,6 +184,7 @@ const HistoricalRatesPage = () => {
 
       <section className="pt-32 pb-16 bg-gradient-to-br from-teal-light via-background to-pink-light">
         <div className="container mx-auto px-6 text-center">
+          <Breadcrumbs items={[{ label: "Tasas", href: "/tasas-precios-comisiones" }, { label: "Histórico de tasas" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-sm font-semibold text-primary mb-6">
               📊 Transparencia

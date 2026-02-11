@@ -54,8 +54,13 @@ const FAQSection = () => {
               necesitas más ayuda, habla con María por WhatsApp.
             </p>
 
-            <div className="inline-flex items-center gap-4 bg-gradient-to-r from-teal-light to-pink-light rounded-2xl px-6 py-5 shadow-sm">
-              <span className="text-3xl">💬</span>
+            <a
+              href="https://api.whatsapp.com/send?phone=16208779065&text=Hola,%20quisiera%20recibir%20una%20atenci%C3%B3n%20personalizada."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-4 bg-gradient-to-r from-teal-light to-pink-light rounded-2xl px-6 py-5 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <span className="text-3xl" aria-hidden="true">💬</span>
               <div>
                 <p className="font-bold text-foreground">
                   Habla con María
@@ -64,7 +69,7 @@ const FAQSection = () => {
                   Nuestra asesora virtual por WhatsApp
                 </p>
               </div>
-            </div>
+            </a>
           </motion.div>
 
           <motion.div

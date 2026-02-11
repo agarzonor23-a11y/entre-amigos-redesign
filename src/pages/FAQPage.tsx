@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { HelpCircle, CreditCard, Users, Wallet, Clock, Shield, FileText, Phone } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import Breadcrumbs from "@/components/landing/Breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const faqSections = [
@@ -71,6 +72,7 @@ const FAQPage = () => {
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-teal-light via-background to-pink-light">
         <div className="container mx-auto px-6 text-center">
+          <Breadcrumbs items={[{ label: "Preguntas Frecuentes" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-sm font-semibold text-primary mb-6">
               <HelpCircle className="w-4 h-4" /> Resuelve tus dudas

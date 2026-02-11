@@ -4,6 +4,7 @@ import { Calculator, DollarSign, Percent, Clock, ArrowRight, TrendingUp, PiggyBa
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import Breadcrumbs from "@/components/landing/Breadcrumbs";
 import { Shield, ShieldCheck } from "lucide-react";
 import AlliesModal from "@/components/landing/AlliesModal";
 
@@ -51,6 +52,7 @@ const SimuladorPage = () => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
         <div className="max-w-5xl mx-auto relative">
+          <Breadcrumbs items={[{ label: "Simulador de crédito" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-14">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
