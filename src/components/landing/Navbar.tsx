@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -12,7 +14,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = ["Productos", "¿Cómo funciona?", "Quiénes somos", "Ayuda"];
+  const links = [
+    { label: "Productos", href: "/productos" },
+    { label: "¿Cómo funciona?", href: "#" },
+    { label: "Quiénes somos", href: "#" },
+    { label: "Ayuda", href: "#" },
+  ];
 
   return (
     <nav
@@ -34,12 +41,18 @@ const Navbar = () => {
 
         <ul className="hidden md:flex items-center gap-8">
           {links.map((link) => (
-            <li key={link}>
+            <li key={link.label}>
               <a
-                href="#"
+                href={link.href}
+                onClick={(e) => {
+                  if (link.href.startsWith("/")) {
+                    e.preventDefault();
+                    navigate(link.href);
+                  }
+                }}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
               >
-                {link}
+                {link.label}
               </a>
             </li>
           ))}
@@ -66,11 +79,18 @@ const Navbar = () => {
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border px-6 py-5 space-y-4">
           {links.map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
+              onClick={(e) => {
+                if (link.href.startsWith("/")) {
+                  e.preventDefault();
+                  setOpen(false);
+                  navigate(link.href);
+                }
+              }}
               className="block text-sm font-medium text-muted-foreground hover:text-primary"
             >
-              {link}
+              {link.label}
             </a>
           ))}
           <Button size="sm" className="w-full rounded-full bg-primary shadow-lg shadow-primary/25">
