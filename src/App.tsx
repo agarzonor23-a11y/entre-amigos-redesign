@@ -8,6 +8,12 @@ import CompensarPage from "./pages/CompensarPage";
 import CematcolPage from "./pages/CematcolPage";
 import ProductsPage from "./pages/ProductsPage";
 import AboutPage from "./pages/AboutPage";
+import FarmatizatePage from "./pages/FarmatizatePage";
+import HomecenterPage from "./pages/HomecenterPage";
+import SupernordicoPage from "./pages/SupernordicoPage";
+import FacturatechPage from "./pages/FacturatechPage";
+import BemovilPage from "./pages/BemovilPage";
+import AutomundialPage from "./pages/AutomundialPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +29,12 @@ const App = () => (
           <Route path="/productos" element={<ProductsPage />} />
           <Route path="/aliado/compensar" element={<CompensarPage />} />
           <Route path="/aliado/cematcol" element={<CematcolPage />} />
+          <Route path="/aliado/farmatizate" element={<FarmatizatePage />} />
+          <Route path="/aliado/homecenter" element={<HomecenterPage />} />
+          <Route path="/aliado/supernordico" element={<SupernordicoPage />} />
+          <Route path="/aliado/facturatech" element={<FacturatechPage />} />
+          <Route path="/aliado/bemovil" element={<BemovilPage />} />
+          <Route path="/aliado/automundial" element={<AutomundialPage />} />
           <Route path="/quienes-somos" element={<AboutPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
