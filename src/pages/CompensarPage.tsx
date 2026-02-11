@@ -158,8 +158,8 @@ const CompensarPage = () => {
 
           <div className="flex flex-col md:flex-row items-center gap-12">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="flex-1 max-w-2xl">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-6 text-foreground border" style={{ background: "#DC6F3315", borderColor: "#DC6F3330" }}>
-                <Users className="w-4 h-4" style={{ color: "#DC6F33" }} /> Aliado Compensar
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold mb-6 border" style={{ background: "#DC6F3320", borderColor: "#DC6F3350", color: "#DC6F33" }}>
+                <Users className="w-4 h-4" /> Aliado Compensar
               </span>
               <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
                 Una opción de crédito
