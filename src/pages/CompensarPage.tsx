@@ -317,9 +317,11 @@ const CompensarPage = () => {
             ))}
           </div>
 
-          <p className="text-center text-xs text-muted-foreground mt-10">
-            *Recuerda que no cobramos por consulta en centrales de riesgo, estudios de crédito ni desembolso. Tasa diferencial disponible.
-          </p>
+          <div className="mt-12 max-w-2xl mx-auto bg-primary/10 border border-primary/20 rounded-2xl px-8 py-5 text-center">
+            <p className="text-base font-bold text-foreground">
+              🎉 No cobramos por consulta en centrales de riesgo, estudios de crédito ni desembolso. <span className="text-primary">Tasa diferencial disponible.</span>
+            </p>
+          </div>
         </div>
       </section>
 
