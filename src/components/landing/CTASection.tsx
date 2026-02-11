@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AlliesModal from "./AlliesModal";
 
 const CTASection = () => {
+  const [showAllies, setShowAllies] = useState(false);
   return (
+    <>
+    <AlliesModal open={showAllies} onClose={() => setShowAllies(false)} />
     <section className="py-28 relative overflow-hidden bg-gradient-to-br from-primary via-teal-dark to-primary">
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-[300px] h-[300px] bg-secondary/20 rounded-full blur-[100px]" />
@@ -43,6 +48,7 @@ const CTASection = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-5">
             <Button
               size="lg"
+              onClick={() => setShowAllies(true)}
               className="text-base px-10 py-7 rounded-full gap-2 font-bold bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-2xl hover:scale-[1.03] transition-all"
             >
               Solicita tu crédito ahora
@@ -59,6 +65,7 @@ const CTASection = () => {
         </motion.div>
       </div>
     </section>
+    </>
   );
 };
 
