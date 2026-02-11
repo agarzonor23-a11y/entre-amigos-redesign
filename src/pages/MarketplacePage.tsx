@@ -259,8 +259,11 @@ const MarketplacePage = () => {
     <div className="min-h-screen bg-muted/30">
       <Navbar />
 
+      {/* Spacer for fixed navbar */}
+      <div className="h-20" />
+
       {/* ── Top Bar ─────────────────────────────────────────────── */}
-      <div className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border shadow-sm">
+      <div className="sticky top-[72px] z-30 bg-background/80 backdrop-blur-xl border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-3">
             <div className="relative flex-1 max-w-2xl mx-auto">
