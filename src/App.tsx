@@ -14,6 +14,8 @@ import SupernordicoPage from "./pages/SupernordicoPage";
 import FacturatechPage from "./pages/FacturatechPage";
 import BemovilPage from "./pages/BemovilPage";
 import AutomundialPage from "./pages/AutomundialPage";
+import ContactPage from "./pages/ContactPage";
+import RatesPage from "./pages/RatesPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
           <Route path="/aliado/bemovil" element={<BemovilPage />} />
           <Route path="/aliado/automundial" element={<AutomundialPage />} />
           <Route path="/quienes-somos" element={<AboutPage />} />
+          <Route path="/ayuda" element={<ContactPage />} />
+          <Route path="/tasas-precios-comisiones" element={<RatesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

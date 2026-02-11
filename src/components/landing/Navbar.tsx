@@ -19,7 +19,7 @@ const Navbar = () => {
     { label: "Productos", href: "/productos" },
     { label: "¿Cómo funciona?", href: "#" },
     { label: "Quiénes somos", href: "/quienes-somos" },
-    { label: "Ayuda", href: "#" },
+    { label: "Ayuda", href: "/ayuda" },
   ];
 
   return (
