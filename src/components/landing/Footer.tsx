@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import logoEntreamigos from "@/assets/logo-entreamigos.png";
+import sicLogo from "@/assets/sic-logo.png";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -52,9 +53,12 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-primary-foreground/50">
-            © {new Date().getFullYear()} Entre Amigos SAS · NIT 901.489.480-1. Todos los derechos reservados.
-          </p>
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <img src={sicLogo} alt="Superintendencia de Industria y Comercio" className="h-10 w-auto opacity-80" />
+            <p className="text-sm text-primary-foreground/50 text-center md:text-left">
+              ©2021 Entre Amigos SAS con número de identificación (NIT) 901.489.480-1 . All rights reserved.
+            </p>
+          </div>
           <div className="flex gap-6 text-primary-foreground/40 text-sm">
             <span className="hover:text-secondary cursor-pointer transition-colors">Instagram</span>
             <span className="hover:text-secondary cursor-pointer transition-colors">Facebook</span>
