@@ -27,190 +27,7 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import logoEntreamigos from "@/assets/logo-entreamigos.png";
 import Footer from "@/components/landing/Footer";
-
-// ── Mock data (replace with API later) ──────────────────────────────
-const CATEGORIES = [
-  { id: "all", label: "Todos", icon: "🛒" },
-  { id: "tech", label: "Tecnología", icon: "💻" },
-  { id: "home", label: "Hogar", icon: "🏠" },
-  { id: "fashion", label: "Moda", icon: "👗" },
-  { id: "sports", label: "Deportes", icon: "⚽" },
-  { id: "beauty", label: "Belleza", icon: "💄" },
-  { id: "toys", label: "Juguetes", icon: "🎮" },
-  { id: "vehicles", label: "Vehículos", icon: "🚗" },
-  { id: "food", label: "Alimentos", icon: "🍔" },
-];
-
-const PRODUCTS = [
-  {
-    id: 1,
-    name: "MacBook Air M3 15\" 256GB",
-    price: 5499000,
-    originalPrice: 6299000,
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop",
-    rating: 4.8,
-    reviews: 342,
-    seller: "TechStore CO",
-    freeShipping: true,
-    category: "tech",
-    badge: "Más vendido",
-    location: "Bogotá",
-  },
-  {
-    id: 2,
-    name: "Sofá Modular 3 Puestos Gris Premium",
-    price: 2890000,
-    originalPrice: 3500000,
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop",
-    rating: 4.5,
-    reviews: 128,
-    seller: "MueblesCO",
-    freeShipping: true,
-    category: "home",
-    badge: null,
-    location: "Medellín",
-  },
-  {
-    id: 3,
-    name: "Nike Air Max 90 Essential",
-    price: 489000,
-    originalPrice: 599000,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
-    rating: 4.7,
-    reviews: 891,
-    seller: "SportsWorld",
-    freeShipping: false,
-    category: "sports",
-    badge: "Oferta",
-    location: "Cali",
-  },
-  {
-    id: 4,
-    name: "iPhone 15 Pro Max 256GB Natural Titanium",
-    price: 5299000,
-    originalPrice: null,
-    image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop",
-    rating: 4.9,
-    reviews: 1203,
-    seller: "iShop Colombia",
-    freeShipping: true,
-    category: "tech",
-    badge: "Nuevo",
-    location: "Bogotá",
-  },
-  {
-    id: 5,
-    name: "Set de Skincare Coreano 7 Pasos",
-    price: 189000,
-    originalPrice: 249000,
-    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=400&fit=crop",
-    rating: 4.6,
-    reviews: 456,
-    seller: "K-Beauty CO",
-    freeShipping: true,
-    category: "beauty",
-    badge: "Popular",
-    location: "Barranquilla",
-  },
-  {
-    id: 6,
-    name: "Vestido Midi Floral Elegante",
-    price: 159000,
-    originalPrice: 220000,
-    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
-    rating: 4.3,
-    reviews: 67,
-    seller: "ModaStyle",
-    freeShipping: false,
-    category: "fashion",
-    badge: null,
-    location: "Medellín",
-  },
-  {
-    id: 7,
-    name: "PlayStation 5 Slim Digital Edition",
-    price: 2199000,
-    originalPrice: 2599000,
-    image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=400&fit=crop",
-    rating: 4.9,
-    reviews: 2301,
-    seller: "GameZone",
-    freeShipping: true,
-    category: "toys",
-    badge: "Más vendido",
-    location: "Bogotá",
-  },
-  {
-    id: 8,
-    name: "Aspiradora Robot Inteligente WiFi",
-    price: 899000,
-    originalPrice: 1200000,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=400&fit=crop",
-    rating: 4.4,
-    reviews: 189,
-    seller: "HomeTech",
-    freeShipping: true,
-    category: "home",
-    badge: "25% OFF",
-    location: "Bucaramanga",
-  },
-  {
-    id: 9,
-    name: "Bicicleta de Montaña Rin 29 Shimano",
-    price: 1350000,
-    originalPrice: 1800000,
-    image: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=400&h=400&fit=crop",
-    rating: 4.6,
-    reviews: 95,
-    seller: "BikesPro",
-    freeShipping: false,
-    category: "sports",
-    badge: "Oferta",
-    location: "Pereira",
-  },
-  {
-    id: 10,
-    name: "Audífonos Sony WH-1000XM5 Negro",
-    price: 1490000,
-    originalPrice: 1799000,
-    image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&h=400&fit=crop",
-    rating: 4.8,
-    reviews: 734,
-    seller: "AudioMax",
-    freeShipping: true,
-    category: "tech",
-    badge: null,
-    location: "Bogotá",
-  },
-  {
-    id: 11,
-    name: "Cafetera Espresso Automática Premium",
-    price: 750000,
-    originalPrice: 950000,
-    image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=400&h=400&fit=crop",
-    rating: 4.5,
-    reviews: 213,
-    seller: "CaféPerfecto",
-    freeShipping: true,
-    category: "home",
-    badge: "Popular",
-    location: "Cali",
-  },
-  {
-    id: 12,
-    name: "Reloj Smartwatch Ultra Deportivo",
-    price: 320000,
-    originalPrice: 450000,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
-    rating: 4.2,
-    reviews: 156,
-    seller: "WatchWorld",
-    freeShipping: false,
-    category: "tech",
-    badge: "29% OFF",
-    location: "Medellín",
-  },
-];
+import { PRODUCTS, CATEGORIES, formatCOP, discount } from "@/data/marketplace-products";
 
 const SORT_OPTIONS = [
   { value: "relevant", label: "Más relevantes" },
@@ -218,13 +35,6 @@ const SORT_OPTIONS = [
   { value: "price-desc", label: "Mayor precio" },
   { value: "rating", label: "Mejor calificación" },
 ];
-
-// ── Helpers ─────────────────────────────────────────────────────────
-const formatCOP = (n: number) =>
-  new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(n);
-
-const discount = (original: number | null, current: number) =>
-  original ? Math.round(((original - current) / original) * 100) : 0;
 
 // ── Component ───────────────────────────────────────────────────────
 const MarketplacePage = () => {
@@ -519,7 +329,8 @@ const MarketplacePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className={`group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 ${
+                onClick={() => navigate(`/marketplace/${product.id}`)}
+                className={`group cursor-pointer bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 ${
                   viewMode === "list" ? "flex flex-row" : ""
                 }`}
               >

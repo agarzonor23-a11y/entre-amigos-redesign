@@ -26,6 +26,7 @@ import FAQPage from "./pages/FAQPage";
 import SimuladorPage from "./pages/SimuladorPage";
 import ComoFuncionaPage from "./pages/ComoFuncionaPage";
 import MarketplacePage from "./pages/MarketplacePage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 
@@ -62,6 +63,7 @@ const App = () => (
           <Route path="/simulador" element={<SimuladorPage />} />
           <Route path="/como-funciona" element={<ComoFuncionaPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
+          <Route path="/marketplace/:id" element={<ProductDetailPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
