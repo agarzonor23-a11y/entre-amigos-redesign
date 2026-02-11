@@ -223,9 +223,14 @@ const SimuladorPage = () => {
                 <ArrowRight className="w-5 h-5" />
               </Button>
 
-              <p className="text-xs text-muted-foreground text-center leading-relaxed">
-                * Simulación de referencia. Los valores reales dependen de tu perfil crediticio y condiciones vigentes.
-              </p>
+              <div className="bg-secondary/20 border border-secondary/30 rounded-2xl px-5 py-4 text-center">
+                <p className="text-sm font-semibold text-foreground">
+                  ⚠️ Esta es una simulación de referencia.
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Los valores reales dependen de tu perfil crediticio y las condiciones vigentes.
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>
