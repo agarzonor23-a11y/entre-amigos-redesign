@@ -65,9 +65,19 @@ const SimuladorPage = () => {
               Calcula tu cuota{" "}
               <span className="text-gradient">aproximada</span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed">
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed mb-6">
               Ajusta los valores y descubre cuánto pagarías mensualmente por tu crédito.
             </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-2xl mx-auto">
+              <div className="flex items-center gap-2 bg-secondary/20 border border-secondary/30 rounded-full px-5 py-2.5">
+                <span className="text-base">⚠️</span>
+                <span className="text-sm font-semibold text-foreground">Simulación de referencia — valores sujetos a tu perfil crediticio.</span>
+              </div>
+              <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-5 py-2.5">
+                <span className="text-base">💡</span>
+                <span className="text-sm font-semibold text-foreground">La tasa no incluye seguros ni fianza.</span>
+              </div>
+            </div>
           </motion.div>
 
           <div className="grid lg:grid-cols-5 gap-6">
@@ -272,28 +282,6 @@ const SimuladorPage = () => {
             </motion.div>
           </div>
 
-          {/* Disclaimers - full width below grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
-            className="mt-10 grid sm:grid-cols-2 gap-4"
-          >
-            <div className="flex items-start gap-3 bg-card border border-border rounded-2xl p-5">
-              <span className="text-xl mt-0.5">⚠️</span>
-              <div>
-                <p className="text-sm font-bold text-card-foreground">Simulación de referencia</p>
-                <p className="text-sm text-muted-foreground mt-1">Los valores reales dependen de tu perfil crediticio y las condiciones vigentes.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 bg-card border border-border rounded-2xl p-5">
-              <span className="text-xl mt-0.5">💡</span>
-              <div>
-                <p className="text-sm font-bold text-card-foreground">La tasa no incluye seguros ni fianza</p>
-                <p className="text-sm text-muted-foreground mt-1">Estos valores se suman a tu cuota mensual. Tenlo en cuenta al solicitar tu crédito.</p>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
