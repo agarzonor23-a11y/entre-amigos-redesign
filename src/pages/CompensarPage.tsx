@@ -225,15 +225,29 @@ const CompensarPage = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="flex-shrink-0 hidden md:block"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.3, type: "spring", damping: 20, stiffness: 100 }}
+              className="flex-shrink-0 hidden md:block relative"
             >
-              <img
+              {/* Decorative floating elements */}
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -right-6 w-20 h-20 rounded-2xl bg-secondary/20 blur-sm -z-10"
+              />
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-primary/15 blur-sm -z-10"
+              />
+
+              <motion.img
                 src={compensarHero}
-                alt="Familia colombiana sonriente"
-                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl shadow-primary/10"
+                alt="Trabajadora del servicio doméstico sonriente"
+                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl shadow-primary/15 border-2 border-border/50"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               />
             </motion.div>
           </div>
