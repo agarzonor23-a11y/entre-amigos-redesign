@@ -17,6 +17,7 @@ import AutomundialPage from "./pages/AutomundialPage";
 import SolicitudAutomundialPage from "./pages/SolicitudAutomundialPage";
 import ContactPage from "./pages/ContactPage";
 import RatesPage from "./pages/RatesPage";
+import PaymentPage from "./pages/PaymentPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/quienes-somos" element={<AboutPage />} />
           <Route path="/ayuda" element={<ContactPage />} />
           <Route path="/tasas-precios-comisiones" element={<RatesPage />} />
+          <Route path="/como-pagar" element={<PaymentPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
