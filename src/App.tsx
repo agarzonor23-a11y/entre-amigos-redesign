@@ -21,6 +21,7 @@ import PaymentPage from "./pages/PaymentPage";
 import TermsPage from "./pages/TermsPage";
 import DataProtectionPage from "./pages/DataProtectionPage";
 import HistoricalRatesPage from "./pages/HistoricalRatesPage";
+import BlogPage from "./pages/BlogPage";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/terminos-y-condiciones" element={<TermsPage />} />
           <Route path="/proteccion-de-datos" element={<DataProtectionPage />} />
           <Route path="/historico-de-tasas" element={<HistoricalRatesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

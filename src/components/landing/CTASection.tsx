@@ -45,7 +45,7 @@ const CTASection = () => {
             Únete a miles de microempresarios que ya confían en Entre Amigos.
             Sin papeleos, sin cobros ocultos.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-5">
+          <div className="flex justify-center">
             <Button
               size="lg"
               onClick={() => setShowAllies(true)}
@@ -53,13 +53,6 @@ const CTASection = () => {
             >
               Solicita tu crédito ahora
               <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-base px-10 py-7 rounded-full font-bold border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 backdrop-blur-sm"
-            >
-              Habla con un asesor
             </Button>
           </div>
         </motion.div>
