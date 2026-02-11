@@ -1,5 +1,5 @@
 import AllyPageTemplate from "@/components/landing/AllyPageTemplate";
-import heroImg from "@/assets/hero-homecenter.png";
+import heroImg from "@/assets/hero-homecenter-new.png";
 
 const HomecenterPage = () => (
   <AllyPageTemplate

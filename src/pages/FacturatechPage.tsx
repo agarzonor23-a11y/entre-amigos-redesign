@@ -1,5 +1,5 @@
 import AllyPageTemplate from "@/components/landing/AllyPageTemplate";
-import heroImg from "@/assets/hero-facturatech.png";
+import heroImg from "@/assets/hero-facturatech-new.png";
 
 const FacturatechPage = () => (
   <AllyPageTemplate

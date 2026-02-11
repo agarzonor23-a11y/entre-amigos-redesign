@@ -1,5 +1,5 @@
 import AllyPageTemplate from "@/components/landing/AllyPageTemplate";
-import heroImg from "@/assets/hero-farmatizate.png";
+import heroImg from "@/assets/hero-farmatizate-new.png";
 
 const FarmatizatePage = () => (
   <AllyPageTemplate
