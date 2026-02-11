@@ -10,15 +10,15 @@ interface Ally {
 }
 
 const allies: Ally[] = [
-  { name: "Compensar", slug: "compensar", description: "Caja de Compensación", color: "rgba(0, 115, 142, 0.12)" },
-  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia", color: "rgba(180, 120, 60, 0.12)" },
-  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica", color: "rgba(59, 130, 246, 0.12)" },
-  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(16, 185, 129, 0.12)" },
-  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(239, 68, 68, 0.12)" },
-  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos", color: "rgba(168, 85, 247, 0.12)" },
-  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(245, 158, 11, 0.12)" },
-  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas", color: "rgba(220, 38, 38, 0.12)" },
-  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(34, 197, 94, 0.12)" },
+  { name: "Compensar", slug: "compensar", description: "Caja de Compensación", color: "rgba(0, 160, 75, 0.13)" },        // verde Compensar
+  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia", color: "rgba(0, 61, 121, 0.13)" }, // azul oscuro Cematcol
+  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica", color: "rgba(0, 174, 239, 0.13)" },    // azul cielo Facturatech
+  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(38, 50, 56, 0.13)" },                  // gris oscuro Tredi
+  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(218, 41, 28, 0.13)" },             // rojo Supernórdico
+  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos", color: "rgba(255, 102, 0, 0.13)" },                // naranja Bemovil
+  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(255, 103, 31, 0.13)" },               // naranja Homecenter
+  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas", color: "rgba(204, 0, 0, 0.13)" },         // rojo AutoMundial
+  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(0, 133, 66, 0.13)" },           // verde Farmatízate
 ];
 
 interface AlliesModalProps {
