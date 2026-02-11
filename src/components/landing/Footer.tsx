@@ -81,6 +81,7 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-primary-foreground mb-6 text-lg">Gestión</h4>
             <ul className="space-y-3 text-sm text-primary-foreground/60">
+              <li><a href="/simulador" onClick={handleNav("/simulador")} className="inline-flex items-center gap-2 bg-secondary text-foreground font-bold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">Simula tu crédito</a></li>
               <li><a href="https://incursor.entreamigos.co/pagos/ingreso" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors">Paga tu crédito</a></li>
               <li><a href="https://colmenaseguros.jotform.com/231916017738964" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors">Formato de solicitud de indemnización</a></li>
               <li><a href="/preguntas-frecuentes" onClick={handleNav("/preguntas-frecuentes")} className="hover:text-secondary transition-colors">Preguntas Frecuentes</a></li>
