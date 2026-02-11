@@ -50,7 +50,7 @@ const creditProducts = [
       "Hasta $4.980.000",
     ],
     link: "https://incursor.entreamigos.co/nuevo-credito/BM/introduccion/COM?promoterCode=COM002",
-    accent: "secondary",
+    accent: "compensar-warm",
     icon: Heart,
   },
   {
@@ -189,7 +189,7 @@ const CompensarPage = () => {
           {/* Compensar orange glow + Entre Amigos teal */}
           <div className="absolute -top-20 right-0 w-[600px] h-[600px] rounded-full blur-[140px]" style={{ background: `${compensarOrange}20` }} />
           <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-secondary/8 rounded-full blur-[160px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px]" style={{ background: `${compensarOrange}08` }} />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
         </div>
 
@@ -364,7 +364,7 @@ const CompensarPage = () => {
               Escoge el crédito{" "}
               <span
                 className="bg-clip-text text-transparent"
-                style={{ backgroundImage: `linear-gradient(135deg, ${compensarOrange}, hsl(var(--secondary)))` }}
+                style={{ backgroundImage: `linear-gradient(135deg, ${compensarOrange}, hsl(24, 80%, 65%))` }}
               >
                 según tus necesidades
               </span>{" "}
@@ -377,8 +377,8 @@ const CompensarPage = () => {
             {creditProducts.map((product, i) => {
               const gradients: Record<string, string> = {
                 "compensar-orange": `linear-gradient(135deg, ${compensarOrange}, hsl(var(--primary)))`,
-                "secondary": `linear-gradient(135deg, hsl(var(--secondary)), ${compensarOrange})`,
-                "primary": `linear-gradient(135deg, hsl(var(--primary)), hsl(195, 93%, 30%))`,
+                "compensar-warm": `linear-gradient(135deg, ${compensarOrange}, hsl(24, 80%, 42%))`,
+                "primary": `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})`,
               };
               return (
                 <motion.div
