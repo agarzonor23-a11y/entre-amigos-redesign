@@ -98,8 +98,8 @@ const HeroSection = () => {
                   transition={{ delay: 0.6 + i * 0.15 }}
                   className="flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-card border border-border shadow-md hover:border-primary/30 hover:shadow-lg transition-all"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-teal-dark flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-primary-foreground" />
+                  <div className="w-11 h-11 rounded-xl bg-muted/80 border border-border flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 text-muted-foreground" />
                   </div>
                   <span className="font-bold text-foreground text-sm">{item.label}</span>
                 </motion.div>
