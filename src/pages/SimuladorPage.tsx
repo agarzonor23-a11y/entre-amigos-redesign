@@ -61,7 +61,7 @@ const SimuladorPage = () => {
               <Calculator className="w-4 h-4" />
               Simulador de Crédito
             </motion.div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-5 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-5 tracking-tight">
               Calcula tu cuota{" "}
               <span className="text-gradient">aproximada</span>
             </h1>
@@ -69,13 +69,13 @@ const SimuladorPage = () => {
               Ajusta los valores y descubre cuánto pagarías mensualmente por tu crédito.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-2xl mx-auto">
-              <div className="flex items-center gap-2 bg-secondary/20 border border-secondary/30 rounded-full px-5 py-2.5">
-                <span className="text-base">⚠️</span>
-                <span className="text-sm font-semibold text-foreground">Simulación de referencia — valores sujetos a tu perfil crediticio.</span>
+              <div className="flex items-center gap-2 bg-secondary/20 border border-secondary/30 rounded-2xl sm:rounded-full px-4 py-2.5">
+                <span className="text-base shrink-0">⚠️</span>
+                <span className="text-xs sm:text-sm font-semibold text-foreground">Simulación de referencia — valores sujetos a tu perfil.</span>
               </div>
-              <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-5 py-2.5">
-                <span className="text-base">💡</span>
-                <span className="text-sm font-semibold text-foreground">La tasa no incluye seguros ni fianza.</span>
+              <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-2xl sm:rounded-full px-4 py-2.5">
+                <span className="text-base shrink-0">💡</span>
+                <span className="text-xs sm:text-sm font-semibold text-foreground">La tasa no incluye seguros ni fianza.</span>
               </div>
             </div>
           </motion.div>
@@ -90,7 +90,7 @@ const SimuladorPage = () => {
             >
               {/* Monto */}
               <div className="bg-card border border-border rounded-3xl p-6 hover:border-primary/20 transition-colors">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
                   <label className="flex items-center gap-2.5 text-sm font-bold text-card-foreground">
                     <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
                       <DollarSign className="w-4 h-4 text-primary" />
@@ -105,7 +105,7 @@ const SimuladorPage = () => {
                       const num = Number(e.target.value.replace(/\D/g, ""));
                       if (!isNaN(num)) setMonto(Math.min(35000000, Math.max(0, num)));
                     }}
-                    className="text-2xl font-extrabold text-primary bg-transparent text-right border-b-2 border-transparent focus:border-primary outline-none w-48 transition-colors"
+                    className="text-xl sm:text-2xl font-extrabold text-primary bg-transparent text-right border-b-2 border-transparent focus:border-primary outline-none w-full sm:w-48 transition-colors"
                   />
                 </div>
                 <input
@@ -216,7 +216,7 @@ const SimuladorPage = () => {
                     key={resultado.cuota}
                     initial={{ scale: 0.95, opacity: 0.5 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+                    className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
                   >
                     {formatCurrency(resultado.cuota)}
                   </motion.p>
@@ -248,21 +248,21 @@ const SimuladorPage = () => {
                   {/* Seguro y Fianza */}
                   <div className="mt-4 space-y-2">
                     <p className="text-xs font-semibold text-primary-foreground/60 uppercase tracking-wider">Costos adicionales aprox.</p>
-                    <div className="flex items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm gap-1">
                       <div className="flex items-center gap-2">
-                        <Shield className="w-4 h-4 text-secondary" />
+                        <Shield className="w-4 h-4 text-secondary shrink-0" />
                         <span className="text-xs text-primary-foreground/80">Seguro (mensual)</span>
                       </div>
                       <span className="text-xs font-bold">{formatCurrency(seguroMin)} – {formatCurrency(seguroMax)}</span>
                     </div>
-                    <div className="flex items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm gap-1">
                       <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-secondary" />
+                        <ShieldCheck className="w-4 h-4 text-secondary shrink-0" />
                         <span className="text-xs text-primary-foreground/80">Fianza FNG (pago único)</span>
                       </div>
                       <span className="text-xs font-bold">{formatCurrency(fianzaMin)} – {formatCurrency(fianzaMax)}</span>
                     </div>
-                    <div className="flex items-center justify-between bg-primary-foreground/20 rounded-xl px-4 py-3 backdrop-blur-sm border border-primary-foreground/10">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-primary-foreground/20 rounded-xl px-4 py-3 backdrop-blur-sm border border-primary-foreground/10 gap-1">
                       <span className="text-sm font-bold text-primary-foreground">Cuota total estimada</span>
                       <span className="text-sm font-extrabold">{formatCurrency(cuotaTotalMin)} – {formatCurrency(cuotaTotalMax)}</span>
                     </div>

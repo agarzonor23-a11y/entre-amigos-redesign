@@ -75,7 +75,7 @@ const AllyPageTemplate = ({
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-sm font-semibold mb-6 text-foreground">
                 <Users className="w-4 h-4" /> Aliado {allyName}
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
                 {tagline}
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">{description}</p>
@@ -109,7 +109,7 @@ const AllyPageTemplate = ({
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.3, type: "spring", damping: 20, stiffness: 100 }}
-              className="flex-shrink-0 hidden md:block relative"
+              className="flex-shrink-0 md:block relative"
             >
               <motion.div
                 animate={{ y: [0, -12, 0] }}
@@ -124,7 +124,7 @@ const AllyPageTemplate = ({
               <motion.img
                 src={heroImage}
                 alt={heroImageAlt}
-                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl shadow-primary/15 border-2 border-border/50"
+                className="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[400px] mx-auto rounded-3xl shadow-2xl shadow-primary/15 border-2 border-border/50"
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               />

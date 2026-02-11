@@ -31,7 +31,7 @@ const Footer = () => {
           </a>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Contacto */}
           <div>
             <h4 className="font-bold text-primary-foreground mb-6 text-lg">Contacto</h4>
