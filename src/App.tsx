@@ -22,6 +22,7 @@ import TermsPage from "./pages/TermsPage";
 import DataProtectionPage from "./pages/DataProtectionPage";
 import HistoricalRatesPage from "./pages/HistoricalRatesPage";
 import NotFound from "./pages/NotFound";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <WhatsAppButton />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/productos" element={<ProductsPage />} />
