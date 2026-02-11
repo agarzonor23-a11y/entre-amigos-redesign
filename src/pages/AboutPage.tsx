@@ -201,7 +201,7 @@ const AboutPage = () => {
                 </Button>
               </a>
               <a href="mailto:comunicaciones@entreamigos.co">
-                <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2 border-primary-foreground/30 text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20">
                   <Mail className="w-5 h-5" />
                   comunicaciones@entreamigos.co
                 </Button>
