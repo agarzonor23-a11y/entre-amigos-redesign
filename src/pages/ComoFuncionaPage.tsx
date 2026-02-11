@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import Breadcrumbs from "@/components/landing/Breadcrumbs";
 import AlliesModal from "@/components/landing/AlliesModal";
 
 const steps = [
@@ -89,6 +90,7 @@ const ComoFuncionaPage = () => {
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
         <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px]" />
         <div className="max-w-4xl mx-auto text-center relative">
+          <Breadcrumbs items={[{ label: "¿Cómo funciona?" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-5 py-2.5 rounded-full text-sm font-semibold mb-6 border border-primary/20">
               <HelpCircle className="w-4 h-4" />
