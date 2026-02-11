@@ -31,12 +31,12 @@ const SimuladorPage = () => {
   // Seguro: 0.3% a 2% mensual sobre el monto
   const seguroMin = monto * 0.003;
   const seguroMax = monto * 0.02;
-  // Fianza FNG: 0.3% a 10% del monto, dividido en los meses
-  const fianzaMin = (monto * 0.003) / plazo;
-  const fianzaMax = (monto * 0.10) / plazo;
+  // Fianza FNG: 0.3% a 10% del monto total (pago único)
+  const fianzaMin = monto * 0.003;
+  const fianzaMax = monto * 0.10;
 
-  const cuotaTotalMin = resultado.cuota + seguroMin + fianzaMin;
-  const cuotaTotalMax = resultado.cuota + seguroMax + fianzaMax;
+  const cuotaTotalMin = resultado.cuota + seguroMin;
+  const cuotaTotalMax = resultado.cuota + seguroMax;
 
   const porcentajeInteres = resultado.totalPagar > 0 ? (resultado.totalIntereses / resultado.totalPagar) * 100 : 0;
 
@@ -248,7 +248,7 @@ const SimuladorPage = () => {
                     <div className="flex items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm">
                       <div className="flex items-center gap-2">
                         <ShieldCheck className="w-4 h-4 text-secondary" />
-                        <span className="text-xs text-primary-foreground/80">Fianza FNG (mensual)</span>
+                        <span className="text-xs text-primary-foreground/80">Fianza FNG (pago único)</span>
                       </div>
                       <span className="text-xs font-bold">{formatCurrency(fianzaMin)} – {formatCurrency(fianzaMax)}</span>
                     </div>
