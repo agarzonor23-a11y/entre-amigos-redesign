@@ -181,30 +181,75 @@ const MarketplacePage = () => {
         </div>
       </div>
 
-      {/* ── Promo Banner ────────────────────────────────────────── */}
-      <div className="container mx-auto px-4 mt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary/90 to-teal-dark p-8 md:p-10"
-        >
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-3">
-              <Flame className="w-5 h-5 text-secondary" />
-              <span className="text-secondary font-bold text-sm uppercase tracking-wider">Ofertas del día</span>
-            </div>
-            <h2 className="text-2xl md:text-4xl font-extrabold text-primary-foreground mb-2">
-              Hasta 50% de descuento
-            </h2>
-            <p className="text-primary-foreground/70 text-lg">
-              Miles de productos con envío gratis y las mejores ofertas.
-            </p>
+      {/* ── Featured Product of the Week ───────────────────────────── */}
+      {(() => {
+        const featured = PRODUCTS[6]; // PS5 as featured
+        const featDiscount = discount(featured.originalPrice, featured.price);
+        return (
+          <div className="container mx-auto px-4 mt-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary/90 to-teal-dark cursor-pointer group"
+              onClick={() => navigate(`/marketplace/${featured.id}`)}
+            >
+              <div className="flex flex-col md:flex-row items-center">
+                {/* Info */}
+                <div className="relative z-10 p-8 md:p-10 flex-1">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Flame className="w-5 h-5 text-secondary" />
+                    <span className="text-secondary font-bold text-sm uppercase tracking-wider">
+                      ⭐ Producto de la semana
+                    </span>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-primary-foreground mb-2 leading-tight">
+                    {featured.name}
+                  </h2>
+                  <div className="flex items-baseline gap-3 mb-1">
+                    {featured.originalPrice && (
+                      <span className="text-primary-foreground/50 line-through text-sm">
+                        {formatCOP(featured.originalPrice)}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-baseline gap-3 mb-4">
+                    <span className="text-3xl md:text-4xl font-extrabold text-primary-foreground">
+                      {formatCOP(featured.price)}
+                    </span>
+                    {featDiscount > 0 && (
+                      <span className="bg-secondary text-secondary-foreground text-sm font-bold px-2.5 py-1 rounded-lg">
+                        {featDiscount}% OFF
+                      </span>
+                    )}
+                  </div>
+                  {featured.freeShipping && (
+                    <p className="text-primary-foreground/70 text-sm flex items-center gap-1 mb-5">
+                      <Truck className="w-4 h-4" /> Envío gratis
+                    </p>
+                  )}
+                  <Button
+                    size="lg"
+                    className="rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-extrabold shadow-xl gap-2 text-base"
+                    onClick={(e) => { e.stopPropagation(); navigate(`/marketplace/${featured.id}`); }}
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    Comprar ahora
+                  </Button>
+                </div>
+                {/* Image */}
+                <div className="w-full md:w-[340px] h-[220px] md:h-[300px] relative shrink-0">
+                  <img
+                    src={featured.image}
+                    alt={featured.name}
+                    className="w-full h-full object-cover md:rounded-r-3xl group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent md:from-primary/40" />
+                </div>
+              </div>
+            </motion.div>
           </div>
-          <div className="absolute right-0 top-0 w-1/3 h-full opacity-10">
-            <Sparkles className="w-full h-full" />
-          </div>
-        </motion.div>
-      </div>
+        );
+      })()}
 
       {/* ── Toolbar ─────────────────────────────────────────────── */}
       <div className="container mx-auto px-4 mt-6">
