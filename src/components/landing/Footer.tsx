@@ -109,7 +109,7 @@ const Footer = () => {
 
         <div className="border-t border-primary-foreground/10 mt-16 pt-8 text-center">
           <p className="text-sm text-primary-foreground/50">
-            © 2026 Entre Amigos SAS con número de identificación (NIT) 901.489.480-1. Todos los derechos reservados.
+            © 2021 Entre Amigos SAS con número de identificación (NIT) 901.489.480-1. Todos los derechos reservados.
           </p>
         </div>
       </div>
