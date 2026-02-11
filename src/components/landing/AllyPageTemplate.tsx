@@ -81,12 +81,19 @@ const AllyPageTemplate = ({
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">{description}</p>
               {note && <p className="text-sm text-secondary font-medium mb-10">{note}</p>}
               <div className="flex flex-wrap gap-4">
-                <a href={solicitudLink} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
+                {solicitudLink.startsWith("/") ? (
+                  <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30" onClick={() => navigate(solicitudLink)}>
                     ¡Solicítalo ya!
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </a>
+                ) : (
+                  <a href={solicitudLink} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
+                      ¡Solicítalo ya!
+                      <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  </a>
+                )}
                 {whatsappLink && (
                   <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2">
@@ -238,11 +245,17 @@ const AllyPageTemplate = ({
             ))}
           </div>
           <div className="text-center mt-12">
-            <a href={solicitudLink} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="rounded-full px-10 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
+            {solicitudLink.startsWith("/") ? (
+              <Button size="lg" className="rounded-full px-10 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30" onClick={() => navigate(solicitudLink)}>
                 Solicitar crédito <ArrowRight className="w-5 h-5" />
               </Button>
-            </a>
+            ) : (
+              <a href={solicitudLink} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="rounded-full px-10 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
+                  Solicitar crédito <ArrowRight className="w-5 h-5" />
+                </Button>
+              </a>
+            )}
           </div>
         </div>
       </section>

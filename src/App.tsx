@@ -14,6 +14,7 @@ import SupernordicoPage from "./pages/SupernordicoPage";
 import FacturatechPage from "./pages/FacturatechPage";
 import BemovilPage from "./pages/BemovilPage";
 import AutomundialPage from "./pages/AutomundialPage";
+import SolicitudAutomundialPage from "./pages/SolicitudAutomundialPage";
 import ContactPage from "./pages/ContactPage";
 import RatesPage from "./pages/RatesPage";
 import NotFound from "./pages/NotFound";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/aliado/facturatech" element={<FacturatechPage />} />
           <Route path="/aliado/bemovil" element={<BemovilPage />} />
           <Route path="/aliado/automundial" element={<AutomundialPage />} />
+          <Route path="/solicitud-automundial" element={<SolicitudAutomundialPage />} />
           <Route path="/quienes-somos" element={<AboutPage />} />
           <Route path="/ayuda" element={<ContactPage />} />
           <Route path="/tasas-precios-comisiones" element={<RatesPage />} />

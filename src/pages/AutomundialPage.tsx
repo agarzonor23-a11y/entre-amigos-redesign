@@ -8,7 +8,7 @@ const AutomundialPage = () => (
     description="Somos más que llantas. Crédito rotativo para la adquisición de productos automotrices para tu vehículo o negocio."
     heroImage={heroImg}
     heroImageAlt="Propietario de taller automotriz"
-    solicitudLink="https://www.entreamigos.co/solicitud-automundial"
+    solicitudLink="/solicitud-automundial"
     whatsappLink="https://www.entreamigos.co/contacto-automundial"
     products={[]}
     features={[
