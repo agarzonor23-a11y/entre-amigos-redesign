@@ -1,68 +1,24 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Store, TrendingUp, RotateCw, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
-
-type CreditType = "Microcrédito" | "Productivo Plus" | "Rotativo";
+import { X, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Ally {
   name: string;
-  creditTypes: CreditType[];
+  slug: string;
   description: string;
 }
 
 const allies: Ally[] = [
-  {
-    name: "Cematcol",
-    creditTypes: ["Microcrédito"],
-    description: "Cementos y Materiales de Colombia",
-  },
-  {
-    name: "Facturatech",
-    creditTypes: ["Microcrédito", "Productivo Plus"],
-    description: "Facturación electrónica",
-  },
-  {
-    name: "Tredi",
-    creditTypes: ["Microcrédito", "Rotativo"],
-    description: "Soluciones financieras",
-  },
-  {
-    name: "Supernórdico",
-    creditTypes: ["Microcrédito"],
-    description: "Supermercados",
-  },
-  {
-    name: "Compensar",
-    creditTypes: ["Microcrédito", "Productivo Plus", "Rotativo"],
-    description: "Caja de Compensación",
-  },
-  {
-    name: "Bemovil",
-    creditTypes: ["Microcrédito"],
-    description: "Plataforma de pagos",
-  },
-  {
-    name: "Homecenter",
-    creditTypes: ["Productivo Plus", "Rotativo"],
-    description: "Sodimac Corona",
-  },
-  {
-    name: "AutoMundial",
-    creditTypes: ["Microcrédito", "Productivo Plus"],
-    description: "Somos más que llantas",
-  },
-  {
-    name: "Farmatízate",
-    creditTypes: ["Microcrédito"],
-    description: "Club del Droguista",
-  },
+  { name: "Compensar", slug: "compensar", description: "Caja de Compensación" },
+  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia" },
+  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica" },
+  { name: "Tredi", slug: "tredi", description: "Soluciones financieras" },
+  { name: "Supernórdico", slug: "supernordico", description: "Supermercados" },
+  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos" },
+  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona" },
+  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas" },
+  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista" },
 ];
-
-const creditTypeConfig: Record<CreditType, { icon: typeof Store; color: string; bg: string }> = {
-  Microcrédito: { icon: Store, color: "text-primary", bg: "bg-primary/10" },
-  "Productivo Plus": { icon: TrendingUp, color: "text-secondary", bg: "bg-secondary/20" },
-  Rotativo: { icon: RotateCw, color: "text-primary", bg: "bg-teal-light" },
-};
 
 interface AlliesModalProps {
   open: boolean;
@@ -70,32 +26,34 @@ interface AlliesModalProps {
 }
 
 const AlliesModal = ({ open, onClose }: AlliesModalProps) => {
+  const navigate = useNavigate();
+
   return (
     <AnimatePresence>
       {open && (
-        <>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-foreground/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-foreground/60 backdrop-blur-sm"
             onClick={onClose}
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            exit={{ opacity: 0, scale: 0.9, y: 30 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-50 md:w-full md:max-w-4xl md:max-h-[85vh] bg-card rounded-3xl shadow-2xl border border-border overflow-hidden flex flex-col"
+            className="relative w-full max-w-3xl max-h-[80vh] bg-card rounded-3xl shadow-2xl border border-border overflow-hidden flex flex-col"
           >
             {/* Header */}
             <div className="p-6 md:p-8 pb-4 flex items-start justify-between border-b border-border">
               <div>
                 <h2 className="text-2xl md:text-3xl font-extrabold text-card-foreground tracking-tight">
-                  Solicita tu crédito 🤝
+                  Nuestros Aliados 🤝
                 </h2>
                 <p className="text-muted-foreground mt-2 text-sm md:text-base">
-                  Escoge el aliado y tipo de crédito que mejor se ajuste a tus necesidades.
+                  Selecciona un aliado para conocer los créditos disponibles.
                 </p>
               </div>
               <button
@@ -106,62 +64,34 @@ const AlliesModal = ({ open, onClose }: AlliesModalProps) => {
               </button>
             </div>
 
-            {/* Legend */}
-            <div className="px-6 md:px-8 py-4 flex flex-wrap gap-4 border-b border-border bg-muted/30">
-              {(Object.entries(creditTypeConfig) as [CreditType, typeof creditTypeConfig[CreditType]][]).map(
-                ([type, config]) => (
-                  <div key={type} className="flex items-center gap-2 text-sm">
-                    <div className={`w-7 h-7 rounded-lg ${config.bg} flex items-center justify-center`}>
-                      <config.icon className={`w-3.5 h-3.5 ${config.color}`} />
-                    </div>
-                    <span className="font-medium text-muted-foreground">{type}</span>
-                  </div>
-                )
-              )}
-            </div>
-
             {/* Allies grid */}
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {allies.map((ally, i) => (
-                  <motion.div
+                  <motion.button
                     key={ally.name}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="group rounded-2xl border border-border bg-background p-5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                    transition={{ delay: i * 0.04 }}
+                    onClick={() => {
+                      onClose();
+                      navigate(`/aliado/${ally.slug}`);
+                    }}
+                    className="group text-left rounded-2xl border border-border bg-background p-5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-pointer"
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-bold text-card-foreground text-lg">{ally.name}</h3>
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-bold text-card-foreground text-lg group-hover:text-primary transition-colors">
+                        {ally.name}
+                      </h3>
                       <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <p className="text-xs text-muted-foreground mb-4">{ally.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {ally.creditTypes.map((type) => {
-                        const config = creditTypeConfig[type];
-                        return (
-                          <span
-                            key={type}
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${config.bg} text-xs font-semibold ${config.color}`}
-                          >
-                            <config.icon className="w-3 h-3" />
-                            {type}
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <Button
-                      size="sm"
-                      className="w-full rounded-xl font-bold text-sm"
-                    >
-                      Solicitar aquí
-                    </Button>
-                  </motion.div>
+                    <p className="text-sm text-muted-foreground">{ally.description}</p>
+                  </motion.button>
                 ))}
               </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   );
