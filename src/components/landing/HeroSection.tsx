@@ -54,7 +54,7 @@ const HeroSection = () => {
               Fintech de crédito digital 🇨🇴
             </motion.div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-[1.1] mb-6 tracking-tight">
               Crédito para
               <br />
               <span className="text-gradient">tu negocio</span>
