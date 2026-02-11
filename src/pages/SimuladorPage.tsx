@@ -28,9 +28,9 @@ const SimuladorPage = () => {
     return { cuota, totalPagar, totalIntereses, tasaMensual: tasaMensual * 100 };
   }, [monto, plazo, tasaAnual]);
 
-  // Seguro: 0.3% a 3% mensual sobre el monto
+  // Seguro: 0.3% a 2% mensual sobre el monto
   const seguroMin = monto * 0.003;
-  const seguroMax = monto * 0.03;
+  const seguroMax = monto * 0.02;
   // Fianza FNG: 0.3% a 10% del monto, dividido en los meses
   const fianzaMin = (monto * 0.003) / plazo;
   const fianzaMax = (monto * 0.10) / plazo;
