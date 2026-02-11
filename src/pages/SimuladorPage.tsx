@@ -4,6 +4,7 @@ import { Calculator, DollarSign, Percent, Clock, ArrowRight, TrendingUp, PiggyBa
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import { Shield, ShieldCheck } from "lucide-react";
 import AlliesModal from "@/components/landing/AlliesModal";
 
 const formatCurrency = (value: number) =>
@@ -26,6 +27,16 @@ const SimuladorPage = () => {
     const totalIntereses = totalPagar - monto;
     return { cuota, totalPagar, totalIntereses, tasaMensual: tasaMensual * 100 };
   }, [monto, plazo, tasaAnual]);
+
+  // Seguro: 0.3% a 3% mensual sobre el monto
+  const seguroMin = monto * 0.003;
+  const seguroMax = monto * 0.03;
+  // Fianza FNG: 0.3% a 10% del monto, dividido en los meses
+  const fianzaMin = (monto * 0.003) / plazo;
+  const fianzaMax = (monto * 0.10) / plazo;
+
+  const cuotaTotalMin = resultado.cuota + seguroMin + fianzaMin;
+  const cuotaTotalMax = resultado.cuota + seguroMax + fianzaMax;
 
   const porcentajeInteres = resultado.totalPagar > 0 ? (resultado.totalIntereses / resultado.totalPagar) * 100 : 0;
 
@@ -224,19 +235,26 @@ const SimuladorPage = () => {
                     </div>
                   </div>
 
-                  <div className="mt-5">
-                    <div className="flex justify-between text-xs text-primary-foreground/60 mb-1.5">
-                      <span>Capital</span>
-                      <span>Intereses ({porcentajeInteres.toFixed(0)}%)</span>
+                  {/* Seguro y Fianza */}
+                  <div className="mt-4 space-y-2">
+                    <p className="text-xs font-semibold text-primary-foreground/60 uppercase tracking-wider">Costos adicionales aprox.</p>
+                    <div className="flex items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm">
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-secondary" />
+                        <span className="text-xs text-primary-foreground/80">Seguro (mensual)</span>
+                      </div>
+                      <span className="text-xs font-bold">{formatCurrency(seguroMin)} – {formatCurrency(seguroMax)}</span>
                     </div>
-                    <div className="w-full h-3 bg-primary-foreground/10 rounded-full overflow-hidden">
-                      <motion.div
-                        key={porcentajeInteres}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${100 - porcentajeInteres}%` }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-secondary to-secondary/60 rounded-full"
-                      />
+                    <div className="flex items-center justify-between bg-secondary/20 rounded-xl px-4 py-2.5 backdrop-blur-sm">
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-secondary" />
+                        <span className="text-xs text-primary-foreground/80">Fianza FNG (mensual)</span>
+                      </div>
+                      <span className="text-xs font-bold">{formatCurrency(fianzaMin)} – {formatCurrency(fianzaMax)}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-primary-foreground/20 rounded-xl px-4 py-3 backdrop-blur-sm border border-primary-foreground/10">
+                      <span className="text-sm font-bold text-primary-foreground">Cuota total estimada</span>
+                      <span className="text-sm font-extrabold">{formatCurrency(cuotaTotalMin)} – {formatCurrency(cuotaTotalMax)}</span>
                     </div>
                   </div>
                 </div>
