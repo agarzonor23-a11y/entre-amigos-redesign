@@ -78,7 +78,7 @@ const AlliesModal = ({ open, onClose }: AlliesModalProps) => {
                       onClose();
                       navigate(`/aliado/${ally.slug}`);
                     }}
-                    style={{ borderLeftWidth: 3, borderLeftColor: ally.color.replace('0.12', '0.5'), backgroundColor: ally.color }}
+                    style={{ borderLeftWidth: 3, borderLeftColor: ally.color.replace('0.13', '0.6') }}
                     className="group text-left rounded-2xl border border-border bg-background p-5 hover:shadow-lg transition-all duration-300 cursor-pointer"
                   >
                     <div className="flex items-center justify-between mb-2">
