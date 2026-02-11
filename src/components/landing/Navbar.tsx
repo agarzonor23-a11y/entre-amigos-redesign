@@ -46,12 +46,12 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
             : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-6 h-18 flex items-center justify-between py-4">
-          <button onClick={() => navigate("/")} className="flex items-center cursor-pointer">
-            <img src={logoEntreamigos} alt="Entre Amigos" className="h-9 md:h-10 w-auto" />
+        <div className="container mx-auto px-6 h-18 flex items-center justify-between py-4 gap-4">
+          <button onClick={() => navigate("/")} className="flex items-center cursor-pointer shrink-0 min-w-[120px]">
+            <img src={logoEntreamigos} alt="Entre Amigos" className="h-9 lg:h-10 w-auto object-contain" />
           </button>
 
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden lg:flex items-center gap-6 xl:gap-8">
             {links.map((link) => (
               <li key={link.label}>
                 <a
@@ -70,7 +70,7 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
             ))}
           </ul>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <a href="https://incursor.entreamigos.co/account" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="font-medium">
                 Iniciar sesión
@@ -87,14 +87,14 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-foreground"
+            className="lg:hidden text-foreground"
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
         {open && (
-          <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border px-6 py-5 space-y-4">
+          <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-border px-6 py-5 space-y-4">
             {links.map((link) => (
               <a
                 key={link.label}
