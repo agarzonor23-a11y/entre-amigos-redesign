@@ -35,13 +35,11 @@ const SimuladorPage = () => {
       <AlliesModal open={showAllies} onClose={() => setShowAllies(false)} />
 
       <section className="pt-28 pb-20 px-4 relative overflow-hidden">
-        {/* Background decorations */}
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
         <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
         <div className="max-w-5xl mx-auto relative">
-          {/* Header */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-14">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -62,7 +60,7 @@ const SimuladorPage = () => {
           </motion.div>
 
           <div className="grid lg:grid-cols-5 gap-6">
-            {/* Sliders panel - 3 cols */}
+            {/* Sliders panel */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -78,7 +76,16 @@ const SimuladorPage = () => {
                     </div>
                     Monto del crédito
                   </label>
-                  <span className="text-2xl font-extrabold text-primary">{formatCurrency(monto)}</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={formatCurrency(monto)}
+                    onChange={(e) => {
+                      const num = Number(e.target.value.replace(/\D/g, ""));
+                      if (!isNaN(num)) setMonto(Math.min(35000000, Math.max(0, num)));
+                    }}
+                    className="text-2xl font-extrabold text-primary bg-transparent text-right border-b-2 border-transparent focus:border-primary outline-none w-48 transition-colors"
+                  />
                 </div>
                 <input
                   type="range"
@@ -104,7 +111,19 @@ const SimuladorPage = () => {
                     </div>
                     Plazo
                   </label>
-                  <span className="text-2xl font-extrabold text-primary">{plazo} <span className="text-base font-semibold text-muted-foreground">meses</span></span>
+                  <div className="flex items-baseline gap-1">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={plazo}
+                      onChange={(e) => {
+                        const num = Number(e.target.value.replace(/\D/g, ""));
+                        if (!isNaN(num)) setPlazo(Math.min(36, Math.max(0, num)));
+                      }}
+                      className="text-2xl font-extrabold text-primary bg-transparent text-right border-b-2 border-transparent focus:border-primary outline-none w-16 transition-colors"
+                    />
+                    <span className="text-base font-semibold text-muted-foreground">meses</span>
+                  </div>
                 </div>
                 <input
                   type="range"
@@ -130,7 +149,19 @@ const SimuladorPage = () => {
                     </div>
                     Tasa de interés anual
                   </label>
-                  <span className="text-2xl font-extrabold text-primary">{tasaAnual}% <span className="text-base font-semibold text-muted-foreground">E.A.</span></span>
+                  <div className="flex items-baseline gap-1">
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      value={tasaAnual}
+                      onChange={(e) => {
+                        const num = Number(e.target.value.replace(/[^0-9.]/g, ""));
+                        if (!isNaN(num)) setTasaAnual(Math.min(60, Math.max(0, num)));
+                      }}
+                      className="text-2xl font-extrabold text-primary bg-transparent text-right border-b-2 border-transparent focus:border-primary outline-none w-16 transition-colors"
+                    />
+                    <span className="text-base font-semibold text-muted-foreground">% E.A.</span>
+                  </div>
                 </div>
                 <input
                   type="range"
@@ -148,14 +179,13 @@ const SimuladorPage = () => {
               </div>
             </motion.div>
 
-            {/* Results panel - 2 cols */}
+            {/* Results panel */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.25 }}
               className="lg:col-span-2 flex flex-col gap-6"
             >
-              {/* Main result */}
               <div className="bg-gradient-to-br from-primary via-teal-dark to-primary rounded-3xl p-6 text-primary-foreground relative overflow-hidden flex-1">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/20 rounded-full blur-[60px]" />
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary-foreground/5 rounded-full blur-[50px]" />
@@ -194,7 +224,6 @@ const SimuladorPage = () => {
                     </div>
                   </div>
 
-                  {/* Visual bar */}
                   <div className="mt-5">
                     <div className="flex justify-between text-xs text-primary-foreground/60 mb-1.5">
                       <span>Capital</span>
@@ -213,7 +242,6 @@ const SimuladorPage = () => {
                 </div>
               </div>
 
-              {/* CTA */}
               <Button
                 size="lg"
                 onClick={() => setShowAllies(true)}
