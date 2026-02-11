@@ -503,18 +503,6 @@ const CompensarPage = () => {
             ))}
           </div>
 
-          <div className="text-center mt-14">
-            <a
-              href="https://api.whatsapp.com/send?phone=16208779065&text=Hola,%20quisiera%20recibir%20una%20atenci%C3%B3n%20personalizada."
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="outline" size="lg" className="rounded-full font-bold gap-2 border-white/30 text-white hover:bg-white/10 px-8 py-6">
-                <MessageCircle className="w-5 h-5" />
-                Si necesitas acompañamiento, habla con María
-              </Button>
-            </a>
-          </div>
         </div>
       </section>
 
