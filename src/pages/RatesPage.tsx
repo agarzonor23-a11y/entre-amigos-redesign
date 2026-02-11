@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
@@ -70,6 +71,7 @@ const SimpleRateCard = ({ title, subtitle, rows, note }: {
 );
 
 const RatesPage = () => {
+  const navigate = useNavigate();
   const profiles = ["AAA", "AA", "A", "BAA", "BBB"];
 
   return (
@@ -270,11 +272,12 @@ const RatesPage = () => {
           className="text-center mt-16 bg-gradient-to-r from-teal-light to-pink-light rounded-3xl p-10"
         >
           <h3 className="text-2xl font-bold text-foreground mb-4">Conoce el histórico de tasas de nuestros productos</h3>
-          <a href="https://www.entreamigos.co/historico-de-tasas" target="_blank" rel="noopener noreferrer">
-            <button className="rounded-full px-8 py-3 bg-primary text-primary-foreground font-semibold hover:bg-teal-dark transition-colors shadow-lg shadow-primary/25">
-              Da clic aquí
-            </button>
-          </a>
+          <button
+            onClick={() => navigate("/historico-de-tasas")}
+            className="rounded-full px-8 py-3 bg-primary text-primary-foreground font-semibold hover:bg-teal-dark transition-colors shadow-lg shadow-primary/25"
+          >
+            Da clic aquí
+          </button>
         </motion.div>
       </div>
 

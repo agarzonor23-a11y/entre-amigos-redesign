@@ -20,6 +20,7 @@ import RatesPage from "./pages/RatesPage";
 import PaymentPage from "./pages/PaymentPage";
 import TermsPage from "./pages/TermsPage";
 import DataProtectionPage from "./pages/DataProtectionPage";
+import HistoricalRatesPage from "./pages/HistoricalRatesPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/como-pagar" element={<PaymentPage />} />
           <Route path="/terminos-y-condiciones" element={<TermsPage />} />
           <Route path="/proteccion-de-datos" element={<DataProtectionPage />} />
+          <Route path="/historico-de-tasas" element={<HistoricalRatesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
