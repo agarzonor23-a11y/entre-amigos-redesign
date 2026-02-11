@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Store, TrendingUp, RotateCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -34,6 +35,7 @@ const products = [
 ];
 
 const ProductsSection = () => {
+  const navigate = useNavigate();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -105,7 +107,7 @@ const ProductsSection = () => {
                     ))}
                   </ul>
 
-                  <Button variant="ghost" className="p-0 h-auto text-primary font-bold gap-2 group-hover:gap-4 transition-all text-base">
+                  <Button variant="ghost" className="p-0 h-auto text-primary font-bold gap-2 group-hover:gap-4 transition-all text-base" onClick={() => navigate("/productos")}>
                     Quiero ver más
                     <ArrowRight className="w-4 h-4" />
                   </Button>
