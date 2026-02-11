@@ -15,12 +15,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
-/*
-  Compensar brand: Orange #F37021 → HSL(24, 90%, 54%) | Navy #003B5C → HSL(199, 100%, 18%)
-  Entre Amigos:    Teal #045062 → HSL(195, 93%, 20%) | Pink #FF8783 → HSL(1, 100%, 76%)
-  Blend: use Compensar orange as accent, keep Entre Amigos teal as base, warm pink tones
-*/
-
 /* ─── Credit Products ─── */
 const creditProducts = [
   {
@@ -34,7 +28,7 @@ const creditProducts = [
       "Montos desde $300.000 hasta $15.000.000",
     ],
     link: "https://incursor.entreamigos.co/nuevo-credito/MC/introduccion/COM?promoterCode=COM002",
-    accent: "compensar-orange",
+    gradient: "from-primary to-teal-dark",
     icon: Briefcase,
   },
   {
@@ -50,7 +44,7 @@ const creditProducts = [
       "Hasta $4.980.000",
     ],
     link: "https://incursor.entreamigos.co/nuevo-credito/BM/introduccion/COM?promoterCode=COM002",
-    accent: "compensar-warm",
+    gradient: "from-secondary to-pink",
     icon: Heart,
   },
   {
@@ -65,7 +59,7 @@ const creditProducts = [
       "Hasta $20.000.000",
     ],
     link: "https://incursor.entreamigos.co/nuevo-credito/CM/introduccion/COM?promoterCode=COM002",
-    accent: "primary",
+    gradient: "from-primary to-teal-dark",
     icon: TrendingUp,
   },
 ];
@@ -78,21 +72,9 @@ const segments = [
     icon: Briefcase,
     useCases: "Estudio, viajes, organización financiera, imprevistos familiares",
     cards: [
-      {
-        icon: GraduationCap,
-        title: "Plan personal",
-        text: "No todo en la vida es trabajo. Estudiar, viajar o cumplir un plan personal también cuenta. Si eres afiliado a Compensar, conoce la opción de crédito de Entre Amigos pensada para tu momento de vida.",
-      },
-      {
-        icon: Shield,
-        title: "Orden y tranquilidad",
-        text: "A veces no es una urgencia, es querer estar tranquilo. La alianza Compensar + Entre Amigos te acompaña cuando necesitas organizar un gasto importante o tomar una decisión con calma.",
-      },
-      {
-        icon: Home,
-        title: "Familia",
-        text: "Cuando surge algo importante para tu familia, contar con una opción clara hace la diferencia. Si eres independiente afiliado a Compensar, esta alternativa de crédito puede ayudarte.",
-      },
+      { icon: GraduationCap, title: "Plan personal", text: "No todo en la vida es trabajo. Estudiar, viajar o cumplir un plan personal también cuenta. Si eres afiliado a Compensar, conoce la opción de crédito de Entre Amigos pensada para tu momento de vida." },
+      { icon: Shield, title: "Orden y tranquilidad", text: "A veces no es una urgencia, es querer estar tranquilo. La alianza Compensar + Entre Amigos te acompaña cuando necesitas organizar un gasto importante o tomar una decisión con calma." },
+      { icon: Home, title: "Familia", text: "Cuando surge algo importante para tu familia, contar con una opción clara hace la diferencia. Si eres independiente afiliado a Compensar, esta alternativa de crédito puede ayudarte." },
     ],
   },
   {
@@ -101,21 +83,9 @@ const segments = [
     icon: Lightbulb,
     useCases: "Imprevistos, estabilidad del hogar, gastos personales, respiro financiero",
     cards: [
-      {
-        icon: Umbrella,
-        title: "Respiro",
-        text: "No siempre es para crecer, a veces es para respirar. Si aparece un gasto importante, la alianza Compensar + Entre Amigos te ofrece una opción de crédito pensada para independientes.",
-      },
-      {
-        icon: Sparkles,
-        title: "Imprevistos",
-        text: "La vida no avisa. Cuando aparece un gasto inesperado, es clave tener una alternativa clara y acompañada. Conoce la opción de crédito de Compensar con Entre Amigos.",
-      },
-      {
-        icon: Home,
-        title: "Decisiones cotidianas",
-        text: "Arreglar algo en casa, cubrir un gasto familiar o ponerse al día también es avanzar. Compensar + Entre Amigos crearon esta opción de crédito pensada para tu realidad como independiente.",
-      },
+      { icon: Umbrella, title: "Respiro", text: "No siempre es para crecer, a veces es para respirar. Si aparece un gasto importante, la alianza Compensar + Entre Amigos te ofrece una opción de crédito pensada para independientes." },
+      { icon: Sparkles, title: "Imprevistos", text: "La vida no avisa. Cuando aparece un gasto inesperado, es clave tener una alternativa clara y acompañada. Conoce la opción de crédito de Compensar con Entre Amigos." },
+      { icon: Home, title: "Decisiones cotidianas", text: "Arreglar algo en casa, cubrir un gasto familiar o ponerse al día también es avanzar. Compensar + Entre Amigos crearon esta opción de crédito pensada para tu realidad como independiente." },
     ],
   },
   {
@@ -124,21 +94,9 @@ const segments = [
     icon: Heart,
     useCases: "Educación de los hijos, bienestar del hogar, apoyo familiar",
     cards: [
-      {
-        icon: GraduationCap,
-        title: "Hijos",
-        text: "Los sueños de tus hijos también importan. Si estás afiliada a Compensar, conoce esta opción de crédito pensada para acompañarte en decisiones importantes para tu familia.",
-      },
-      {
-        icon: Home,
-        title: "Hogar",
-        text: "Cuando algo del hogar necesita atención, contar con apoyo hace la diferencia. La alianza Compensar + Entre Amigos está pensada para esos momentos.",
-      },
-      {
-        icon: Shield,
-        title: "Tranquilidad",
-        text: "Estar tranquila también es una prioridad. Esta opción de crédito te acompaña cuando necesitas resolver un gasto importante con claridad y apoyo gracias a Compensar + Entre Amigos.",
-      },
+      { icon: GraduationCap, title: "Hijos", text: "Los sueños de tus hijos también importan. Si estás afiliada a Compensar, conoce esta opción de crédito pensada para acompañarte en decisiones importantes para tu familia." },
+      { icon: Home, title: "Hogar", text: "Cuando algo del hogar necesita atención, contar con apoyo hace la diferencia. La alianza Compensar + Entre Amigos está pensada para esos momentos." },
+      { icon: Shield, title: "Tranquilidad", text: "Estar tranquila también es una prioridad. Esta opción de crédito te acompaña cuando necesitas resolver un gasto importante con claridad y apoyo gracias a Compensar + Entre Amigos." },
     ],
   },
 ];
@@ -168,10 +126,6 @@ const faqs = [
   { q: "¿Puedo tener un monto más alto al aprobado?", a: "No, el monto aprobado corresponde al valor máximo que te podemos prestar de acuerdo con el estudio de crédito." },
 ];
 
-/* Compensar Orange: #F37021 → hsl(24, 90%, 54%) */
-const compensarOrange = "hsl(24, 90%, 54%)";
-const compensarOrangeLighter = "hsl(24, 90%, 96%)";
-
 const CompensarPage = () => {
   const navigate = useNavigate();
   const heroRef = useRef<HTMLElement>(null);
@@ -186,10 +140,8 @@ const CompensarPage = () => {
       {/* ─── HERO ─── */}
       <section ref={heroRef} className="relative pt-28 pb-24 overflow-hidden">
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Compensar orange glow + Entre Amigos teal */}
-          <div className="absolute -top-20 right-0 w-[600px] h-[600px] rounded-full blur-[140px]" style={{ background: `${compensarOrange}20` }} />
+          <div className="absolute -top-20 right-0 w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[140px]" />
           <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px]" style={{ background: `${compensarOrange}08` }} />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
         </div>
 
@@ -206,36 +158,23 @@ const CompensarPage = () => {
 
           <div className="flex flex-col md:flex-row items-center gap-12">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="flex-1 max-w-2xl">
-              {/* Co-branded badge */}
-              <span
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-6 text-foreground border"
-                style={{ background: compensarOrangeLighter, borderColor: `${compensarOrange}30` }}
-              >
-                <Users className="w-4 h-4" style={{ color: compensarOrange }} /> Aliado Compensar
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-semibold mb-6 text-foreground">
+                <Users className="w-4 h-4 text-primary" /> Aliado Compensar
               </span>
               <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
                 Una opción de crédito
                 <br />
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})` }}
-                >
-                  pensada para ti
-                </span>
+                <span className="text-gradient">pensada para ti</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
                 Una opción de crédito pensada para ayudarte a resolver urgencias, avanzar decisiones importantes y tener respaldo cuando lo necesitas.
               </p>
-              <p className="text-sm font-medium mb-10" style={{ color: compensarOrange }}>
+              <p className="text-sm font-medium text-primary mb-10">
                 *Solo para los afiliados a la Caja de Compensación Compensar
               </p>
               <div className="flex flex-wrap gap-4">
                 <a href="#creditos">
-                  <Button
-                    size="lg"
-                    className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl text-white"
-                    style={{ background: `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})`, boxShadow: `0 10px 30px -5px ${compensarOrange}40` }}
-                  >
+                  <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
                     Conoce nuestros créditos
                     <ArrowRight className="w-5 h-5" />
                   </Button>
@@ -255,23 +194,12 @@ const CompensarPage = () => {
               transition={{ delay: 0.3, type: "spring", damping: 20, stiffness: 100 }}
               className="flex-shrink-0 hidden md:block relative"
             >
-              <motion.div
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-6 -right-6 w-20 h-20 rounded-2xl blur-sm -z-10"
-                style={{ background: `${compensarOrange}25` }}
-              />
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-primary/15 blur-sm -z-10"
-              />
-
+              <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-6 -right-6 w-20 h-20 rounded-2xl bg-secondary/20 blur-sm -z-10" />
+              <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-primary/15 blur-sm -z-10" />
               <motion.img
                 src={compensarHero}
                 alt="Trabajadora del servicio doméstico sonriente"
-                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl border-2 border-border/50"
-                style={{ boxShadow: `0 25px 50px -12px ${compensarOrange}20` }}
+                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl shadow-primary/15 border-2 border-border/50"
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -280,19 +208,13 @@ const CompensarPage = () => {
         </motion.div>
       </section>
 
-      {/* ─── SEGMENTS (Occasions) ─── */}
-      <section className="py-24 relative overflow-hidden" style={{ background: compensarOrangeLighter }}>
+      {/* ─── SEGMENTS ─── */}
+      <section className="py-24 bg-muted/30 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -z-10" />
         <div className="container mx-auto px-6">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight mb-4">
-              Encuentra{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})` }}
-              >
-                tu momento
-              </span>
+              Encuentra <span className="text-gradient">tu momento</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Cada persona tiene una razón diferente. Escoge la que más se parece a la tuya.
@@ -305,9 +227,7 @@ const CompensarPage = () => {
                 <TabsTrigger
                   key={seg.id}
                   value={seg.id}
-                  className="gap-2 px-5 py-3 rounded-full border border-border bg-background data-[state=active]:text-white data-[state=active]:border-transparent font-bold transition-all"
-                  style={{ "--tw-active-bg": compensarOrange } as React.CSSProperties}
-                  data-compensar-tab
+                  className="gap-2 px-5 py-3 rounded-full border border-border bg-background data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-transparent font-bold transition-all"
                 >
                   <seg.icon className="w-4 h-4" />
                   {seg.label}
@@ -318,10 +238,7 @@ const CompensarPage = () => {
             {segments.map((seg) => (
               <TabsContent key={seg.id} value={seg.id}>
                 <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
-                  <span
-                    className="inline-block px-4 py-2 rounded-full text-sm font-semibold"
-                    style={{ background: `${compensarOrange}15`, color: compensarOrange }}
-                  >
+                  <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-sm font-semibold text-primary">
                     Ocasiones de uso: {seg.useCases}
                   </span>
                 </motion.div>
@@ -332,18 +249,14 @@ const CompensarPage = () => {
                       initial={{ opacity: 0, y: 25 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="bg-card rounded-3xl border border-border p-7 hover:shadow-xl transition-all duration-300 group"
-                      style={{ ["--hover-border" as string]: `${compensarOrange}40` }}
+                      className="bg-card rounded-3xl border border-border p-7 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
                     >
-                      <div
-                        className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform"
-                        style={{ background: `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})` }}
-                      >
-                        <card.icon className="w-7 h-7 text-white" />
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-teal-dark flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <card.icon className="w-7 h-7 text-primary-foreground" />
                       </div>
                       <h3 className="text-xl font-extrabold text-card-foreground mb-3">{card.title}</h3>
                       <p className="text-muted-foreground leading-relaxed text-sm mb-5">{card.text}</p>
-                      <Button variant="ghost" className="p-0 h-auto font-bold gap-2 group-hover:gap-3 transition-all" style={{ color: compensarOrange }}>
+                      <Button variant="ghost" className="p-0 h-auto text-primary font-bold gap-2 group-hover:gap-3 transition-all">
                         Conócela aquí <ArrowRight className="w-4 h-4" />
                       </Button>
                     </motion.div>
@@ -357,71 +270,51 @@ const CompensarPage = () => {
 
       {/* ─── CREDIT PRODUCTS ─── */}
       <section id="creditos" className="py-24 relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[100px] -z-10" style={{ background: `${compensarOrange}10` }} />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] -z-10" />
         <div className="container mx-auto px-6">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4 tracking-tight">
-              Escoge el crédito{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: `linear-gradient(135deg, ${compensarOrange}, hsl(24, 80%, 65%))` }}
-              >
-                según tus necesidades
-              </span>{" "}
-              🙂
+              Escoge el crédito <span className="text-gradient">según tus necesidades</span> 🙂
             </h2>
             <p className="text-muted-foreground text-lg">y tu ocupación</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {creditProducts.map((product, i) => {
-              const gradients: Record<string, string> = {
-                "compensar-orange": `linear-gradient(135deg, ${compensarOrange}, hsl(var(--primary)))`,
-                "compensar-warm": `linear-gradient(135deg, ${compensarOrange}, hsl(24, 80%, 42%))`,
-                "primary": `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})`,
-              };
-              return (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12 }}
-                  className="bg-card rounded-3xl border border-border p-1 hover:shadow-2xl transition-all duration-500 group"
-                >
-                  <div className="p-7 flex flex-col h-full">
-                    <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
-                      style={{ background: gradients[product.accent] }}
-                    >
-                      <product.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-extrabold text-card-foreground mb-2">{product.title}</h3>
-                    <p className="font-bold text-sm mb-2" style={{ color: compensarOrange }}>{product.tagline}</p>
-                    <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{product.subtitle}</p>
-
-                    <ul className="space-y-3 mb-8 flex-1">
-                      {product.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                          <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: compensarOrange }} />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <a href={product.link} target="_blank" rel="noopener noreferrer">
-                      <Button
-                        className="w-full rounded-xl font-bold gap-2 py-6 text-base text-white"
-                        style={{ background: `linear-gradient(135deg, hsl(var(--primary)), ${compensarOrange})` }}
-                      >
-                        Solicitalo aquí
-                        <ArrowRight className="w-4 h-4" />
-                      </Button>
-                    </a>
+            {creditProducts.map((product, i) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12 }}
+                className="bg-card rounded-3xl border border-border p-1 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group"
+              >
+                <div className="p-7 flex flex-col h-full">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                    <product.icon className="w-8 h-8 text-primary-foreground" />
                   </div>
-                </motion.div>
-              );
-            })}
+                  <h3 className="text-2xl font-extrabold text-card-foreground mb-2">{product.title}</h3>
+                  <p className="text-primary font-bold text-sm mb-2">{product.tagline}</p>
+                  <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{product.subtitle}</p>
+
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {product.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a href={product.link} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full rounded-xl font-bold gap-2 py-6 text-base">
+                      Solicitalo aquí
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </a>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           <p className="text-center text-xs text-muted-foreground mt-10">
@@ -431,7 +324,7 @@ const CompensarPage = () => {
       </section>
 
       {/* ─── REQUIREMENTS ─── */}
-      <section className="py-24" style={{ background: compensarOrangeLighter }}>
+      <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-6">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-3">¿Qué necesitas?</h2>
@@ -448,11 +341,8 @@ const CompensarPage = () => {
                 transition={{ delay: i * 0.1 }}
                 className="text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/20 transition-all"
               >
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style={{ background: `${compensarOrange}15` }}
-                >
-                  <req.icon className="w-7 h-7" style={{ color: compensarOrange }} />
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <req.icon className="w-7 h-7 text-primary" />
                 </div>
                 <p className="text-sm text-muted-foreground font-medium">{req.text}</p>
               </motion.div>
@@ -462,13 +352,8 @@ const CompensarPage = () => {
       </section>
 
       {/* ─── STEPS ─── */}
-      <section
-        className="py-24 text-white relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(199, 100%, 18%) 50%, ${compensarOrange} 100%)` }}
-      >
+      <section className="py-24 bg-gradient-to-br from-primary via-teal-dark to-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute top-10 left-10 w-[300px] h-[300px] bg-white/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-10 right-10 w-[200px] h-[200px] rounded-full blur-[80px]" style={{ background: `${compensarOrange}15` }} />
-
         <div className="container mx-auto px-6 relative">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -494,15 +379,14 @@ const CompensarPage = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-3 mb-1">
-                    <span className="text-sm font-bold" style={{ color: compensarOrange }}>Paso {i + 1}</span>
+                    <span className="text-sm font-bold text-secondary">Paso {i + 1}</span>
                   </div>
                   <p className="text-lg font-bold leading-relaxed">{step.text}</p>
-                  <p className="text-sm text-white/60 mt-1">{step.sub}</p>
+                  <p className="text-sm text-primary-foreground/60 mt-1">{step.sub}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -510,11 +394,8 @@ const CompensarPage = () => {
       <section className="py-24">
         <div className="container mx-auto px-6 max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
-            <div
-              className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
-              style={{ background: `${compensarOrange}15` }}
-            >
-              <HelpCircle className="w-8 h-8" style={{ color: compensarOrange }} />
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
+              <HelpCircle className="w-8 h-8 text-primary" />
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Preguntas Frecuentes</h2>
           </motion.div>
@@ -524,13 +405,15 @@ const CompensarPage = () => {
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="border border-border rounded-2xl px-6 data-[state=open]:shadow-lg transition-all"
-                style={{ borderColor: undefined }}
+                className="bg-card rounded-2xl border border-border px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-lg transition-all"
               >
-                <AccordionTrigger className="text-left font-bold text-card-foreground hover:no-underline py-5">
-                  {faq.q}
+                <AccordionTrigger className="text-left font-bold text-card-foreground hover:text-primary hover:no-underline py-5">
+                  <div className="flex items-center gap-3">
+                    <HelpCircle className="w-5 h-5 text-primary shrink-0" />
+                    {faq.q}
+                  </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                <AccordionContent className="text-muted-foreground pb-5 pl-8 leading-relaxed">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
@@ -540,7 +423,7 @@ const CompensarPage = () => {
       </section>
 
       {/* ─── CONTACT ─── */}
-      <section className="py-16" style={{ background: compensarOrangeLighter }}>
+      <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-6 max-w-3xl">
           <h3 className="text-2xl font-extrabold text-foreground mb-8 text-center">Contacto</h3>
           <div className="grid sm:grid-cols-2 gap-4">
