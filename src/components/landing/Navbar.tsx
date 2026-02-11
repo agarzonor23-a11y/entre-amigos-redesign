@@ -23,7 +23,7 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
 
   const links = [
     { label: "Productos", href: "/productos" },
-    { label: "¿Cómo funciona?", href: "#" },
+    { label: "¿Cómo funciona?", href: "/como-funciona" },
     { label: "Quiénes somos", href: "/quienes-somos" },
     { label: "Ayuda", href: "/ayuda" },
   ];
