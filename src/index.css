@@ -13,16 +13,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 200 30% 12%;
 
-    --primary: 191 100% 28%;
+    --primary: 195 93% 20%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 2 100% 84%;
+    --secondary: 1 100% 76%;
     --secondary-foreground: 200 30% 12%;
 
     --muted: 195 20% 95%;
     --muted-foreground: 200 10% 45%;
 
-    --accent: 3 100% 84%;
+    --accent: 1 100% 76%;
     --accent-foreground: 200 30% 12%;
 
     --destructive: 0 84.2% 60.2%;
@@ -30,26 +30,26 @@
 
     --border: 195 15% 90%;
     --input: 195 15% 90%;
-    --ring: 193 100% 28%;
+    --ring: 195 93% 20%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 193 100% 20%;
+    --sidebar-background: 195 93% 14%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 193 100% 28%;
+    --sidebar-primary: 195 93% 20%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 193 60% 25%;
+    --sidebar-accent: 195 60% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 193 40% 30%;
-    --sidebar-ring: 193 100% 50%;
+    --sidebar-border: 195 40% 25%;
+    --sidebar-ring: 195 93% 40%;
 
     /* Custom tokens */
-    --teal: 193 100% 28%;
-    --teal-light: 193 60% 92%;
-    --teal-dark: 193 100% 20%;
-    --pink: 3 100% 84%;
-    --pink-light: 3 100% 94%;
-    --gradient-hero: linear-gradient(135deg, hsl(193, 100%, 28%) 0%, hsl(193, 80%, 35%) 50%, hsl(193, 60%, 45%) 100%);
+    --teal: 195 93% 20%;
+    --teal-light: 195 60% 92%;
+    --teal-dark: 195 93% 14%;
+    --pink: 1 100% 76%;
+    --pink-light: 1 100% 92%;
+    --gradient-hero: linear-gradient(135deg, hsl(195, 93%, 20%) 0%, hsl(195, 80%, 30%) 50%, hsl(195, 60%, 40%) 100%);
   }
 
   .dark {
@@ -62,16 +62,16 @@
     --popover: 200 25% 12%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 193 80% 45%;
+    --primary: 195 80% 35%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 3 80% 70%;
+    --secondary: 1 80% 65%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 200 20% 18%;
     --muted-foreground: 200 10% 60%;
 
-    --accent: 3 80% 70%;
+    --accent: 1 80% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -79,16 +79,16 @@
 
     --border: 200 15% 20%;
     --input: 200 15% 20%;
-    --ring: 193 80% 45%;
+    --ring: 195 80% 35%;
 
     --sidebar-background: 200 30% 6%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 193 80% 45%;
+    --sidebar-primary: 195 80% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 200 20% 15%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 200 15% 20%;
-    --sidebar-ring: 193 80% 50%;
+    --sidebar-ring: 195 80% 40%;
   }
 }
 
