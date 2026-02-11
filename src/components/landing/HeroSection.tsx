@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Shield, Clock, Banknote, Sparkles } from "lucide-react";
+import { ArrowRight, Shield, Clock, Banknote, Sparkles, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import AlliesModal from "./AlliesModal";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [showAllies, setShowAllies] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -75,9 +77,11 @@ const HeroSection = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-base px-8 py-7 rounded-full font-bold border-2 hover:bg-primary/5"
+                onClick={() => { navigate("/simulador"); window.scrollTo(0, 0); }}
+                className="text-base px-8 py-7 rounded-full font-bold border-2 hover:bg-primary/5 gap-2"
               >
-                Conoce nuestros productos
+                <Calculator className="w-5 h-5" />
+                Simula tu crédito
               </Button>
             </div>
 
