@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Store, TrendingUp, RotateCw } from "lucide-react";
+import { ArrowRight, Store, TrendingUp, RotateCw, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +31,15 @@ const products = [
     highlight: null,
     gradient: "from-primary to-teal-dark",
     bgAccent: "bg-teal-light",
+  },
+  {
+    icon: Heart,
+    title: "Impulsacrédito",
+    description: "Crédito digital para empleados que quieran cumplir sus sueños e iniciar su vida crediticia.",
+    features: ["Desde $300.000", "Mejora tu puntaje", "100% digital"],
+    highlight: "Empleados",
+    gradient: "from-secondary to-pink",
+    bgAccent: "bg-pink-light",
   },
 ];
 
@@ -69,7 +78,7 @@ const ProductsSection = () => {
           </p>
         </motion.div>
 
-        <motion.div style={{ y }} className="grid md:grid-cols-3 gap-8">
+        <motion.div style={{ y }} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product, i) => (
             <motion.div
               key={product.title}
