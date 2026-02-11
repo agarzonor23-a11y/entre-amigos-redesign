@@ -1,5 +1,5 @@
 import AllyPageTemplate from "@/components/landing/AllyPageTemplate";
-import heroImg from "@/assets/hero-automundial.png";
+import heroImg from "@/assets/hero-automundial-new.png";
 
 const AutomundialPage = () => (
   <AllyPageTemplate

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import compensarHero from "@/assets/compensar-hero.png";
+import compensarHero from "@/assets/hero-compensar-new.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowLeft, ArrowRight, Mail, Phone, MessageCircle,

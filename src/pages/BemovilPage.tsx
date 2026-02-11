@@ -1,5 +1,5 @@
 import AllyPageTemplate from "@/components/landing/AllyPageTemplate";
-import heroImg from "@/assets/hero-bemovil.png";
+import heroImg from "@/assets/hero-bemovil-new.png";
 
 const BemovilPage = () => (
   <AllyPageTemplate
