@@ -85,7 +85,7 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            <div className="flex flex-wrap gap-8">
+            <div className="flex flex-wrap gap-4">
               {[
                 { icon: Shield, label: "100% seguro" },
                 { icon: Clock, label: "Rápido y fácil" },
@@ -96,12 +96,12 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + i * 0.15 }}
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground"
+                  className="flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-card border border-border shadow-md hover:border-primary/30 hover:shadow-lg transition-all"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <item.icon className="w-4 h-4 text-primary" />
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-teal-dark flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 text-primary-foreground" />
                   </div>
-                  <span className="font-medium">{item.label}</span>
+                  <span className="font-bold text-foreground text-sm">{item.label}</span>
                 </motion.div>
               ))}
             </div>
