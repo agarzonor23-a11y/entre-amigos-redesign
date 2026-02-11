@@ -97,6 +97,7 @@ const Footer = () => {
               <li><a href="/productos" onClick={handleNav("/productos")} className="hover:text-secondary transition-colors">Productos</a></li>
               <li><a href="/como-pagar" onClick={handleNav("/como-pagar")} className="hover:text-secondary transition-colors">¿Cómo pagar?</a></li>
               <li><a href="/ayuda" onClick={handleNav("/ayuda")} className="hover:text-secondary transition-colors">Contacto</a></li>
+              <li><a href="/marketplace" onClick={handleNav("/marketplace")} className="inline-flex items-center gap-2 bg-secondary text-foreground font-bold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity mt-2">🛒 Marketplace</a></li>
             </ul>
 
             <div className="mt-10">
