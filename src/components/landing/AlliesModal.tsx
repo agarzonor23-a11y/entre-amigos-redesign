@@ -6,18 +6,19 @@ interface Ally {
   name: string;
   slug: string;
   description: string;
+  color: string; // subtle accent border/bg on hover
 }
 
 const allies: Ally[] = [
-  { name: "Compensar", slug: "compensar", description: "Caja de Compensación" },
-  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia" },
-  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica" },
-  { name: "Tredi", slug: "tredi", description: "Soluciones financieras" },
-  { name: "Supernórdico", slug: "supernordico", description: "Supermercados" },
-  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos" },
-  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona" },
-  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas" },
-  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista" },
+  { name: "Compensar", slug: "compensar", description: "Caja de Compensación", color: "rgba(0, 115, 142, 0.12)" },
+  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia", color: "rgba(180, 120, 60, 0.12)" },
+  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica", color: "rgba(59, 130, 246, 0.12)" },
+  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(16, 185, 129, 0.12)" },
+  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(239, 68, 68, 0.12)" },
+  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos", color: "rgba(168, 85, 247, 0.12)" },
+  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(245, 158, 11, 0.12)" },
+  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas", color: "rgba(220, 38, 38, 0.12)" },
+  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(34, 197, 94, 0.12)" },
 ];
 
 interface AlliesModalProps {
@@ -77,7 +78,8 @@ const AlliesModal = ({ open, onClose }: AlliesModalProps) => {
                       onClose();
                       navigate(`/aliado/${ally.slug}`);
                     }}
-                    className="group text-left rounded-2xl border border-border bg-background p-5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-pointer"
+                    style={{ borderLeftWidth: 3, borderLeftColor: ally.color.replace('0.12', '0.5'), backgroundColor: ally.color }}
+                    className="group text-left rounded-2xl border border-border bg-background p-5 hover:shadow-lg transition-all duration-300 cursor-pointer"
                   >
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-bold text-card-foreground text-lg group-hover:text-primary transition-colors">
