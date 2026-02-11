@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import compensarHero from "@/assets/compensar-hero.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowLeft, ArrowRight, Mail, Phone, MessageCircle,
@@ -191,36 +192,51 @@ const CompensarPage = () => {
             Volver al inicio
           </motion.button>
 
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-sm font-semibold mb-6 text-foreground">
-              <Users className="w-4 h-4" /> Aliado Compensar
-            </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
-              Una opción de crédito
-              <br />
-              <span className="text-gradient">pensada para ti</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
-              Una opción de crédito pensada para ayudarte a resolver urgencias, avanzar decisiones importantes y tener respaldo cuando lo necesitas.
-            </p>
-            <p className="text-sm text-secondary font-medium mb-10">
-              *Solo para los afiliados a la Caja de Compensación Compensar
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#creditos">
-                <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
-                  Conoce nuestros créditos
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <a href="https://api.whatsapp.com/send?phone=16208779065&text=Hola,%20quisiera%20recibir%20una%20atenci%C3%B3n%20personalizada." target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2">
-                  <MessageCircle className="w-5 h-5" />
-                  Hablar con María
-                </Button>
-              </a>
-            </div>
-          </motion.div>
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="flex-1 max-w-2xl">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-sm font-semibold mb-6 text-foreground">
+                <Users className="w-4 h-4" /> Aliado Compensar
+              </span>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
+                Una opción de crédito
+                <br />
+                <span className="text-gradient">pensada para ti</span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
+                Una opción de crédito pensada para ayudarte a resolver urgencias, avanzar decisiones importantes y tener respaldo cuando lo necesitas.
+              </p>
+              <p className="text-sm text-secondary font-medium mb-10">
+                *Solo para los afiliados a la Caja de Compensación Compensar
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a href="#creditos">
+                  <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
+                    Conoce nuestros créditos
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=16208779065&text=Hola,%20quisiera%20recibir%20una%20atenci%C3%B3n%20personalizada." target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2">
+                    <MessageCircle className="w-5 h-5" />
+                    Hablar con María
+                  </Button>
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="flex-shrink-0 hidden md:block"
+            >
+              <img
+                src={compensarHero}
+                alt="Familia colombiana sonriente"
+                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl shadow-primary/10"
+              />
+            </motion.div>
+          </div>
         </motion.div>
       </section>
 

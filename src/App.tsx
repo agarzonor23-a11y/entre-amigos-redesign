@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import CompensarPage from "./pages/CompensarPage";
 import CematcolPage from "./pages/CematcolPage";
 import ProductsPage from "./pages/ProductsPage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/productos" element={<ProductsPage />} />
           <Route path="/aliado/compensar" element={<CompensarPage />} />
           <Route path="/aliado/cematcol" element={<CematcolPage />} />
+          <Route path="/quienes-somos" element={<AboutPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

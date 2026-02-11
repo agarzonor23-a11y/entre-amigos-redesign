@@ -17,7 +17,7 @@ const Navbar = () => {
   const links = [
     { label: "Productos", href: "/productos" },
     { label: "¿Cómo funciona?", href: "#" },
-    { label: "Quiénes somos", href: "#" },
+    { label: "Quiénes somos", href: "/quienes-somos" },
     { label: "Ayuda", href: "#" },
   ];
 
