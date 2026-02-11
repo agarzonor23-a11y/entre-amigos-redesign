@@ -251,22 +251,31 @@ const SimuladorPage = () => {
                 <ArrowRight className="w-5 h-5" />
               </Button>
 
-              <div className="bg-secondary/20 border border-secondary/30 rounded-2xl px-5 py-4 text-center space-y-2">
-                <p className="text-sm font-semibold text-foreground">
-                  ⚠️ Esta es una simulación de referencia.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Los valores reales dependen de tu perfil crediticio y las condiciones vigentes.
-                </p>
-                <p className="text-sm font-semibold text-foreground">
-                  💡 La tasa no incluye seguros ni fianza.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Estos valores se suman a la cuota mensual. Es importante tenerlo en cuenta al momento de solicitar tu crédito.
-                </p>
-              </div>
             </motion.div>
           </div>
+
+          {/* Disclaimers - full width below grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="mt-10 grid sm:grid-cols-2 gap-4"
+          >
+            <div className="flex items-start gap-3 bg-card border border-border rounded-2xl p-5">
+              <span className="text-xl mt-0.5">⚠️</span>
+              <div>
+                <p className="text-sm font-bold text-card-foreground">Simulación de referencia</p>
+                <p className="text-sm text-muted-foreground mt-1">Los valores reales dependen de tu perfil crediticio y las condiciones vigentes.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 bg-card border border-border rounded-2xl p-5">
+              <span className="text-xl mt-0.5">💡</span>
+              <div>
+                <p className="text-sm font-bold text-card-foreground">La tasa no incluye seguros ni fianza</p>
+                <p className="text-sm text-muted-foreground mt-1">Estos valores se suman a tu cuota mensual. Tenlo en cuenta al solicitar tu crédito.</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
