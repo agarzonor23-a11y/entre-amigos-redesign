@@ -1,3 +1,4 @@
+import heroCematcol from "@/assets/hero-cematcol.png";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Mail, CreditCard,
@@ -86,35 +87,57 @@ const CematcolPage = () => {
             Volver al inicio
           </motion.button>
 
-          <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-sm font-semibold mb-6 text-foreground">
-              <Users className="w-4 h-4" /> Aliado Cematcol
-            </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
-              Crédito rotativo ideal para
-              <br />
-              <span className="text-gradient">surtir tu ferretería</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
-              Cematcol — Cementos y Materiales de Colombia. Accede a crédito rotativo para compra de materiales de construcción con condiciones diseñadas para tu negocio.
-            </p>
-            <p className="text-sm text-secondary font-medium mb-10">
-              *Crédito rotativo revolvente para compras con aliados
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="https://incursor.entreamigos.co/nuevo-credito/CR/introduccion/CEMAT?promoterCode=CEMAT001" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
-                  ¡Solicítalo ya!
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <a href="https://api.whatsapp.com/send?phone=16208779065&text=Hola,%20quisiera%20recibir%20información%20sobre%20Cematcol" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2">
-                  <MessageCircle className="w-5 h-5" />
-                  Hablar con María
-                </Button>
-              </a>
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1 max-w-2xl">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-sm font-semibold mb-6 text-foreground">
+                <Users className="w-4 h-4" /> Aliado Cematcol
+              </span>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
+                Crédito rotativo ideal para
+                <br />
+                <span className="text-gradient">surtir tu ferretería</span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
+                Cematcol — Cementos y Materiales de Colombia. Accede a crédito rotativo para compra de materiales de construcción con condiciones diseñadas para tu negocio.
+              </p>
+              <p className="text-sm text-secondary font-medium mb-10">
+                *Crédito rotativo revolvente para compras con aliados
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a href="https://incursor.entreamigos.co/nuevo-credito/CR/introduccion/CEMAT?promoterCode=CEMAT001" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base shadow-xl shadow-primary/30">
+                    ¡Solicítalo ya!
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=16208779065&text=Hola,%20quisiera%20recibir%20información%20sobre%20Cematcol" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="lg" className="rounded-full px-8 py-7 font-bold gap-2 text-base border-2">
+                    <MessageCircle className="w-5 h-5" />
+                    Hablar con María
+                  </Button>
+                </a>
+              </div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.3, type: "spring", damping: 20, stiffness: 100 }}
+              className="flex-shrink-0 hidden md:block relative"
+            >
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -right-6 w-20 h-20 rounded-2xl bg-secondary/20 blur-sm -z-10"
+              />
+              <motion.img
+                src={heroCematcol}
+                alt="Materiales de construcción Cematcol"
+                className="w-[340px] lg:w-[400px] rounded-3xl shadow-2xl shadow-primary/15 border-2 border-border/50"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
           </div>
         </motion.div>
       </section>
