@@ -251,12 +251,18 @@ const SimuladorPage = () => {
                 <ArrowRight className="w-5 h-5" />
               </Button>
 
-              <div className="bg-secondary/20 border border-secondary/30 rounded-2xl px-5 py-4 text-center">
+              <div className="bg-secondary/20 border border-secondary/30 rounded-2xl px-5 py-4 text-center space-y-2">
                 <p className="text-sm font-semibold text-foreground">
                   ⚠️ Esta es una simulación de referencia.
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground">
                   Los valores reales dependen de tu perfil crediticio y las condiciones vigentes.
+                </p>
+                <p className="text-sm font-semibold text-foreground">
+                  💡 La tasa no incluye seguros ni fianza.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Estos valores se suman a la cuota mensual. Es importante tenerlo en cuenta al momento de solicitar tu crédito.
                 </p>
               </div>
             </motion.div>
