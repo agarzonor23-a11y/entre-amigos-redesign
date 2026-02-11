@@ -23,6 +23,7 @@ import DataProtectionPage from "./pages/DataProtectionPage";
 import HistoricalRatesPage from "./pages/HistoricalRatesPage";
 import BlogPage from "./pages/BlogPage";
 import FAQPage from "./pages/FAQPage";
+import SimuladorPage from "./pages/SimuladorPage";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/historico-de-tasas" element={<HistoricalRatesPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/preguntas-frecuentes" element={<FAQPage />} />
+          <Route path="/simulador" element={<SimuladorPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
