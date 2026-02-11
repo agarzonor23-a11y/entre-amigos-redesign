@@ -42,6 +42,7 @@ const Footer = () => {
               <li className="hover:text-secondary cursor-pointer transition-colors">Términos y condiciones</li>
               <li className="hover:text-secondary cursor-pointer transition-colors">Política de privacidad</li>
               <li className="hover:text-secondary cursor-pointer transition-colors">Tratamiento de datos</li>
+              <li><a href="/tasas-precios-comisiones" className="hover:text-secondary transition-colors">Tasas, precios y comisiones</a></li>
             </ul>
           </div>
         </div>
