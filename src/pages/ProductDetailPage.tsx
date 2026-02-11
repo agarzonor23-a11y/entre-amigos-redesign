@@ -209,8 +209,8 @@ const ProductDetailPage = () => {
                   </Badge>
                 )}
               </div>
-              <p className="text-primary font-semibold text-sm mt-2">
-                Hasta 12 cuotas con tu crédito Entre Amigos
+              <p className="text-primary font-semibold text-sm mt-2 flex items-center gap-1">
+                ⚡ 12 cuotas de <span className="font-extrabold">{formatCOP(Math.round(product.price / 12))}</span> con tu crédito Entre Amigos
               </p>
             </div>
 

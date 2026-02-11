@@ -20,6 +20,8 @@ import {
   Menu,
   CreditCard,
   Wallet,
+  Eye,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +29,10 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import logoEntreamigos from "@/assets/logo-entreamigos.png";
 import Footer from "@/components/landing/Footer";
-import { PRODUCTS, CATEGORIES, formatCOP, discount } from "@/data/marketplace-products";
+import { PRODUCTS, CATEGORIES, formatCOP, discount, type Product } from "@/data/marketplace-products";
+
+const installment = (price: number, months = 12) =>
+  formatCOP(Math.round(price / months));
 
 const SORT_OPTIONS = [
   { value: "relevant", label: "Más relevantes" },
@@ -46,6 +51,7 @@ const MarketplacePage = () => {
   const [freeShippingOnly, setFreeShippingOnly] = useState(false);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [showSort, setShowSort] = useState(false);
+  const [quickview, setQuickview] = useState<Product | null>(null);
 
   const toggleFav = (id: number) =>
     setFavorites((prev) => (prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]));
@@ -399,17 +405,25 @@ const MarketplacePage = () => {
                     </span>
                   )}
 
-                  {/* Fav */}
-                  <button
-                    onClick={() => toggleFav(product.id)}
-                    className="absolute top-3 right-3 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <Heart
-                      className={`w-4 h-4 transition-colors ${
-                        favorites.includes(product.id) ? "fill-secondary text-secondary" : "text-muted-foreground"
-                      }`}
-                    />
-                  </button>
+                  {/* Fav + Quickview */}
+                  <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); toggleFav(product.id); }}
+                      className="w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md"
+                    >
+                      <Heart
+                        className={`w-4 h-4 transition-colors ${
+                          favorites.includes(product.id) ? "fill-secondary text-secondary" : "text-muted-foreground"
+                        }`}
+                      />
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setQuickview(product); }}
+                      className="w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md"
+                    >
+                      <Eye className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Details */}
@@ -434,6 +448,11 @@ const MarketplacePage = () => {
                         {discount(product.originalPrice, product.price)}% OFF
                       </span>
                     )}
+                    {/* Installment */}
+                    <p className="text-xs text-primary mt-1 flex items-center gap-1">
+                      <Zap className="w-3 h-3" />
+                      12 cuotas de <span className="font-bold">{installment(product.price)}</span>
+                    </p>
                   </div>
 
                   {/* Meta */}
@@ -449,12 +468,6 @@ const MarketplacePage = () => {
                         <span className="text-xs font-semibold">Gratis</span>
                       </div>
                     )}
-                  </div>
-
-                  {/* Location */}
-                  <div className="flex items-center gap-1 mt-2">
-                    <MapPin className="w-3 h-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">{product.location}</span>
                   </div>
                 </div>
               </motion.article>
@@ -497,6 +510,78 @@ const MarketplacePage = () => {
           </div>
         </div>
       </div>
+
+      {/* ── Quickview Modal ─────────────────────────────────────── */}
+      <AnimatePresence>
+        {quickview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-foreground/40 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setQuickview(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-card rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto border border-border"
+            >
+              <div className="flex flex-col md:flex-row">
+                {/* Image */}
+                <div className="md:w-1/2 aspect-square relative overflow-hidden rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none bg-muted/30">
+                  <img src={quickview.images?.[0] || quickview.image} alt={quickview.name} className="w-full h-full object-cover" />
+                  {quickview.badge && (
+                    <Badge className="absolute top-4 left-4 bg-secondary text-secondary-foreground font-bold">{quickview.badge}</Badge>
+                  )}
+                </div>
+                {/* Info */}
+                <div className="md:w-1/2 p-6 flex flex-col">
+                  <button onClick={() => setQuickview(null)} className="self-end mb-2">
+                    <X className="w-5 h-5 text-muted-foreground hover:text-foreground" />
+                  </button>
+                  <p className="text-xs text-muted-foreground mb-1">{quickview.seller}</p>
+                  <h3 className="text-xl font-extrabold text-foreground mb-3">{quickview.name}</h3>
+                  <div className="flex items-center gap-1 mb-3">
+                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <span className="text-sm font-bold">{quickview.rating}</span>
+                    <span className="text-xs text-muted-foreground">({quickview.reviews} reseñas)</span>
+                  </div>
+                  {quickview.originalPrice && (
+                    <p className="text-sm text-muted-foreground line-through">{formatCOP(quickview.originalPrice)}</p>
+                  )}
+                  <p className="text-3xl font-extrabold text-foreground mb-1">{formatCOP(quickview.price)}</p>
+                  <p className="text-sm text-primary flex items-center gap-1 mb-4">
+                    <Zap className="w-3.5 h-3.5" />
+                    12 cuotas de <span className="font-bold">{installment(quickview.price)}</span>
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-5 leading-relaxed line-clamp-3">
+                    {quickview.description}
+                  </p>
+                  {quickview.freeShipping && (
+                    <div className="flex items-center gap-2 text-primary text-sm font-semibold mb-4">
+                      <Truck className="w-4 h-4" /> Envío gratis
+                    </div>
+                  )}
+                  <div className="mt-auto space-y-2">
+                    <Button
+                      className="w-full rounded-2xl h-12 font-extrabold gap-2 bg-primary hover:bg-teal-dark shadow-lg"
+                      onClick={() => { setQuickview(null); navigate(`/marketplace/${quickview.id}`); }}
+                    >
+                      <CreditCard className="w-5 h-5" />
+                      Comprar con crédito Entre Amigos
+                    </Button>
+                    <Button variant="outline" className="w-full rounded-2xl h-10 font-bold" onClick={() => setQuickview(null)}>
+                      Seguir comprando
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
