@@ -71,9 +71,9 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
           </ul>
 
           <div className="hidden lg:flex items-center gap-3">
-            <a href="https://incursor.entreamigos.co/pagos/ingreso" target="_blank" rel="noopener noreferrer">
+            <a href="https://incursor.entreamigos.co/account" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="font-medium">
-                Paga tu crédito
+                Iniciar sesión
               </Button>
             </a>
             <Button
@@ -81,7 +81,7 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
               className="rounded-full px-6 bg-primary hover:bg-teal-dark shadow-lg shadow-primary/25"
               onClick={handleSolicitar}
             >
-              Solicita tu crédito
+              Solicitar crédito
             </Button>
           </div>
 
@@ -111,15 +111,15 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
                 {link.label}
               </a>
             ))}
-            <a href="https://incursor.entreamigos.co/pagos/ingreso" target="_blank" rel="noopener noreferrer" className="block text-sm font-medium text-muted-foreground hover:text-primary">
-              Paga tu crédito
+            <a href="https://incursor.entreamigos.co/account" target="_blank" rel="noopener noreferrer" className="block text-sm font-medium text-muted-foreground hover:text-primary">
+              Iniciar sesión
             </a>
             <Button
               size="sm"
               className="w-full rounded-full bg-primary shadow-lg shadow-primary/25"
               onClick={() => { setOpen(false); handleSolicitar(); }}
             >
-              Solicita tu crédito
+              Solicitar crédito
             </Button>
           </div>
         )}

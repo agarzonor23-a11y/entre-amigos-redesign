@@ -17,11 +17,15 @@ import {
   X,
   MapPin,
   ArrowUpDown,
+  Menu,
+  CreditCard,
+  Wallet,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import Navbar from "@/components/landing/Navbar";
+import { useNavigate } from "react-router-dom";
+import logoEntreamigos from "@/assets/logo-entreamigos.png";
 import Footer from "@/components/landing/Footer";
 
 // ── Mock data (replace with API later) ──────────────────────────────
@@ -255,34 +259,95 @@ const MarketplacePage = () => {
     return items;
   }, [category, search, sortBy, freeShippingOnly]);
 
+  const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-muted/30">
-      <Navbar />
+      {/* ── Marketplace Header ──────────────────────────────────── */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
+        <div className="container mx-auto px-4">
+          {/* Top row: logo + search + actions */}
+          <div className="flex items-center gap-4 h-16">
+            <button onClick={() => navigate("/")} className="shrink-0">
+              <img src={logoEntreamigos} alt="Entre Amigos" className="h-8 w-auto brightness-0 invert" />
+            </button>
 
-      {/* Spacer for fixed navbar */}
-      <div className="h-20" />
-
-      {/* ── Top Bar ─────────────────────────────────────────────── */}
-      <div className="sticky top-[72px] z-30 bg-background/80 backdrop-blur-xl border-b border-border shadow-sm">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center gap-3">
-            <div className="relative flex-1 max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            {/* Search */}
+            <div className="relative flex-1 max-w-xl hidden md:block">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="Buscar productos, marcas y más..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-12 pr-4 h-12 rounded-2xl bg-muted/50 border-none text-base focus-visible:ring-primary/30"
+                className="pl-10 pr-10 h-10 rounded-full bg-primary-foreground border-none text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-secondary"
               />
               {search && (
-                <button onClick={() => setSearch("")} className="absolute right-4 top-1/2 -translate-y-1/2">
+                <button onClick={() => setSearch("")} className="absolute right-3.5 top-1/2 -translate-y-1/2">
                   <X className="w-4 h-4 text-muted-foreground" />
                 </button>
               )}
             </div>
+
+            {/* Desktop actions */}
+            <div className="hidden md:flex items-center gap-3 ml-auto">
+              <a href="https://incursor.entreamigos.co/pagos/ingreso" target="_blank" rel="noopener noreferrer">
+                <Button variant="ghost" size="sm" className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 gap-2 font-medium">
+                  <Wallet className="w-4 h-4" />
+                  Paga tu crédito
+                </Button>
+              </a>
+              <Button
+                size="sm"
+                className="rounded-full px-5 bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md font-bold gap-2"
+                onClick={() => navigate("/productos")}
+              >
+                <CreditCard className="w-4 h-4" />
+                Compra con tu crédito
+              </Button>
+            </div>
+
+            {/* Mobile menu toggle */}
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden ml-auto text-primary-foreground">
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile search */}
+          <div className="md:hidden pb-3">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Buscar productos..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10 pr-10 h-10 rounded-full bg-primary-foreground border-none text-sm text-foreground"
+              />
+            </div>
           </div>
         </div>
-      </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-primary/95 backdrop-blur border-t border-primary-foreground/10 px-4 py-4 space-y-3">
+            <a href="https://incursor.entreamigos.co/pagos/ingreso" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground">
+              <Wallet className="w-4 h-4" />
+              Paga tu crédito
+            </a>
+            <Button
+              size="sm"
+              className="w-full rounded-full bg-secondary text-secondary-foreground font-bold gap-2"
+              onClick={() => { setMobileMenuOpen(false); navigate("/productos"); }}
+            >
+              <CreditCard className="w-4 h-4" />
+              Compra con tu crédito
+            </Button>
+          </div>
+        )}
+      </header>
+
+      {/* Spacer for fixed header */}
+      <div className="h-[104px] md:h-16" />
 
       {/* ── Categories Scroll ───────────────────────────────────── */}
       <div className="bg-background border-b border-border">
