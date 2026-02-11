@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import heroAbout from "@/assets/hero-about.png";
 
 const groupCompanies = [
   "Banco Caja Social",
@@ -77,18 +78,32 @@ const AboutPage = () => {
             Volver al inicio
           </motion.button>
 
-          <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-sm font-semibold mb-6 text-foreground">
-              <Users className="w-4 h-4" /> Quiénes somos
-            </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
-              Somos una fintech de
-              <br />
-              <span className="text-gradient">crédito digital</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
-              Del mismo grupo del <strong className="text-foreground">Banco Caja Social</strong>, parte de <strong className="text-foreground">Fundación Grupo Social</strong>.
-            </p>
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+            <div className="max-w-xl flex-1">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-sm font-semibold mb-6 text-foreground">
+                <Users className="w-4 h-4" /> Quiénes somos
+              </span>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-[1.1]">
+                Somos una fintech de
+                <br />
+                <span className="text-gradient">crédito digital</span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-4">
+                Del mismo grupo del <strong className="text-foreground">Banco Caja Social</strong>, parte de <strong className="text-foreground">Fundación Grupo Social</strong>.
+              </p>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="flex-1 max-w-md lg:max-w-lg"
+            >
+              <img
+                src={heroAbout}
+                alt="Equipo diverso representando inclusión financiera en Colombia"
+                className="w-full h-auto rounded-3xl shadow-2xl shadow-primary/10 border border-border"
+              />
+            </motion.div>
           </div>
         </motion.div>
       </section>
