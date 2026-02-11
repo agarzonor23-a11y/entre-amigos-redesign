@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import logoEntreamigos from "@/assets/logo-entreamigos.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -30,14 +31,9 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 h-18 flex items-center justify-between py-4">
-        <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">EA</span>
-          </div>
-          <span className="text-xl font-bold text-foreground">
-            Entre <span className="text-primary">Amigos</span>
-          </span>
-        </div>
+        <button onClick={() => navigate("/")} className="flex items-center cursor-pointer">
+          <img src={logoEntreamigos} alt="Entre Amigos" className="h-9 md:h-10 w-auto" />
+        </button>
 
         <ul className="hidden md:flex items-center gap-8">
           {links.map((link) => (
