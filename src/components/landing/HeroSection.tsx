@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Shield, Clock, Banknote, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AlliesModal from "./AlliesModal";
 
 const HeroSection = () => {
+  const [showAllies, setShowAllies] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -14,6 +16,8 @@ const HeroSection = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
+    <>
+    <AlliesModal open={showAllies} onClose={() => setShowAllies(false)} />
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* Animated background blobs */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -62,6 +66,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-14">
               <Button
                 size="lg"
+                onClick={() => setShowAllies(true)}
                 className="text-base px-8 py-7 rounded-full gap-2 font-bold shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all hover:scale-[1.02]"
               >
                 Solicita tu crédito
@@ -187,6 +192,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
     </section>
+    </>
   );
 };
 
