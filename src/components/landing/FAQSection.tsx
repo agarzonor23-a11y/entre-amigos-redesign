@@ -1,10 +1,13 @@
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
+import { Search } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 
 const faqs = [
   {
@@ -30,6 +33,16 @@ const faqs = [
 ];
 
 const FAQSection = () => {
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    if (!search.trim()) return faqs;
+    const q = search.toLowerCase();
+    return faqs.filter(
+      (f) => f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q)
+    );
+  }, [search]);
+
   return (
     <section className="py-28 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -z-10" />
@@ -77,22 +90,37 @@ const FAQSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, i) => (
-                <AccordionItem
-                  key={i}
-                  value={`faq-${i}`}
-                  className="border border-border rounded-2xl px-6 data-[state=open]:bg-teal-light/50 data-[state=open]:border-primary/20 transition-colors"
-                >
-                  <AccordionTrigger className="text-left font-bold text-foreground hover:no-underline py-5">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            {/* Search */}
+            <div className="relative mb-6">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Busca tu pregunta..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-11 rounded-2xl h-12 border-border bg-card"
+              />
+            </div>
+
+            {filtered.length === 0 ? (
+              <p className="text-muted-foreground text-center py-8">No se encontraron resultados para "{search}"</p>
+            ) : (
+              <Accordion type="single" collapsible className="space-y-4">
+                {filtered.map((faq, i) => (
+                  <AccordionItem
+                    key={i}
+                    value={`faq-${i}`}
+                    className="border border-border rounded-2xl px-6 data-[state=open]:bg-teal-light/50 data-[state=open]:border-primary/20 transition-colors"
+                  >
+                    <AccordionTrigger className="text-left font-bold text-foreground hover:no-underline py-5">
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            )}
           </motion.div>
         </div>
       </div>

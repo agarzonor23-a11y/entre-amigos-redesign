@@ -173,17 +173,18 @@ const AboutPage = () => {
             <p className="text-muted-foreground text-lg">Hacemos parte de un ecosistema sólido con más de 100 años de historia.</p>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
             {groupCompanies.map((company, i) => (
               <motion.div
                 key={company.name}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.08 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="px-6 py-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all flex items-center justify-center"
+                className="px-8 py-6 rounded-2xl bg-card border border-border hover:border-primary/30 hover:shadow-lg transition-all flex items-center justify-center cursor-pointer"
               >
-                <img src={company.logo} alt={company.name} className="h-16 object-contain" />
+                <img src={company.logo} alt={company.name} className="h-20 md:h-24 object-contain" />
               </motion.div>
             ))}
           </div>
