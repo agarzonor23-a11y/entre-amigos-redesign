@@ -8,15 +8,22 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import heroAbout from "@/assets/hero-about.png";
+import logoBcs from "@/assets/logo-bcs.png";
+import logoColmenaCapitalizadora from "@/assets/logo-colmena-capitalizadora.png";
+import logoColmenaInversora from "@/assets/logo-colmena-inversora.png";
+import logoColmenaFiduciaria from "@/assets/logo-colmena-fiduciaria.png";
+import logoGestora from "@/assets/logo-gestora.png";
+import logoDeco from "@/assets/logo-deco.png";
+import logoServir from "@/assets/logo-servir.png";
 
 const groupCompanies = [
-  "Banco Caja Social",
-  "Colmena Seguros",
-  "Colmena Fiduciaria",
-  "Colmena Inversora",
-  "Gestora Urbana",
-  "Deco Construcciones",
-  "Servir",
+  { name: "Banco Caja Social", logo: logoBcs },
+  { name: "Colmena Capitalizadora", logo: logoColmenaCapitalizadora },
+  { name: "Colmena Fiduciaria", logo: logoColmenaFiduciaria },
+  { name: "Colmena Inversora", logo: logoColmenaInversora },
+  { name: "Gestora", logo: logoGestora },
+  { name: "Deco Construcciones", logo: logoDeco },
+  { name: "Servir", logo: logoServir },
 ];
 
 const values = [
@@ -169,14 +176,14 @@ const AboutPage = () => {
           <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
             {groupCompanies.map((company, i) => (
               <motion.div
-                key={company}
+                key={company.name}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="px-6 py-4 rounded-2xl bg-card border border-border text-foreground font-bold text-sm hover:border-primary/30 transition-all"
+                className="px-6 py-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all flex items-center justify-center"
               >
-                {company}
+                <img src={company.logo} alt={company.name} className="h-10 object-contain" />
               </motion.div>
             ))}
           </div>
