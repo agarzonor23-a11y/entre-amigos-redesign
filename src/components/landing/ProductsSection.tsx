@@ -28,7 +28,7 @@ const products = [
     title: "Crédito Rotativo",
     description: "Disponibilidad de dinero cuando lo necesites, paga solo lo que uses.",
     features: ["Disponibilidad inmediata", "Uso flexible", "Renovación automática"],
-    highlight: null,
+    highlight: "Flexible",
     gradient: "from-primary to-teal-dark",
     bgAccent: "bg-teal-light",
   },
