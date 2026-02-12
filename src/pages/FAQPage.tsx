@@ -1,9 +1,11 @@
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { HelpCircle, CreditCard, Users, Wallet, Clock, Shield, FileText, Phone } from "lucide-react";
+import { HelpCircle, CreditCard, Users, Wallet, Clock, Shield, FileText, Phone, Search } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Breadcrumbs from "@/components/landing/Breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 
 const faqSections = [
   {
@@ -64,7 +66,21 @@ const faqSections = [
   },
 ];
 
+const allFaqs = faqSections.flatMap((s, sIdx) =>
+  s.faqs.map((f, i) => ({ ...f, sectionTitle: s.title, icon: s.icon, key: `${sIdx}-${i}` }))
+);
+
 const FAQPage = () => {
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    if (!search.trim()) return null; // show sections view
+    const q = search.toLowerCase();
+    return allFaqs.filter(
+      (f) => f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q)
+    );
+  }, [search]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -80,49 +96,92 @@ const FAQPage = () => {
             <h1 className="text-4xl md:text-6xl font-extrabold text-foreground mb-4 tracking-tight">
               Preguntas <span className="text-gradient">Frecuentes</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Todo lo que necesitas saber sobre nuestros créditos, pagos y productos.
             </p>
+
+            {/* Search */}
+            <div className="relative max-w-xl mx-auto">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Input
+                placeholder="Busca tu pregunta..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-12 rounded-full h-14 border-border bg-card text-base shadow-sm"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* FAQ Sections */}
+      {/* FAQ Content */}
       <section className="py-20">
-        <div className="container mx-auto px-6 max-w-4xl space-y-16">
-          {faqSections.map((section, sIdx) => (
-            <motion.div
-              key={section.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: sIdx * 0.05 }}
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <section.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h2 className="text-2xl font-extrabold text-foreground">{section.title}</h2>
+        <div className="container mx-auto px-6 max-w-4xl">
+          {filtered !== null ? (
+            // Search results
+            filtered.length === 0 ? (
+              <p className="text-muted-foreground text-center py-12 text-lg">
+                No se encontraron resultados para "<span className="font-semibold">{search}</span>"
+              </p>
+            ) : (
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground mb-6">{filtered.length} resultado{filtered.length !== 1 ? "s" : ""}</p>
+                <Accordion type="single" collapsible className="space-y-3">
+                  {filtered.map((faq) => (
+                    <AccordionItem
+                      key={faq.key}
+                      value={faq.key}
+                      className="border border-border rounded-2xl px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-lg transition-all"
+                    >
+                      <AccordionTrigger className="text-left font-bold text-card-foreground hover:no-underline py-5">
+                        {faq.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                        {faq.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
+            )
+          ) : (
+            // Default sections view
+            <div className="space-y-16">
+              {faqSections.map((section, sIdx) => (
+                <motion.div
+                  key={section.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: sIdx * 0.05 }}
+                >
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                      <section.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h2 className="text-2xl font-extrabold text-foreground">{section.title}</h2>
+                  </div>
 
-              <Accordion type="single" collapsible className="space-y-3">
-                {section.faqs.map((faq, i) => (
-                  <AccordionItem
-                    key={i}
-                    value={`${sIdx}-${i}`}
-                    className="border border-border rounded-2xl px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-lg transition-all"
-                  >
-                    <AccordionTrigger className="text-left font-bold text-card-foreground hover:no-underline py-5">
-                      {faq.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
-                      {faq.a}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </motion.div>
-          ))}
+                  <Accordion type="single" collapsible className="space-y-3">
+                    {section.faqs.map((faq, i) => (
+                      <AccordionItem
+                        key={i}
+                        value={`${sIdx}-${i}`}
+                        className="border border-border rounded-2xl px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-lg transition-all"
+                      >
+                        <AccordionTrigger className="text-left font-bold text-card-foreground hover:no-underline py-5">
+                          {faq.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                          {faq.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

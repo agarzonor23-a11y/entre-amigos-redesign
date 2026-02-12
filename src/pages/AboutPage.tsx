@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import heroAbout from "@/assets/hero-about.png";
+import logoFgs from "@/assets/logo-fgs.svg";
 import logoBcs from "@/assets/logo-bcs.png";
 import logoColmenaCapitalizadora from "@/assets/logo-colmena-capitalizadora.png";
 import logoColmenaInversora from "@/assets/logo-colmena-inversora.png";
@@ -166,6 +167,19 @@ const AboutPage = () => {
       {/* Group Companies */}
       <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-6">
+          {/* FGS Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-xl md:text-2xl font-extrabold text-foreground mb-6">
+              Somos una fintech de crédito digital de
+            </p>
+            <img src={logoFgs} alt="Fundación Grupo Social" className="h-14 md:h-20 mx-auto mb-4" />
+          </motion.div>
+
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-4">
               Otras empresas <span className="text-gradient">del grupo</span>
