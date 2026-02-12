@@ -183,7 +183,7 @@ const AboutPage = () => {
                 transition={{ delay: i * 0.05 }}
                 className="px-6 py-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all flex items-center justify-center"
               >
-                <img src={company.logo} alt={company.name} className="h-10 object-contain" />
+                <img src={company.logo} alt={company.name} className="h-16 object-contain" />
               </motion.div>
             ))}
           </div>
