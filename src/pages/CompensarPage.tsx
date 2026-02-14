@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import compensarHero from "@/assets/hero-compensar-new.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
@@ -30,6 +30,7 @@ const creditProducts = [
     link: "https://incursor.entreamigos.co/nuevo-credito/MC/introduccion/COM?promoterCode=COM002",
     gradient: "from-primary to-teal-dark",
     icon: Briefcase,
+    segments: ["independientes-grandes", "independientes-pequenos"],
   },
   {
     id: "impulsacredito",
@@ -46,6 +47,7 @@ const creditProducts = [
     link: "https://incursor.entreamigos.co/nuevo-credito/BM/introduccion/COM?promoterCode=COM002",
     gradient: "from-secondary to-pink",
     icon: Heart,
+    segments: ["servicio-domestico"],
   },
   {
     id: "productivo-plus",
@@ -61,6 +63,7 @@ const creditProducts = [
     link: "https://incursor.entreamigos.co/nuevo-credito/CM/introduccion/COM?promoterCode=COM002",
     gradient: "from-primary to-teal-dark",
     icon: TrendingUp,
+    segments: ["independientes-grandes"],
   },
 ];
 
@@ -128,6 +131,7 @@ const faqs = [
 
 const CompensarPage = () => {
   const navigate = useNavigate();
+  const [activeSegment, setActiveSegment] = useState("independientes-grandes");
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -221,7 +225,7 @@ const CompensarPage = () => {
             </p>
           </motion.div>
 
-          <Tabs defaultValue="independientes-grandes" className="w-full">
+          <Tabs defaultValue="independientes-grandes" className="w-full" onValueChange={setActiveSegment}>
             <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-transparent h-auto mb-12">
               {segments.map((seg) => (
                 <TabsTrigger
@@ -279,8 +283,8 @@ const CompensarPage = () => {
             <p className="text-muted-foreground text-lg">y tu ocupación</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {creditProducts.map((product, i) => (
+          <div className={`grid gap-8 max-w-5xl mx-auto ${creditProducts.filter(p => p.segments.includes(activeSegment)).length <= 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
+            {creditProducts.filter(p => p.segments.includes(activeSegment)).map((product, i) => (
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 30 }}
