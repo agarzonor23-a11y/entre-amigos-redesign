@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      marketplace_products: {
+        Row: {
+          badge: string | null
+          category: string
+          created_at: string
+          description: string | null
+          features: string[] | null
+          free_shipping: boolean
+          id: string
+          image_url: string | null
+          is_active: boolean
+          location: string | null
+          name: string
+          original_price: number | null
+          price: number
+          seller: string | null
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          badge?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          features?: string[] | null
+          free_shipping?: boolean
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          location?: string | null
+          name: string
+          original_price?: number | null
+          price?: number
+          seller?: string | null
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          badge?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          features?: string[] | null
+          free_shipping?: boolean
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          location?: string | null
+          name?: string
+          original_price?: number | null
+          price?: number
+          seller?: string | null
+          stock?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
