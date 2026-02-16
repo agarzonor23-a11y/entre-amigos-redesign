@@ -89,22 +89,15 @@ const AlliesModal = ({ open, onClose }: AlliesModalProps) => {
                       onClose();
                       navigate(`/aliado/${ally.slug}`);
                     }}
-                    style={{ borderLeftWidth: 3, borderLeftColor: ally.color.replace('0.13', '0.6') }}
-                    className="group text-left rounded-2xl border border-border bg-background p-5 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                    className="group text-left rounded-2xl border border-border bg-background p-5 hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col items-center text-center"
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        {ally.logo ? (
-                          <img src={ally.logo} alt={ally.name} className="h-7 w-auto object-contain max-w-[100px]" />
-                        ) : (
-                          <h3 className="font-bold text-card-foreground text-lg group-hover:text-primary transition-colors">
-                            {ally.name}
-                          </h3>
-                        )}
-                      </div>
-                      <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="h-12 flex items-center justify-center mb-3">
+                      <img src={ally.logo} alt={ally.name} className="h-10 w-auto object-contain max-w-[120px]" />
                     </div>
-                    <p className="text-sm text-muted-foreground">{ally.description}</p>
+                    <h3 className="font-bold text-card-foreground text-sm group-hover:text-primary transition-colors">
+                      {ally.name}
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-1">{ally.description}</p>
                   </motion.button>
                 ))}
               </div>
