@@ -2,23 +2,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+import logoCompensar from "@/assets/logo-compensar.png";
+import logoCematcol from "@/assets/logo-cematcol.png";
+import logoFacturatech from "@/assets/logo-facturatech.png";
+import logoBemovil from "@/assets/logo-bemovil.png";
+import logoAutomundial from "@/assets/logo-automundial.png";
+
 interface Ally {
   name: string;
   slug: string;
   description: string;
-  color: string; // subtle accent border/bg on hover
+  color: string;
+  logo?: string;
 }
 
 const allies: Ally[] = [
-  { name: "Compensar", slug: "compensar", description: "Caja de Compensación", color: "rgba(0, 160, 75, 0.13)" },        // verde Compensar
-  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia", color: "rgba(0, 61, 121, 0.13)" }, // azul oscuro Cematcol
-  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica", color: "rgba(0, 174, 239, 0.13)" },    // azul cielo Facturatech
-  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(38, 50, 56, 0.13)" },                  // gris oscuro Tredi
-  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(218, 41, 28, 0.13)" },             // rojo Supernórdico
-  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos", color: "rgba(255, 102, 0, 0.13)" },                // naranja Bemovil
-  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(255, 103, 31, 0.13)" },               // naranja Homecenter
-  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas", color: "rgba(204, 0, 0, 0.13)" },         // rojo AutoMundial
-  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(0, 133, 66, 0.13)" },           // verde Farmatízate
+  { name: "Compensar", slug: "compensar", description: "Caja de Compensación", color: "rgba(0, 160, 75, 0.13)", logo: logoCompensar },
+  { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia", color: "rgba(0, 61, 121, 0.13)", logo: logoCematcol },
+  { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica", color: "rgba(0, 174, 239, 0.13)", logo: logoFacturatech },
+  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(38, 50, 56, 0.13)" },
+  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(218, 41, 28, 0.13)" },
+  { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos", color: "rgba(255, 102, 0, 0.13)", logo: logoBemovil },
+  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(255, 103, 31, 0.13)" },
+  { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas", color: "rgba(204, 0, 0, 0.13)", logo: logoAutomundial },
+  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(0, 133, 66, 0.13)" },
 ];
 
 interface AlliesModalProps {
@@ -81,10 +88,16 @@ const AlliesModal = ({ open, onClose }: AlliesModalProps) => {
                     style={{ borderLeftWidth: 3, borderLeftColor: ally.color.replace('0.13', '0.6') }}
                     className="group text-left rounded-2xl border border-border bg-background p-5 hover:shadow-lg transition-all duration-300 cursor-pointer"
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-bold text-card-foreground text-lg group-hover:text-primary transition-colors">
-                        {ally.name}
-                      </h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        {ally.logo ? (
+                          <img src={ally.logo} alt={ally.name} className="h-7 w-auto object-contain max-w-[100px]" />
+                        ) : (
+                          <h3 className="font-bold text-card-foreground text-lg group-hover:text-primary transition-colors">
+                            {ally.name}
+                          </h3>
+                        )}
+                      </div>
                       <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <p className="text-sm text-muted-foreground">{ally.description}</p>
