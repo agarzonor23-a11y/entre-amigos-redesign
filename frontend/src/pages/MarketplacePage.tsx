@@ -85,6 +85,7 @@ const MarketplacePage = () => {
   const { itemCount, setIsOpen } = useCart();
   const { user, signOut } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginAction, setLoginAction] = useState<"navigate_to_product" | "go_to_cart" | null>(null);
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -125,6 +126,7 @@ const MarketplacePage = () => {
               <button
                 onClick={() => {
                   if (!user) {
+                    setLoginAction("go_to_cart");
                     setShowLoginModal(true);
                   } else {
                     navigate("/cart");
@@ -157,7 +159,10 @@ const MarketplacePage = () => {
                   variant="ghost"
                   size="sm"
                   className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-full px-3"
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={() => {
+                    setLoginAction(null);
+                    setShowLoginModal(true);
+                  }}
                 >
                   <UserCircle className="w-5 h-5 mr-1" />
                   <span className="hidden lg:inline">Ingresar</span>
@@ -218,7 +223,11 @@ const MarketplacePage = () => {
               </button>
             ) : (
               <button
-                onClick={() => { setMobileMenuOpen(false); setShowLoginModal(true); }}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setLoginAction(null);
+                  setShowLoginModal(true);
+                }}
                 className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full text-left"
               >
                 <UserCircle className="w-4 h-4" />
@@ -313,6 +322,7 @@ const MarketplacePage = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       if (!user) {
+                        setLoginAction("navigate_to_product");
                         setShowLoginModal(true);
                         return;
                       }
@@ -322,7 +332,6 @@ const MarketplacePage = () => {
                     <ShoppingCart className="w-5 h-5" />
                     Comprar ahora
                   </Button>
-                  <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
                 </div>
                 {/* Image */}
                 <div className="w-full md:w-[340px] h-[220px] md:h-[300px] relative shrink-0">
@@ -661,6 +670,24 @@ const MarketplacePage = () => {
         )}
       </AnimatePresence>
 
+      <LoginModal
+        open={showLoginModal}
+        onClose={() => {
+          setShowLoginModal(false);
+          setLoginAction(null);
+        }}
+        onLoginSuccess={() => {
+          if (loginAction === "navigate_to_product") {
+            // Re-derive featured product or use ID if available. 
+            // Since we know it's the weekly product (index 6):
+            const featured = PRODUCTS[6];
+            navigate(`/marketplace/${featured.id}`);
+          } else if (loginAction === "go_to_cart") {
+            navigate("/cart");
+          }
+          setLoginAction(null);
+        }}
+      />
       <Footer />
     </div>
   );

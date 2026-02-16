@@ -41,7 +41,9 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [isFav, setIsFav] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginAction, setLoginAction] = useState<"add_to_cart" | "go_to_cart" | null>(null);
 
   const { user, signOut } = useAuth();
 
@@ -98,6 +100,7 @@ const ProductDetailPage = () => {
               <button
                 onClick={() => {
                   if (!user) {
+                    setLoginAction("go_to_cart");
                     setShowLoginModal(true);
                   } else {
                     navigate("/cart");
@@ -169,7 +172,11 @@ const ProductDetailPage = () => {
               </button>
             ) : (
               <button
-                onClick={() => { setMobileMenuOpen(false); setShowLoginModal(true); }}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setLoginAction(null);
+                  setShowLoginModal(true);
+                }}
                 className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full text-left"
               >
                 <UserCircle className="w-4 h-4" />
@@ -180,8 +187,9 @@ const ProductDetailPage = () => {
               <CreditCard className="w-4 h-4" /> Compra con tu crédito
             </Button>
           </div>
-        )}
-      </header>
+        )
+        }
+      </header >
 
       <div className="h-16" />
 
@@ -390,6 +398,7 @@ const ProductDetailPage = () => {
                 size="lg"
                 onClick={() => {
                   if (!user) {
+                    setLoginAction("add_to_cart");
                     setShowLoginModal(true);
                     return;
                   }
@@ -415,17 +424,22 @@ const ProductDetailPage = () => {
                 open={showLoginModal}
                 onClose={() => setShowLoginModal(false)}
                 onLoginSuccess={() => {
-                  addToCart({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: images[0],
-                    quantity: quantity,
-                  });
-                  toast({
-                    title: "Producto agregado",
-                    description: `${quantity}x ${product.name} agregado al carrito.`,
-                  });
+                  if (loginAction === "add_to_cart") {
+                    addToCart({
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      image: images[0],
+                      quantity: quantity,
+                    });
+                    toast({
+                      title: "Producto agregado",
+                      description: `${quantity}x ${product.name} agregado al carrito.`,
+                    });
+                  } else if (loginAction === "go_to_cart") {
+                    navigate("/cart");
+                  }
+                  setLoginAction(null);
                 }}
               />
 
@@ -488,7 +502,7 @@ const ProductDetailPage = () => {
       </div>
 
       <Footer />
-    </div>
+    </div >
   );
 };
 
