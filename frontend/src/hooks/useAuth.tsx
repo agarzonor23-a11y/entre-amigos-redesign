@@ -3,6 +3,9 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 interface User {
   id: string;
   email?: string;
+  name?: string;
+  phone?: string;
+  address?: string;
 }
 
 interface Session {
@@ -16,7 +19,7 @@ interface AuthContextType {
   isAdmin: boolean;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, name: string, phone: string, address: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -44,9 +47,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return { error: null };
   };
 
-  const signUp = async (email: string, password: string) => {
-    console.log("Sign up with", email, password);
-    // Placeholder
+  const signUp = async (email: string, password: string, name: string, phone: string, address: string) => {
+    console.log("Sign up with", email, password, name, phone, address);
+    // Mock registration
+    const mockUser = { id: "mock-new-id", email, name, phone, address };
+    setUser(mockUser);
+    setSession({ user: mockUser, access_token: "mock-token" });
+    setIsAdmin(false); // New users are not admins by default
     return { error: null };
   };
 

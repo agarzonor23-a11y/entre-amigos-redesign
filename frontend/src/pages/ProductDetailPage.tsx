@@ -20,6 +20,8 @@ import {
   X,
   Search,
   Wallet,
+  UserCircle,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +29,10 @@ import { Input } from "@/components/ui/input";
 import { PRODUCTS, CATEGORIES, formatCOP, discount } from "@/data/marketplace-products";
 import logoEntreamigos from "@/assets/logo-entreamigos.png";
 import Footer from "@/components/landing/Footer";
+import { useCart } from "@/context/CartContext";
+import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { LoginModal } from "@/components/auth/LoginModal";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -35,6 +41,12 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [isFav, setIsFav] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const { user, signOut } = useAuth();
+
+  const { addToCart, setIsOpen, itemCount } = useCart();
+  const { toast } = useToast();
 
   const product = PRODUCTS.find((p) => p.id === Number(id));
 
@@ -82,6 +94,49 @@ const ProductDetailPage = () => {
                   Paga tu crédito
                 </Button>
               </a>
+
+              <button
+                onClick={() => {
+                  if (!user) {
+                    setShowLoginModal(true);
+                  } else {
+                    navigate("/cart");
+                  }
+                }}
+                className="relative p-2 text-primary-foreground hover:bg-primary-foreground/10 rounded-full transition-colors"
+                title="Ver carrito"
+              >
+                <ShoppingBag className="w-5 h-5" />
+                {itemCount > 0 && (
+                  <span className="absolute top-0 right-0 w-4 h-4 bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+
+              {user ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-full px-3"
+                  onClick={() => signOut()}
+                  title="Cerrar sesión"
+                >
+                  <LogOut className="w-5 h-5 mr-1" />
+                  <span className="hidden lg:inline">Salir</span>
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-full px-3"
+                  onClick={() => setShowLoginModal(true)}
+                >
+                  <UserCircle className="w-5 h-5 mr-1" />
+                  <span className="hidden lg:inline">Ingresar</span>
+                </Button>
+              )}
+
               <Button size="sm" className="rounded-full px-5 bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md font-bold gap-2" onClick={() => navigate("/productos")}>
                 <CreditCard className="w-4 h-4" />
                 Compra con tu crédito
@@ -97,6 +152,30 @@ const ProductDetailPage = () => {
             <a href="https://incursor.entreamigos.co/pagos/ingreso" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary-foreground/80">
               <Wallet className="w-4 h-4" /> Paga tu crédito
             </a>
+            <button
+              onClick={() => { setMobileMenuOpen(false); navigate("/cart"); }}
+              className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Ver Carrito ({itemCount})
+            </button>
+            {user ? (
+              <button
+                onClick={() => { setMobileMenuOpen(false); signOut(); }}
+                className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full text-left"
+              >
+                <LogOut className="w-4 h-4" />
+                Cerrar sesión ({user.name || user.email})
+              </button>
+            ) : (
+              <button
+                onClick={() => { setMobileMenuOpen(false); setShowLoginModal(true); }}
+                className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full text-left"
+              >
+                <UserCircle className="w-4 h-4" />
+                Iniciar sesión
+              </button>
+            )}
             <Button size="sm" className="w-full rounded-full bg-secondary text-secondary-foreground font-bold gap-2" onClick={() => navigate("/productos")}>
               <CreditCard className="w-4 h-4" /> Compra con tu crédito
             </Button>
@@ -154,9 +233,8 @@ const ProductDetailPage = () => {
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
-                      selectedImage === i ? "border-primary shadow-md" : "border-border opacity-60 hover:opacity-100"
-                    }`}
+                    className={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${selectedImage === i ? "border-primary shadow-md" : "border-border opacity-60 hover:opacity-100"
+                      }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
                   </button>
@@ -307,22 +385,49 @@ const ProductDetailPage = () => {
               </div>
 
               {/* CTA */}
+              {/* CTA */}
               <Button
                 size="lg"
+                onClick={() => {
+                  if (!user) {
+                    setShowLoginModal(true);
+                    return;
+                  }
+                  addToCart({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: images[0],
+                    quantity: quantity,
+                  });
+                  toast({
+                    title: "Producto agregado",
+                    description: `${quantity}x ${product.name} agregado al carrito.`,
+                  });
+                }}
                 className="w-full rounded-2xl h-14 text-base font-extrabold bg-primary hover:bg-teal-dark shadow-lg shadow-primary/25 gap-2"
-              >
-                <CreditCard className="w-5 h-5" />
-                Comprar con crédito Entre Amigos
-              </Button>
-
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full rounded-2xl h-12 font-bold gap-2"
               >
                 <ShoppingBag className="w-5 h-5" />
                 Agregar al carrito
               </Button>
+
+              <LoginModal
+                open={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+                onLoginSuccess={() => {
+                  addToCart({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: images[0],
+                    quantity: quantity,
+                  });
+                  toast({
+                    title: "Producto agregado",
+                    description: `${quantity}x ${product.name} agregado al carrito.`,
+                  });
+                }}
+              />
 
               {/* Trust */}
               <div className="pt-4 border-t border-border space-y-3">

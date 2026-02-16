@@ -22,6 +22,8 @@ import {
   Wallet,
   Eye,
   Zap,
+  UserCircle,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +32,9 @@ import { useNavigate } from "react-router-dom";
 import logoEntreamigos from "@/assets/logo-entreamigos.png";
 import Footer from "@/components/landing/Footer";
 import { PRODUCTS, CATEGORIES, formatCOP, discount, type Product } from "@/data/marketplace-products";
+import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/hooks/useAuth";
+import { LoginModal } from "@/components/auth/LoginModal";
 
 const installment = (price: number, months = 12) =>
   formatCOP(Math.round(price / months));
@@ -77,6 +82,9 @@ const MarketplacePage = () => {
 
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { itemCount, setIsOpen } = useCart();
+  const { user, signOut } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -113,6 +121,49 @@ const MarketplacePage = () => {
                   Paga tu crédito
                 </Button>
               </a>
+
+              <button
+                onClick={() => {
+                  if (!user) {
+                    setShowLoginModal(true);
+                  } else {
+                    navigate("/cart");
+                  }
+                }}
+                className="relative p-2 text-primary-foreground hover:bg-primary-foreground/10 rounded-full transition-colors"
+                title="Ver carrito"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {itemCount > 0 && (
+                  <span className="absolute top-0 right-0 w-4 h-4 bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+
+              {user ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-full px-3"
+                  onClick={() => signOut()}
+                  title="Cerrar sesión"
+                >
+                  <LogOut className="w-5 h-5 mr-1" />
+                  <span className="hidden lg:inline">Salir</span>
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-full px-3"
+                  onClick={() => setShowLoginModal(true)}
+                >
+                  <UserCircle className="w-5 h-5 mr-1" />
+                  <span className="hidden lg:inline">Ingresar</span>
+                </Button>
+              )}
+
               <Button
                 size="sm"
                 className="rounded-full px-5 bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md font-bold gap-2"
@@ -150,6 +201,30 @@ const MarketplacePage = () => {
               <Wallet className="w-4 h-4" />
               Paga tu crédito
             </a>
+            <button
+              onClick={() => { setMobileMenuOpen(false); navigate("/cart"); }}
+              className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full"
+            >
+              <ShoppingCart className="w-4 h-4" />
+              Ver Carrito ({itemCount})
+            </button>
+            {user ? (
+              <button
+                onClick={() => { setMobileMenuOpen(false); signOut(); }}
+                className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full text-left"
+              >
+                <LogOut className="w-4 h-4" />
+                Cerrar sesión ({user.name || user.email})
+              </button>
+            ) : (
+              <button
+                onClick={() => { setMobileMenuOpen(false); setShowLoginModal(true); }}
+                className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground w-full text-left"
+              >
+                <UserCircle className="w-4 h-4" />
+                Iniciar sesión
+              </button>
+            )}
             <Button
               size="sm"
               className="w-full rounded-full bg-secondary text-secondary-foreground font-bold gap-2"
@@ -173,11 +248,10 @@ const MarketplacePage = () => {
               <button
                 key={cat.id}
                 onClick={() => setCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-medium whitespace-nowrap transition-all ${
-                  category === cat.id
-                    ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
-                    : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-medium whitespace-nowrap transition-all ${category === cat.id
+                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                  : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
+                  }`}
               >
                 <span className="text-base">{cat.icon}</span>
                 {cat.label}
@@ -236,11 +310,19 @@ const MarketplacePage = () => {
                   <Button
                     size="lg"
                     className="rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-extrabold shadow-xl gap-2 text-base"
-                    onClick={(e) => { e.stopPropagation(); navigate(`/marketplace/${featured.id}`); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!user) {
+                        setShowLoginModal(true);
+                        return;
+                      }
+                      navigate(`/marketplace/${featured.id}`);
+                    }}
                   >
                     <ShoppingCart className="w-5 h-5" />
                     Comprar ahora
                   </Button>
+                  <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
                 </div>
                 {/* Image */}
                 <div className="w-full md:w-[340px] h-[220px] md:h-[300px] relative shrink-0">
@@ -315,11 +397,10 @@ const MarketplacePage = () => {
                           setSortBy(opt.value);
                           setShowSort(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-colors ${
-                          sortBy === opt.value
-                            ? "bg-primary/10 text-primary font-semibold"
-                            : "text-foreground hover:bg-muted"
-                        }`}
+                        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-colors ${sortBy === opt.value
+                          ? "bg-primary/10 text-primary font-semibold"
+                          : "text-foreground hover:bg-muted"
+                          }`}
                       >
                         {opt.label}
                       </button>
@@ -381,15 +462,13 @@ const MarketplacePage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
                 onClick={() => navigate(`/marketplace/${product.id}`)}
-                className={`group cursor-pointer bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 ${
-                  viewMode === "list" ? "flex flex-row" : ""
-                }`}
+                className={`group cursor-pointer bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 ${viewMode === "list" ? "flex flex-row" : ""
+                  }`}
               >
                 {/* Image */}
                 <div
-                  className={`relative overflow-hidden bg-muted/30 ${
-                    viewMode === "list" ? "w-48 shrink-0" : "aspect-square"
-                  }`}
+                  className={`relative overflow-hidden bg-muted/30 ${viewMode === "list" ? "w-48 shrink-0" : "aspect-square"
+                    }`}
                 >
                   <img
                     src={product.image}
@@ -412,9 +491,8 @@ const MarketplacePage = () => {
                       className="w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md"
                     >
                       <Heart
-                        className={`w-4 h-4 transition-colors ${
-                          favorites.includes(product.id) ? "fill-secondary text-secondary" : "text-muted-foreground"
-                        }`}
+                        className={`w-4 h-4 transition-colors ${favorites.includes(product.id) ? "fill-secondary text-secondary" : "text-muted-foreground"
+                          }`}
                       />
                     </button>
                     <button

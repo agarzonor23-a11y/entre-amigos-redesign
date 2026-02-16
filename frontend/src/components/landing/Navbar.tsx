@@ -40,8 +40,8 @@ const Navbar = ({ onSolicitar }: NavbarProps) => {
       <AlliesModal open={showAllies} onClose={() => setShowAllies(false)} />
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-            ? "bg-background/95 backdrop-blur-xl shadow-lg shadow-primary/5 border-b border-border"
-            : "bg-transparent"
+          ? "bg-background/95 backdrop-blur-xl shadow-lg shadow-primary/5 border-b border-border"
+          : "bg-transparent"
           }`}
       >
         <div className="container mx-auto px-6 h-18 flex items-center justify-between py-4 gap-4">

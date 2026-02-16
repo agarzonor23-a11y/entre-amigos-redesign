@@ -37,11 +37,7 @@ const ContactPage = () => {
       <div className="container mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+          <div className="animate-in fade-in slide-in-from-left duration-500">
             <h2 className="text-2xl font-bold text-foreground mb-2">Escríbenos</h2>
             <p className="text-muted-foreground mb-8 text-sm">
               Antes de diligenciar este formulario te invitamos a leer nuestra{" "}
@@ -54,26 +50,26 @@ const ContactPage = () => {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Nombres *</label>
-                  <Input placeholder="Tu nombre" className="rounded-xl" />
+                  <Input placeholder="Tu nombre" className="rounded-xl bg-muted/30 border-muted-foreground/20" />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Apellidos *</label>
-                  <Input placeholder="Tu apellido" className="rounded-xl" />
+                  <Input placeholder="Tu apellido" className="rounded-xl bg-muted/30 border-muted-foreground/20" />
                 </div>
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Número de celular *</label>
-                  <Input placeholder="300 000 0000" className="rounded-xl" />
+                  <Input placeholder="300 000 0000" className="rounded-xl bg-muted/30 border-muted-foreground/20" />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Correo electrónico *</label>
-                  <Input type="email" placeholder="tu@correo.com" className="rounded-xl" />
+                  <Input type="email" placeholder="tu@correo.com" className="rounded-xl bg-muted/30 border-muted-foreground/20" />
                 </div>
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">Mensaje *</label>
-                <Textarea placeholder="¿En qué podemos ayudarte?" className="rounded-xl min-h-[120px]" />
+                <Textarea placeholder="¿En qué podemos ayudarte?" className="rounded-xl min-h-[120px] bg-muted/30 border-muted-foreground/20" />
               </div>
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -89,7 +85,7 @@ const ContactPage = () => {
                 Enviar mensaje
               </Button>
             </form>
-          </motion.div>
+          </div>
 
           {/* Contact Info */}
           <motion.div
