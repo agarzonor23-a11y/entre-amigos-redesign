@@ -7,6 +7,10 @@ import logoCematcol from "@/assets/logo-cematcol.png";
 import logoFacturatech from "@/assets/logo-facturatech.png";
 import logoBemovil from "@/assets/logo-bemovil.png";
 import logoAutomundial from "@/assets/logo-automundial.png";
+import logoTredi from "@/assets/logo-tredi.png";
+import logoSupernordico from "@/assets/logo-supernordico.png";
+import logoHomecenter from "@/assets/logo-homecenter.png";
+import logoFarmatizate from "@/assets/logo-farmatizate.webp";
 
 interface Ally {
   name: string;
@@ -20,12 +24,12 @@ const allies: Ally[] = [
   { name: "Compensar", slug: "compensar", description: "Caja de Compensación", color: "rgba(0, 160, 75, 0.13)", logo: logoCompensar },
   { name: "Cematcol", slug: "cematcol", description: "Cementos y Materiales de Colombia", color: "rgba(0, 61, 121, 0.13)", logo: logoCematcol },
   { name: "Facturatech", slug: "facturatech", description: "Facturación electrónica", color: "rgba(0, 174, 239, 0.13)", logo: logoFacturatech },
-  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(38, 50, 56, 0.13)" },
-  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(218, 41, 28, 0.13)" },
+  { name: "Tredi", slug: "tredi", description: "Soluciones financieras", color: "rgba(38, 50, 56, 0.13)", logo: logoTredi },
+  { name: "Supernórdico", slug: "supernordico", description: "Supermercados", color: "rgba(218, 41, 28, 0.13)", logo: logoSupernordico },
   { name: "Bemovil", slug: "bemovil", description: "Plataforma de pagos", color: "rgba(255, 102, 0, 0.13)", logo: logoBemovil },
-  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(255, 103, 31, 0.13)" },
+  { name: "Homecenter", slug: "homecenter", description: "Sodimac Corona", color: "rgba(255, 103, 31, 0.13)", logo: logoHomecenter },
   { name: "AutoMundial", slug: "automundial", description: "Somos más que llantas", color: "rgba(204, 0, 0, 0.13)", logo: logoAutomundial },
-  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(0, 133, 66, 0.13)" },
+  { name: "Farmatízate", slug: "farmatizate", description: "Club del Droguista", color: "rgba(0, 133, 66, 0.13)", logo: logoFarmatizate },
 ];
 
 interface AlliesModalProps {
