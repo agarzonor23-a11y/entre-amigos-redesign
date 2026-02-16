@@ -259,10 +259,7 @@ const CompensarPage = () => {
                         <card.icon className="w-7 h-7 text-primary-foreground" />
                       </div>
                       <h3 className="text-xl font-extrabold text-card-foreground mb-3">{card.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed text-sm mb-5">{card.text}</p>
-                      <Button variant="ghost" className="p-0 h-auto text-primary font-bold gap-2 group-hover:gap-3 transition-all">
-                        Conócela aquí <ArrowRight className="w-4 h-4" />
-                      </Button>
+                      <p className="text-muted-foreground leading-relaxed text-sm">{card.text}</p>
                     </motion.div>
                   ))}
                 </div>
