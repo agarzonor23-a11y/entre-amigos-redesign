@@ -4,43 +4,43 @@ import heroImg from "@/assets/hero-farmatizate-new.png";
 const FarmatizatePage = () => (
   <AllyPageTemplate
     allyName="Farmatízate"
-    tagline="¡Te damos la bienvenida a Entre Amigos!"
-    description="Somos una financiera digital de la Fundación Grupo Social que busca brindar créditos fáciles y desde la comodidad de tu negocio. Club del Droguista."
+    tagline="¡Impulsa el crecimiento de tu Droguería!"
+    description="Olvídate del papeleo y las filas. Accede a financiación 100% digital diseñada exclusivamente para propietarios y empleados del sector farmacéutico."
     heroImage={heroImg}
-    heroImageAlt="Farmacéutico en su droguería"
-    note="*Cada crédito tiene condiciones y beneficios diferentes según tu perfil de riesgo."
+    heroImageAlt="Farmacéutico atendiendo su droguería con una sonrisa"
+    note="*Exclusivo para afiliados a Farmatízate en zonas de cobertura."
     solicitudLink="https://incursor.entreamigos.co/nuevo-credito/MC/introduccion/FMA?promoterCode=FMA001"
     whatsappLink="https://app.entreamigos.co/3Cxy3ZR"
     products={[
       {
-        title: "Microcrédito",
-        description: "Para personas naturales (cédula) que sean independientes y quieran un crédito para su negocio.",
-        amount: "Montos de hasta $2.000.000",
+        title: "Microcrédito (Negocio)",
+        description: "¡No pierdas ventas por falta de inventario! Surté tu farmacia, remodela o expande tu negocio hoy mismo.",
+        amount: "Hasta $2.000.000 para invertir ya",
         link: "https://incursor.entreamigos.co/nuevo-credito/MC/introduccion/FMA?promoterCode=FMA001",
       },
       {
-        title: "Impulsacrédito",
-        description: "Para personas naturales (cédula) que sean empleados que quieran un crédito para sus proyectos propios.",
-        amount: "Montos de hasta $2.000.000",
+        title: "Impulsacrédito (Personal)",
+        description: "¿Trabajas en una farmacia? Cumple tus metas personales (estudio, viajes, hogar) con un crédito ágil.",
+        amount: "Hasta $2.000.000 de libre inversión",
         link: "https://incursor.entreamigos.co/nuevo-credito/MC/introduccion/FMA?promoterCode=FMA001",
       },
     ]}
     features={[
-      "Diseñado para microempresarios o independientes.",
-      "Montos de hasta $2.000.000 de pesos colombianos.",
-      "Plazo de 2 a 36 meses según tu perfil.",
-      "Solicitud 100% digital en minutos.",
-      "Sin cobro por consulta ni estudio de crédito.",
-      "Montos y plazos flexibles.",
-      "Acceso a certificados y extractos fácilmente.",
-      "Solo para ciudadanos colombianos.",
+      "Aprobación en minutos.",
+      "Sin codeudor ni garantías reales.",
+      "Trámite 100% desde tu celular.",
+      "Desembolso directo a tu cuenta.",
+      "Plazos cómodos hasta 36 meses.",
+      "Estudio de crédito gratuito.",
+      "Mejora tu historial crediticio.",
+      "Soporte personalizado por WhatsApp.",
     ]}
     steps={[
-      "Solicita tu crédito y diligencia tu información financiera.",
-      "Personaliza la oferta según el plazo y monto que necesites.",
-      "Valida quién eres con un video y tu cédula.",
-      "Firma digitalmente, fácil, rápido y 100% en línea.",
-      "Responde una llamada para validar tu información.",
+      "Ingresa al formulario y compártenos tus datos básicos.",
+      "Recibe tu oferta ideal (monto y plazo) al instante.",
+      "Confirma tu identidad con un video selfie seguro.",
+      "Firma tu pagaré digitalmente (sin imprimir nada).",
+      "¡Listo! Recibe el dinero en tu cuenta bancaria.",
     ]}
     faqs={[
       { q: "¿Cómo puedo pagar el crédito?", a: "Puedes realizar tus pagos por internet, en sucursales del Banco Caja Social con el código de convenio 15900833, o por medio de Efecty con el código de convenio 113023." },
