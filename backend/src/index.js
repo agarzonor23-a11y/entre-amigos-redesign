@@ -1,7 +1,8 @@
-const express = require('express');
+const express = require('express'); // Force restart for env update
 const cors = require('cors');
 require('dotenv').config();
 const db = require('./db');
+const aiRoutes = require('./routes/ai');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +23,9 @@ app.get('/api/health', async (req, res) => {
     res.status(500).json({ status: 'error', message: err.message });
   }
 });
+
+// AI Routes
+app.use('/api/ai', aiRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

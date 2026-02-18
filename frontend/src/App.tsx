@@ -28,6 +28,7 @@ import HistoricalRatesPage from "./pages/HistoricalRatesPage";
 import BlogPage from "./pages/BlogPage";
 import FAQPage from "./pages/FAQPage";
 import SimuladorPage from "./pages/SimuladorPage";
+import NegocioAmigoPage from "./pages/NegocioAmigoPage";
 import ComoFuncionaPage from "./pages/ComoFuncionaPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -73,6 +74,7 @@ const App = () => (
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/preguntas-frecuentes" element={<FAQPage />} />
               <Route path="/simulador" element={<SimuladorPage />} />
+              <Route path="/negocio-amigo" element={<NegocioAmigoPage />} />
               <Route path="/como-funciona" element={<ComoFuncionaPage />} />
               <Route path="/marketplace" element={<MarketplacePage />} />
               <Route path="/marketplace/:id" element={<ProductDetailPage />} />

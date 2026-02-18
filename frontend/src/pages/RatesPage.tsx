@@ -1,287 +1,335 @@
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Breadcrumbs from "@/components/landing/Breadcrumbs";
-
-const RateTable = ({ title, subtitle, profiles, rows, note }: {
-  title: string;
-  subtitle?: string;
-  profiles?: string[];
-  rows: { label: string; values: string[] }[];
-  note?: string;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="bg-background rounded-3xl border border-border p-6 md:p-8 mb-8"
-  >
-    <h3 className="text-xl font-bold text-foreground mb-1">{title}</h3>
-    {subtitle && <p className="text-sm text-muted-foreground mb-4">{subtitle}</p>}
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-border">
-            <th className="text-left py-3 pr-4 font-semibold text-muted-foreground"></th>
-            {profiles?.map((p, i) => (
-              <th key={i} className="py-3 px-3 font-bold text-foreground text-center">{p}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, i) => (
-            <tr key={i} className="border-b border-border/50 last:border-0">
-              <td className="py-3 pr-4 font-medium text-muted-foreground whitespace-nowrap">{row.label}</td>
-              {row.values.map((v, j) => (
-                <td key={j} className="py-3 px-3 text-center font-semibold text-foreground">{v}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    {note && <p className="text-xs text-muted-foreground mt-4">{note}</p>}
-  </motion.div>
-);
-
-const SimpleRateCard = ({ title, subtitle, rows, note }: {
-  title: string;
-  subtitle?: string;
-  rows: { label: string; value: string }[];
-  note?: string;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="bg-background rounded-3xl border border-border p-6 md:p-8 mb-8"
-  >
-    <h3 className="text-xl font-bold text-foreground mb-1">{title}</h3>
-    {subtitle && <p className="text-sm text-muted-foreground mb-4">{subtitle}</p>}
-    <div className="grid grid-cols-2 gap-4">
-      {rows.map((r, i) => (
-        <div key={i} className="bg-teal-light/50 rounded-2xl p-4 text-center">
-          <p className="text-xs text-muted-foreground mb-1">{r.label}</p>
-          <p className="text-2xl font-bold text-primary">{r.value}</p>
-        </div>
-      ))}
-    </div>
-    {note && <p className="text-xs text-muted-foreground mt-4">{note}</p>}
-  </motion.div>
-);
+import { Search, Info, Percent, Shield, FileText, Briefcase, CreditCard, ChevronRight, Table2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const RatesPage = () => {
-  const navigate = useNavigate();
-  const profiles = ["AAA", "AA", "A", "BAA", "BBB"];
+  const [activeTab, setActiveTab] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const ALL_RATES = [
+    // --- MICROCRÉDITO (Complex Tables) ---
+    {
+      category: "micro",
+      title: "Microcrédito (Popular: Hasta 6 SMMLV)",
+      description: "Tasas según perfil de riesgo para montos bajos.",
+      type: "table",
+      headers: ["Concepto", "AAA", "AA", "A", "BAA", "BBB"],
+      rows: [
+        { label: "Efectiva Anual (E.A.)", values: ["46,00%", "47,00%", "48,00%", "56,00%", "57,00%"] },
+        { label: "Nominal Mensual (N.M.)", values: ["3,20%", "3,26%", "3,32%", "3,78%", "3,83%"] },
+      ]
+    },
+    {
+      category: "micro",
+      title: "Microcrédito (Rural: 6-25 SMMLV)",
+      description: "Tasas preferenciales para sector rural.",
+      type: "table",
+      headers: ["Concepto", "Todos los Perfiles"],
+      rows: [
+        { label: "Efectiva Anual (E.A.)", values: ["28,00%"] },
+        { label: "Nominal Mensual (N.M.)", values: ["2,08%"] },
+      ]
+    },
+    {
+      category: "micro",
+      title: "Microcrédito (Urbano: 6-25 SMMLV)",
+      description: "Tasas para sector urbano productivo.",
+      type: "table",
+      headers: ["Concepto", "AAA", "AA", "A", "BAA", "BBB"],
+      rows: [
+        { label: "Efectiva Anual (E.A.)", values: ["45,00%", "45,50%", "46,50%", "51,50%", "53,00%"] },
+        { label: "Nominal Mensual (N.M.)", values: ["3,14%", "3,17%", "3,23%", "3,52%", "3,61%"] },
+      ]
+    },
+    {
+      category: "micro",
+      title: "Microcrédito (Mayor Monto: 25-120 SMMLV)",
+      description: "Para grandes proyectos.",
+      type: "table",
+      headers: ["Concepto", "AAA", "AA", "A", "BAA", "BBB"],
+      rows: [
+        { label: "Efectiva Anual (E.A.)", values: ["35,60%", "35,60%", "35,60%", "38,00%", "39,50%"] },
+        { label: "Nominal Mensual (N.M.)", values: ["2,57%", "2,57%", "2,57%", "2,72%", "2,81%"] },
+      ]
+    },
+
+    // --- ALIANZAS ---
+    {
+      category: "alianzas",
+      title: "Cematcol",
+      description: "Beneficios exclusivos Cematcol.",
+      type: "table",
+      headers: ["Concepto", "Aliado", "Cliente (1-15 días)", "Cliente (>16 días)"],
+      rows: [
+        { label: "E.A.", values: ["25,23%", "0,00%", "24,99%"] },
+        { label: "M.V.", values: ["1,89%", "0,00%", "1,88%"] },
+        { label: "Diaria", values: ["0,062%", "0,00%", "0,062%"] }
+      ],
+      notes: "Periodo de gracia: 15 primeros días asume Cematcol el interés."
+    },
+    {
+      category: "alianzas",
+      title: "Otras Alianzas",
+      description: "Tasas especiales por convenio.",
+      type: "card",
+      items: [
+        { label: "Homecenter (Rotativo)", value: "0,00%", highlight: true, sub: "Plazo max 60 días" },
+        { label: "Tredi (E.A.)", value: "25,00%" },
+        { label: "Farmatízate (E.A.)", value: "38,00%" },
+        { label: "Automundial PN (E.A.)", value: "22,80%" },
+      ]
+    },
+
+    // --- ESPECIALES ---
+    {
+      category: "especiales",
+      title: "Nanocrédito",
+      description: "Microcréditos de pago diario/semanal.",
+      type: "card",
+      items: [
+        { label: "Nominal Diaria (N.D.)", value: "0,122%" },
+        { label: "Efectiva Anual (E.A.)", value: "55,00%" },
+      ]
+    },
+    {
+      category: "especiales",
+      title: "Impulsacrédito",
+      description: "Bajo monto y corto plazo.",
+      type: "card",
+      items: [
+        { label: "Primera Vez (E.A.)", value: "59,00%" },
+        { label: "Renovaciones (E.A.)", value: "49,90%" },
+      ]
+    },
+    {
+      category: "especiales",
+      title: "Facturatech",
+      description: "Líneas Productivo y Popular.",
+      type: "card",
+      items: [
+        { label: "Popular (E.A.)", value: "45,00%" },
+        { label: "Productivo (E.A.)", value: "44,00%" },
+      ]
+    },
+    {
+      category: "especiales",
+      title: "Crédito Rotativo / Libre Inversión",
+      description: "Líneas de consumo general.",
+      type: "card",
+      items: [
+        { label: "Rotativo (E.A.)", value: "24,99%" },
+        { label: "Libre Inversión (E.A.)", value: "24,99%" },
+        { label: "Comercial (E.A.)", value: "24,99%" },
+      ]
+    },
+
+    // --- OTROS COSTOS ---
+    {
+      category: "otros",
+      title: "Comisión MiPyme",
+      description: "Comisión aplicable según monto.",
+      type: "card",
+      items: [
+        { label: "< 4 SMMLV", value: "7,5% + IVA" },
+        { label: "> 4 SMMLV", value: "4,5% + IVA" },
+      ]
+    },
+    {
+      category: "otros",
+      title: "Seguros y Fianzas",
+      description: "Costos de protección.",
+      type: "card",
+      items: [
+        { label: "Seguro Vida", value: "5% Anual", sub: "Pago Mensual" },
+        { label: "Fianza FNG", value: "1,5% - 6,0%", sub: "Pago único sobre valor crédito" },
+      ]
+    },
+    {
+      category: "otros",
+      title: "Gastos de Cobranza (GAC)",
+      description: "Solo en caso de mora > 16 días.",
+      type: "table",
+      headers: ["Mora", "GAC"],
+      rows: [
+        { label: "16-30 días", values: ["2,50%"] },
+        { label: "31-60 días", values: ["8,40%"] },
+        { label: "61-120 días", values: ["14,00%"] },
+        { label: "Más de 120 días", values: ["17,00%"] },
+        { label: "Castigada", values: ["19,00%"] },
+      ]
+    },
+  ];
+
+  const filteredRates = ALL_RATES.filter(item => {
+    const matchesTab = activeTab === "all" || item.category === activeTab;
+    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (item.type === 'card' && item.items?.some(i => i.label.toLowerCase().includes(searchTerm.toLowerCase())));
+    return matchesTab && matchesSearch;
+  });
+
+  const categories = [
+    { id: "all", label: "Todo" },
+    { id: "micro", label: "Microcrédito" },
+    { id: "alianzas", label: "Alianzas" },
+    { id: "especiales", label: "Especiales" },
+    { id: "otros", label: "Otros Costos" },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="pt-32 pb-16 bg-gradient-to-br from-teal-light via-background to-pink-light">
-        <div className="container mx-auto px-6 text-center">
-          <Breadcrumbs items={[{ label: "Tasas, precios y comisiones" }]} />
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-sm font-semibold text-primary mb-6">
-              📊 Transparencia
-            </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-foreground mb-4 tracking-tight">
-              Tasas, precios y <span className="text-gradient">comisiones</span>
+      <section className="pt-28 pb-20 px-4 relative">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto z-10 relative">
+          <Breadcrumbs items={[{ label: "Tasas y tarifas" }]} />
+
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 px-4 py-1 border-primary/20 bg-primary/5 text-primary">Transparencia Total</Badge>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+              Tasas, Precios y <span className="text-gradient">Comisiones</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Conoce todas nuestras tarifas de manera transparente.
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Información oficial y actualizada de nuestras condiciones financieras.
             </p>
-          </motion.div>
+          </div>
+
+          <div className="sticky top-24 z-30 bg-background/80 backdrop-blur-lg border border-border/50 rounded-2xl p-4 shadow-sm mb-10">
+            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+              <div className="flex overflow-x-auto pb-2 md:pb-0 w-full md:w-auto gap-2 no-scrollbar">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveTab(cat.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${activeTab === cat.id
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
+                      }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="relative w-full md:w-72">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar..."
+                  className="pl-9 bg-background border-border/60 focus:border-primary/50"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredRates.map((rate, idx) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  key={rate.title + idx}
+                  className={`group bg-card border border-border/60 hover:border-primary/30 rounded-3xl p-6 transition-all hover:shadow-lg hover:shadow-primary/5 flex flex-col ${rate.type === 'table' ? 'lg:col-span-2' : ''}`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <Badge variant="secondary" className="mb-2 text-[10px] uppercase tracking-wider font-bold text-muted-foreground">
+                        {categories.find(c => c.id === rate.category)?.label}
+                      </Badge>
+                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors pr-2">
+                        {rate.title}
+                      </h3>
+                      {rate.description && (
+                        <p className="text-sm text-muted-foreground mt-1">{rate.description}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-auto">
+                    {rate.type === 'card' ? (
+                      <div className="grid grid-cols-2 gap-4">
+                        {rate.items.map((item, i) => (
+                          <div key={i} className="flex flex-col bg-secondary/20 p-3 rounded-xl">
+                            <span className="text-xs font-medium text-muted-foreground mb-1 flex items-center gap-1">
+                              {item.label}
+                              {item.label.includes("E.A.") && <Info className="w-3 h-3 text-primary/40" />}
+                            </span>
+                            <span className={`text-lg font-bold ${item.highlight ? "text-green-600 dark:text-green-400" : "text-foreground"}`}>
+                              {item.value}
+                            </span>
+                            {item.sub && <span className="text-[10px] text-muted-foreground/60">{item.sub}</span>}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="overflow-x-auto">
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="hover:bg-transparent border-b border-border/60">
+                              {rate.headers.map((h, i) => (
+                                <TableHead key={i} className={`text-xs font-bold text-foreground ${i === 0 ? 'text-left' : 'text-center'}`}>{h}</TableHead>
+                              ))}
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {rate.rows.map((row, i) => (
+                              <TableRow key={i} className="hover:bg-muted/20 border-b border-border/40 last:border-0">
+                                <TableCell className="font-medium text-muted-foreground whitespace-nowrap py-3">{row.label}</TableCell>
+                                {row.values.map((v, j) => (
+                                  <TableCell key={j} className="text-center font-bold text-foreground py-3">{v}</TableCell>
+                                ))}
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                        {rate.notes && <p className="text-xs text-muted-foreground mt-3 italic">* {rate.notes}</p>}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {filteredRates.length === 0 && (
+            <div className="text-center py-20">
+              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-muted-foreground/50" />
+              </div>
+              <h3 className="text-lg font-bold text-foreground">No encontramos resultados</h3>
+              <p className="text-muted-foreground">Intenta con otra búsqueda o cambia el filtro.</p>
+              <button onClick={() => { setActiveTab('all'); setSearchTerm(''); }} className="mt-4 text-primary font-semibold hover:underline">
+                Ver todo
+              </button>
+            </div>
+          )}
+
         </div>
       </section>
-
-      <div className="container mx-auto px-6 py-20 max-w-5xl">
-        {/* Microcrédito */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8">Microcrédito</h2>
-        <p className="text-muted-foreground mb-6">Montos desde 1 hasta 120 SMMLV</p>
-
-        <RateTable
-          title="Popular (Hasta 6 SMMLV)"
-          profiles={profiles}
-          rows={[
-            { label: "Efectiva anual (E.A.)", values: ["46,00%", "47,00%", "48,00%", "56,00%", "57,00%"] },
-            { label: "Nominal mensual (N.M.)", values: ["3,20%", "3,26%", "3,32%", "3,78%", "3,83%"] },
-          ]}
-        />
-
-        <RateTable
-          title="Productivo Rural (6 a 25 SMMLV)"
-          profiles={profiles}
-          rows={[
-            { label: "Efectiva anual (E.A.)", values: ["28,00%", "28,00%", "28,00%", "28,00%", "28,00%"] },
-            { label: "Nominal mensual (N.M.)", values: ["2,08%", "2,08%", "2,08%", "2,08%", "2,08%"] },
-          ]}
-        />
-
-        <RateTable
-          title="Productivo Urbano (6 a 25 SMMLV)"
-          profiles={profiles}
-          rows={[
-            { label: "Efectiva anual (E.A.)", values: ["45,00%", "45,50%", "46,50%", "51,50%", "53,00%"] },
-            { label: "Nominal mensual (N.M.)", values: ["3,14%", "3,17%", "3,23%", "3,52%", "3,61%"] },
-          ]}
-        />
-
-        <RateTable
-          title="Mayor monto (25 a 120 SMMLV)"
-          profiles={profiles}
-          rows={[
-            { label: "Efectiva anual (E.A.)", values: ["35,60%", "35,60%", "35,60%", "38,00%", "39,50%"] },
-            { label: "Nominal mensual (N.M.)", values: ["2,57%", "2,57%", "2,57%", "2,72%", "2,81%"] },
-          ]}
-          note="Método de cálculo de interés saldo decreciente (Cuotas Iguales)."
-        />
-
-        {/* Nanocrédito */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Nanocrédito</h2>
-        <SimpleRateCard
-          title="Todos los perfiles"
-          subtitle="Cupos entre $1.000.000 hasta $2.500.000"
-          rows={[
-            { label: "Nominal diaria (N.D.)", value: "0,122%" },
-            { label: "Efectivo Anual (E.A.)", value: "55,00%" },
-          ]}
-          note="Método de cálculo de interés saldo decreciente (Cuotas Iguales)."
-        />
-
-        {/* Impulsacrédito */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Impulsacrédito (Crédito de bajo monto)</h2>
-        <SimpleRateCard
-          title="Primera vez"
-          subtitle="Montos entre $300.000 hasta $4.980.000"
-          rows={[
-            { label: "Nominal mensual (N.M.)", value: "3,94%" },
-            { label: "Efectivo Anual (E.A.)", value: "59%" },
-          ]}
-        />
-        <SimpleRateCard
-          title="Renovaciones"
-          rows={[
-            { label: "Nominal mensual (N.M.)", value: "3,43%" },
-            { label: "Efectivo Anual (E.A.)", value: "49,90%" },
-          ]}
-          note="Método de cálculo de interés saldo decreciente (Cuotas Iguales)."
-        />
-
-        {/* Crédito Rotativo */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Crédito Rotativo</h2>
-        <SimpleRateCard
-          title="Todos los perfiles"
-          subtitle="Cupos entre $1.000.000 hasta $35.387.501 según alianza"
-          rows={[
-            { label: "Nominal mensual (N.M.)", value: "1,88%" },
-            { label: "Efectivo Anual (E.A.)", value: "24,99%" },
-          ]}
-          note="Método de cálculo de interés saldo decreciente (Cuotas Iguales)."
-        />
-
-        {/* Libre Inversión */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Crédito Libre Inversión</h2>
-        <SimpleRateCard
-          title="Todos los perfiles"
-          subtitle="Entre $1.000.000 hasta $7.000.000 según perfil"
-          rows={[
-            { label: "Nominal mensual (N.M.)", value: "1,88%" },
-            { label: "Efectivo Anual (E.A.)", value: "24,99%" },
-          ]}
-          note="Método de cálculo de interés saldo decreciente (Cuotas Iguales)."
-        />
-
-        {/* Modalidad Comercial */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Modalidad Comercial</h2>
-        <p className="text-muted-foreground mb-6">Montos según aliado entre $1.000.000 hasta $30.000.000</p>
-        <SimpleRateCard
-          title="Productivo Plus (Persona Natural) / Persona Jurídica"
-          rows={[
-            { label: "Nominal mensual (N.M.)", value: "1,88%" },
-            { label: "Efectivo Anual (E.A.)", value: "24,99%" },
-          ]}
-          note="Método de cálculo de interés saldo decreciente (Cuotas Iguales)."
-        />
-
-        {/* Tasas alianzas */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Tasas especiales para alianzas</h2>
-        <RateTable
-          title="Alianzas"
-          profiles={["Cematcol", "Homecenter", "Tredi", "Farmatízate", "Automundial"]}
-          rows={[
-            { label: "Efectiva anual (E.A.)", values: ["25,23%", "0,00%", "25%", "38%", "22,80%"] },
-            { label: "Mensual vencida (M.V.)", values: ["1,89%", "0,00%", "1,88%", "2,72%", "1,73%"] },
-          ]}
-        />
-
-        {/* Otras tarifas */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Otras tarifas</h2>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-background rounded-3xl border border-border p-6 md:p-8 mb-8"
-        >
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { label: "Comisión MiPyme < 4 SMMLV", value: "7,5% + IVA" },
-              { label: "Comisión MiPyme > 4 SMMLV", value: "4,5% + IVA" },
-              { label: "Plazo", value: "1 - 36 meses" },
-              { label: "Costo del recaudo", value: "$0" },
-              { label: "Seguro mensual", value: "3,96% / 1000 / 12" },
-              { label: "Certificaciones y extractos", value: "$0" },
-              { label: "Consulta centrales de riesgo", value: "$0" },
-            ].map((item, i) => (
-              <div key={i} className="bg-teal-light/30 rounded-2xl p-4">
-                <p className="text-xs text-muted-foreground mb-1">{item.label}</p>
-                <p className="text-lg font-bold text-foreground">{item.value}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-muted-foreground mt-4">* Solo aplica para microcrédito</p>
-        </motion.div>
-
-        {/* Intereses de mora */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Intereses de mora</h2>
-        <RateTable
-          title="Tasas de mora por producto"
-          profiles={["Prod. Rural", "Microcrédito", "Comercial", "Rotativo", "Bajo monto", "Nanocrédito", "Libre inv.", "Rot. prod."]}
-          rows={[
-            { label: "Tasa EA", values: ["27,98%", "57,74%", "24,36%", "24,36%", "68,85%", "89,75%", "24,36%", "57,74%"] },
-            { label: "Tasa MV", values: ["2,08%", "3,87%", "1,83%", "1,83%", "4,46%", "5,48%", "1,83%", "3,87%"] },
-            { label: "Tasa Diaria", values: ["0,07%", "0,13%", "0,06%", "0,06%", "0,15%", "0,18%", "0,06%", "0,13%"] },
-          ]}
-        />
-
-        {/* GAC */}
-        <h2 className="text-3xl font-extrabold text-foreground mb-8 mt-16">Gastos administrativos de cobranza (GAC)</h2>
-        <RateTable
-          title="Tarifas GAC"
-          profiles={["16-30 días", "31-60 días", "61-120 días", ">120 días", "Castigada"]}
-          rows={[
-            { label: "% GAC", values: ["2,50%", "8,40%", "14%", "17%", "19%"] },
-          ]}
-          note="Franja de Mora hace referencia a periodos o ciclos de mora. Altura de Mora hace referencia a los días en mora."
-        />
-
-        {/* Link to historical rates */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-16 bg-gradient-to-r from-teal-light to-pink-light rounded-3xl p-10"
-        >
-          <h3 className="text-2xl font-bold text-foreground mb-4">Conoce el histórico de tasas de nuestros productos</h3>
-          <button
-            onClick={() => navigate("/historico-de-tasas")}
-            className="rounded-full px-8 py-3 bg-primary text-primary-foreground font-semibold hover:bg-teal-dark transition-colors shadow-lg shadow-primary/25"
-          >
-            Da clic aquí
-          </button>
-        </motion.div>
-      </div>
 
       <Footer />
     </div>
