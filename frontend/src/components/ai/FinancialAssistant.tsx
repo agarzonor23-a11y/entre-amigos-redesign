@@ -14,7 +14,7 @@ export default function FinancialAssistant({ simulatorData }: FinancialAssistant
     const [isActive, setIsActive] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const { messages, isLoading, error, send } = useAIChat(simulatorData);
+    const { messages, isLoading, error, send } = useAIChat(simulatorData, isActive);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -207,6 +207,7 @@ export default function FinancialAssistant({ simulatorData }: FinancialAssistant
                             onKeyPress={handleKeyPress}
                             placeholder="Escribe tu pregunta sobre finanzas..."
                             disabled={isLoading}
+                            maxLength={500}
                             className="flex-1 px-4 py-3 rounded-2xl bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                         />
                         <Button
@@ -220,7 +221,7 @@ export default function FinancialAssistant({ simulatorData }: FinancialAssistant
                         </Button>
                     </div>
                     <p className="text-xs text-muted-foreground mt-2 text-center">
-                        Presiona Enter para enviar • Shift + Enter para nueva línea
+                        Máx. 500 caracteres • {messages.filter((m) => m.role === 'assistant').length}/6 respuestas
                     </p>
                 </div>
             </motion.div>

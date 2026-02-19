@@ -1,16 +1,17 @@
 import { useState, useCallback, useEffect } from 'react';
 import { createConversation, sendMessage, type Message, type SimulatorData } from '@/services/aiApi';
 
-export function useAIChat(simulatorData?: SimulatorData) {
+export function useAIChat(simulatorData?: SimulatorData, isActive = false) {
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Initialize conversation on mount
+    // Crear conversación cuando el usuario abre el chat (con los datos actuales del simulador)
     useEffect(() => {
+        if (!isActive || conversationId) return;
+
         const initConversation = async () => {
-            // Only request greeting if we have simulator data
             const shouldGreet = !!simulatorData && (simulatorData.monto > 0);
 
             const response = await createConversation('anonymous', simulatorData, shouldGreet);
@@ -18,7 +19,6 @@ export function useAIChat(simulatorData?: SimulatorData) {
             if (response.success && response.conversationId) {
                 setConversationId(response.conversationId);
 
-                // Add greeting if available
                 if (response.greeting) {
                     setMessages([{
                         role: 'assistant',
@@ -31,7 +31,7 @@ export function useAIChat(simulatorData?: SimulatorData) {
         };
 
         initConversation();
-    }, []); // Run once on mount
+    }, [isActive, simulatorData]);
 
     const send = useCallback(
         async (messageContent: string) => {

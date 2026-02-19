@@ -1,6 +1,6 @@
-const express = require('express'); // Force restart for env update
-const cors = require('cors');
 require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
 const db = require('./db');
 const aiRoutes = require('./routes/ai');
 

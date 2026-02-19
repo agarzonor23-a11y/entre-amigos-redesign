@@ -86,11 +86,16 @@ export async function createConversation(
 /**
  * Send a message to the AI and get a response
  */
+export interface ChatErrorResponse extends ChatResponse {
+    code?: 'QUOTA_EXCEEDED';
+    retryAfterSeconds?: number;
+}
+
 export async function sendMessage(
     conversationId: string,
     message: string,
     simulatorData?: SimulatorData
-): Promise<ChatResponse> {
+): Promise<ChatResponse | ChatErrorResponse> {
     try {
         const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
             method: 'POST',
@@ -105,6 +110,16 @@ export async function sendMessage(
         });
 
         const data = await response.json();
+
+        if (!response.ok && data.error && response.status === 429) {
+            return {
+                success: false,
+                error: data.error,
+                code: 'QUOTA_EXCEEDED',
+                retryAfterSeconds: data.retryAfterSeconds ?? 60,
+            };
+        }
+
         return data;
     } catch (error) {
         console.error('Error sending message:', error);

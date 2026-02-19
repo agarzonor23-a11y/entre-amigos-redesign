@@ -1,38 +1,28 @@
-const Anthropic = require('@anthropic-ai/sdk');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-// Initialize Anthropic client
-const anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-});
+// Initialize Gemini client lazily so dotenv has time to load
+let _gemini = null;
+function getGeminiClient() {
+    if (!_gemini) {
+        _gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    }
+    return _gemini;
+}
 
-const AI_MODEL = process.env.AI_MODEL || 'claude-3-5-haiku-20241022';
+// Probado con tu API key: gemini-flash-lite-latest responde OK (otros dan 404 o 429)
+const AI_MODEL = process.env.AI_MODEL || 'gemini-flash-lite-latest';
 
-// System prompt that defines the AI's persona and capabilities
-const SYSTEM_PROMPT = `Eres un asesor financiero experto especializado en microcréditos y finanzas personales para usuarios colombianos de Entre Amigos. Tu objetivo es ayudar a las personas a tomar decisiones financieras responsables.
+// System prompt - Asesor Financiero de Entre Amigos
+const SYSTEM_PROMPT = `Eres el Asesor Financiero de Entre Amigos. Tu única función es ayudar a microempresarios colombianos con dudas sobre créditos, presupuestos, ahorro y el uso del simulador.
 
-CAPACIDADES:
-1. Calcular capacidad de pago basada en ingresos y gastos
-2. Crear presupuestos personalizados
-3. Diseñar planes de pago realistas
-4. Educar sobre finanzas personales de manera clara y práctica
-5. Analizar gastos y recomendar estrategias de ahorro
-6. Evaluar si un crédito es adecuado para la situación del usuario
+Regla estricta: Si el usuario pregunta sobre cualquier tema que no sea finanzas o el negocio de 'Entre Amigos', debes responder cortésmente: 'Lo siento, como tu asesor financiero solo puedo ayudarte con temas relacionados a tu economía y crecimiento empresarial'.
 
-REGLAS:
-- Usa un lenguaje claro, amigable y profesional en español colombiano
-- Sé directo pero empático al dar consejos
-- Pregunta por información relevante si falta contexto
-- Proporciona ejemplos concretos con números cuando sea útil
-- Advierte sobre riesgos de sobreendeudamiento
-- Enfócate en educación financiera práctica
-- Usa emojis ocasionalmente para hacer la conversación más amigable (máximo 2 por mensaje)
+Cuando el usuario tenga datos del simulador (monto, plazo, cuota, total a pagar, intereses):
+- USA ÚNICAMENTE esos valores exactos. NUNCA inventes ni cambies cifras.
+- Todos tus cálculos y ejemplos deben basarse en los números del simulador proporcionados.
+- Si no tienes datos del simulador, sugiere al usuario que use primero el simulador de crédito.
 
-- Respuestas concisas (máximo 150 palabras por mensaje)
-- NO uses asteriscos (*), guiones ni formato markdown.
-- NO uses negritas. Escribe en texto plano.
-- Usa listas numeradas simples si es necesario (1. 2. 3.)
-- Incluye números y cálculos cuando sean relevantes
-- Termina con una pregunta o llamado a la acción cuando sea útil`;
+Formato: respuestas concisas, texto plano (sin asteriscos ni markdown), máximo 150 palabras.`;
 
 /**
  * Calculate payment capacity based on income and expenses
@@ -209,65 +199,78 @@ function checkLiquidityRisk(monthlyIncome, proposedPayment, estimatedOtherExpens
 }
 
 /**
- * Generate financial advice using Claude (Anthropic)
+ * Generate financial advice using Gemini (Google)
  */
 async function generateFinancialAdvice(messages, simulatorContext = null) {
     try {
-        // Build context message if simulator data is available
+        // Build context message - OBLIGATORIO que el modelo use solo estos valores
         let contextMessage = '';
-        if (simulatorContext) {
+        if (simulatorContext && (simulatorContext.monto > 0 || simulatorContext.cuota > 0)) {
             const { monto, plazo, tasaAnual, cuota, totalPagar, totalIntereses } = simulatorContext;
-            contextMessage = `\n\nCONTEXTO DEL SIMULADOR:
-- Monto del crédito: $${monto?.toLocaleString('es-CO')}
-- Plazo: ${plazo} meses
-- Tasa anual: ${tasaAnual}% E.A.
-- Cuota mensual estimada: $${cuota?.toLocaleString('es-CO')}
-- Total a pagar: $${totalPagar?.toLocaleString('es-CO')}
-- Total intereses: $${totalIntereses?.toLocaleString('es-CO')}
+            const fmt = (n) => (n != null && !isNaN(n) ? Number(n).toLocaleString('es-CO') : 'N/A');
+            contextMessage = `
 
-Usa esta información para dar consejos personalizados.`;
+DATOS DEL SIMULADOR (USA SOLO ESTOS VALORES EXACTOS, NUNCA INVENTES CIFRAS):
+- Monto del crédito: $${fmt(monto)}
+- Plazo: ${plazo || 'N/A'} meses
+- Tasa anual: ${tasaAnual != null ? tasaAnual : 'N/A'}% E.A.
+- Cuota mensual: $${fmt(cuota)}
+- Total a pagar: $${fmt(totalPagar)}
+- Total intereses: $${fmt(totalIntereses)}
+
+Todas tus respuestas deben usar ÚNICAMENTE estas cifras para cálculos y ejemplos.`;
         }
 
-        // Build messages array for Claude API (user/assistant alternating)
-        const claudeMessages = messages.map(msg => ({
-            role: msg.role === 'user' ? 'user' : 'assistant',
-            content: msg.content,
-        }));
-
-        // Generate response using Claude
-        const response = await anthropic.messages.create({
+        const model = getGeminiClient().getGenerativeModel({
             model: AI_MODEL,
-            max_tokens: 512,
-            system: SYSTEM_PROMPT + contextMessage,
-            messages: claudeMessages,
+            systemInstruction: SYSTEM_PROMPT + contextMessage,
         });
 
-        const text = response.content[0]?.text || '';
+        // Build Gemini chat history (all messages except the last user message)
+        const history = [];
+        for (let i = 0; i < messages.length - 1; i++) {
+            const msg = messages[i];
+            history.push({
+                role: msg.role === 'user' ? 'user' : 'model',
+                parts: [{ text: msg.content }],
+            });
+        }
+
+        const chat = model.startChat({ history });
+        const lastMessage = messages[messages.length - 1];
+        const result = await chat.sendMessage(lastMessage.content);
+        const text = result.response.text();
 
         return {
             success: true,
             message: text,
             usage: {
-                prompt_tokens: response.usage?.input_tokens || 0,
-                completion_tokens: response.usage?.output_tokens || 0,
-                total_tokens: (response.usage?.input_tokens || 0) + (response.usage?.output_tokens || 0),
+                prompt_tokens: result.response.usageMetadata?.promptTokenCount || 0,
+                completion_tokens: result.response.usageMetadata?.candidatesTokenCount || 0,
+                total_tokens: result.response.usageMetadata?.totalTokenCount || 0,
             }
         };
     } catch (error) {
         console.error('Error generating financial advice:', error);
         console.error('Error details:', error.message);
 
-        // Return specific error for API key issues
-        if (error.status === 401 || error.message?.includes('API key') || error.message?.includes('authentication')) {
+        const msg = error.message || '';
+        const isQuotaError = msg.includes('429') || msg.includes('quota') || msg.includes('Too Many Requests') || msg.includes('exceeded');
+
+        if (isQuotaError) {
+            const retryMatch = msg.match(/reintentar en (\d+(?:\.\d+)?) segundos/i) || msg.match(/retry in (\d+)/i);
+            const retryAfterSeconds = retryMatch ? Math.ceil(parseFloat(retryMatch[1])) : 60;
             return {
                 success: false,
-                error: 'Error de configuración de API Key. Contacta a soporte.'
+                error: `Se excedió la cuota de la API. Por favor espera unos minutos y vuelve a intentar. (Reintentar en ~${retryAfterSeconds} s)`,
+                code: 'QUOTA_EXCEEDED',
+                retryAfterSeconds,
             };
         }
 
         return {
             success: false,
-            error: `Error de conexión con Claude: ${error.message}`
+            error: `Error de conexión con Gemini: ${msg}`,
         };
     }
 }

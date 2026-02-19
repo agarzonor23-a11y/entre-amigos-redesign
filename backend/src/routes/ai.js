@@ -5,6 +5,9 @@ const aiService = require('../services/aiService');
 
 const router = express.Router();
 
+const MAX_ASSISTANT_RESPONSES = 6;
+const MAX_PROMPT_CHARS = 500;
+
 /**
  * POST /api/ai/conversations/new
  * Create a new conversation
@@ -69,7 +72,7 @@ router.post('/conversations/new', async (req, res) => {
  */
 router.post('/chat', async (req, res) => {
     try {
-        const { conversationId, message, simulatorData } = req.body;
+        const { conversationId, message, simulatorData: bodySimulatorData } = req.body;
 
         if (!conversationId || !message) {
             return res.status(400).json({
@@ -78,15 +81,57 @@ router.post('/chat', async (req, res) => {
             });
         }
 
-        // Save user message to database
+        if (typeof message !== 'string' || message.length > MAX_PROMPT_CHARS) {
+            return res.status(400).json({
+                success: false,
+                error: `El mensaje no puede superar ${MAX_PROMPT_CHARS} caracteres.`
+            });
+        }
+
+        // Obtener conversación para simulator_data y validar límite
+        const convResult = await db.query(
+            `SELECT * FROM ai_conversations WHERE id = $1`,
+            [conversationId]
+        );
+        if (convResult.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                error: 'Conversación no encontrada'
+            });
+        }
+
+        const conversation = convResult.rows[0];
+        let simulatorData = bodySimulatorData;
+        const stored = conversation.simulator_data;
+        if ((!simulatorData || (typeof simulatorData === 'object' && !simulatorData.monto && !simulatorData.cuota)) && stored) {
+            const parsed = typeof stored === 'string' ? JSON.parse(stored) : stored;
+            if (parsed && (parsed.monto > 0 || parsed.cuota > 0)) {
+                simulatorData = parsed;
+            }
+        }
+
+        // Obtener historial y contar respuestas del asistente (máx 6)
+        const historyResult = await db.query(
+            `SELECT role, content FROM ai_messages 
+       WHERE conversation_id = $1 
+       ORDER BY created_at ASC`,
+            [conversationId]
+        );
+        const assistantCount = historyResult.rows.filter((r) => r.role === 'assistant').length;
+        if (assistantCount >= MAX_ASSISTANT_RESPONSES) {
+            return res.status(429).json({
+                success: false,
+                error: `Has alcanzado el límite de ${MAX_ASSISTANT_RESPONSES} respuestas en esta sesión. Inicia una nueva conversación para continuar.`
+            });
+        }
+
         await db.query(
             `INSERT INTO ai_messages (conversation_id, role, content) 
        VALUES ($1, $2, $3)`,
             [conversationId, 'user', message]
         );
 
-        // Update conversation with latest simulator data if provided
-        if (simulatorData) {
+        if (simulatorData && Object.keys(simulatorData).length > 0) {
             await db.query(
                 `UPDATE ai_conversations 
          SET simulator_data = $1, updated_at = CURRENT_TIMESTAMP 
@@ -95,21 +140,14 @@ router.post('/chat', async (req, res) => {
             );
         }
 
-        // Get conversation history
-        const historyResult = await db.query(
-            `SELECT role, content FROM ai_messages 
-       WHERE conversation_id = $1 
-       ORDER BY created_at ASC`,
-            [conversationId]
-        );
-
-        const messages = historyResult.rows;
+        const messages = [...historyResult.rows, { role: 'user', content: message }];
 
         // Get AI response
         const aiResponse = await aiService.generateFinancialAdvice(messages, simulatorData);
 
         if (!aiResponse.success) {
-            return res.status(500).json(aiResponse);
+            const status = aiResponse.code === 'QUOTA_EXCEEDED' ? 429 : 500;
+            return res.status(status).json(aiResponse);
         }
 
         // Save AI response to database
