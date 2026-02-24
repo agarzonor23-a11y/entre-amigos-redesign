@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { createConversation, sendMessage, type Message, type SimulatorData } from '@/services/aiApi';
+import { createConversation, sendMessage, type Message, type SimulatorData, type ChatErrorResponse } from '@/services/aiApi';
 
 export function useAIChat(simulatorData?: SimulatorData, isActive = false) {
     const [conversationId, setConversationId] = useState<string | null>(null);
@@ -7,30 +7,28 @@ export function useAIChat(simulatorData?: SimulatorData, isActive = false) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // Helper: crear una nueva conversación y devolver el nuevo ID
+    const createNewConversation = useCallback(async (): Promise<string | null> => {
+        const shouldGreet = !!simulatorData && (simulatorData.monto > 0);
+        const response = await createConversation('anonymous', simulatorData, shouldGreet);
+
+        if (response.success && response.conversationId) {
+            setConversationId(response.conversationId);
+
+            if (response.greeting) {
+                setMessages([{ role: 'assistant', content: response.greeting }]);
+            }
+            return response.conversationId;
+        }
+        return null;
+    }, [simulatorData]);
+
     // Crear conversación cuando el usuario abre el chat (con los datos actuales del simulador)
     useEffect(() => {
         if (!isActive || conversationId) return;
-
-        const initConversation = async () => {
-            const shouldGreet = !!simulatorData && (simulatorData.monto > 0);
-
-            const response = await createConversation('anonymous', simulatorData, shouldGreet);
-
-            if (response.success && response.conversationId) {
-                setConversationId(response.conversationId);
-
-                if (response.greeting) {
-                    setMessages([{
-                        role: 'assistant',
-                        content: response.greeting
-                    }]);
-                }
-            } else {
-                setError(response.error || 'Error al iniciar la conversación');
-            }
-        };
-
-        initConversation();
+        createNewConversation().then((id) => {
+            if (!id) setError('Error al iniciar la conversación');
+        });
     }, [isActive, simulatorData]);
 
     const send = useCallback(
@@ -55,7 +53,18 @@ export function useAIChat(simulatorData?: SimulatorData, isActive = false) {
 
             try {
                 // Send message to API
-                const response = await sendMessage(conversationId, messageContent, simulatorData);
+                let response = await sendMessage(conversationId, messageContent, simulatorData);
+
+                // Si la conversación se perdió (reinicio del backend), recrearla y reintentar
+                if (!response.success && (response as ChatErrorResponse).code === 'CONVERSATION_NOT_FOUND') {
+                    const newId = await createNewConversation();
+                    if (newId) {
+                        response = await sendMessage(newId, messageContent, simulatorData);
+                    } else {
+                        setError('Error al reconectar la conversación. Intenta recargar la página.');
+                        return;
+                    }
+                }
 
                 if (response.success && response.message) {
                     // Add AI response
@@ -74,7 +83,7 @@ export function useAIChat(simulatorData?: SimulatorData, isActive = false) {
                 setIsLoading(false);
             }
         },
-        [conversationId, simulatorData]
+        [conversationId, simulatorData, createNewConversation]
     );
 
     const clearMessages = useCallback(() => {

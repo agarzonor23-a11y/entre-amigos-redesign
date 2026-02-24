@@ -87,7 +87,7 @@ export async function createConversation(
  * Send a message to the AI and get a response
  */
 export interface ChatErrorResponse extends ChatResponse {
-    code?: 'QUOTA_EXCEEDED';
+    code?: 'QUOTA_EXCEEDED' | 'CONVERSATION_NOT_FOUND';
     retryAfterSeconds?: number;
 }
 
@@ -110,6 +110,14 @@ export async function sendMessage(
         });
 
         const data = await response.json();
+
+        if (!response.ok && response.status === 404) {
+            return {
+                success: false,
+                error: data.error || 'Conversación no encontrada',
+                code: 'CONVERSATION_NOT_FOUND',
+            };
+        }
 
         if (!response.ok && data.error && response.status === 429) {
             return {
